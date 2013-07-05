@@ -26,7 +26,7 @@ public class ControllerDozent extends Controller{
 				 null, null,null, null,
 				 null, null, null, null);
 		
-		ModulEditCreate b = new ModulEditCreate(neu);		
+		ModulEditCreate b = new ModulEditCreate(neu,true);		
 		}else {
 			
 		 Modul test = modulDatabase.loadModule(modul);			
@@ -36,7 +36,7 @@ public class ControllerDozent extends Controller{
 			 
 		 } else {
 
-			 ModulEditCreate gg = new ModulEditCreate(test);
+			 ModulEditCreate gg = new ModulEditCreate(test,false);
 		 }
 		}
 		

@@ -19,9 +19,11 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 	Modul tmp,in;
 	private Button save,back;
 	private URL oldURL;
+	private boolean neu;//true wenn neues Modul erstellt wird
 	
 	//gibt vorhandene Werte in Textboxen zur Bearbeitung aus
-	public ModulEditCreate(Modul b){
+	public ModulEditCreate(Modul b,boolean _neu){
+		neu=_neu;
 		Window test = starta.getWindow("Modulaendern");
 		if(test != null){
 			starta.removeWindow(test);	
@@ -148,6 +150,7 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 		responsible = new TextArea();
 		responsible.setCaption("Dekan:*");
 		if (in.getresponsible()!=null)responsible.setValue(in.getresponsible());
+		if(!neu)responsible.setEnabled(false);
 		responsible.setImmediate(false);
 		responsible.setWidth("66.5%");
 		responsible.setHeight("100px");
@@ -157,6 +160,11 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 		doz = new TextArea();
 		doz.setCaption("Dozent:*");
 		if (in.getdoz()!=null)doz.setValue(in.getdoz());
+		System.out.println(userid);
+		if(cont.getDozent(userid)&&!cont.getDekan(userid)){
+			doz.setValue(cont.loadBenutzer(userid).getName());
+			doz.setEnabled(false);
+		}
 		doz.setImmediate(false);
 		doz.setWidth("66.5%");
 		doz.setHeight("100px");

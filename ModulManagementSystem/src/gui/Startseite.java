@@ -27,7 +27,7 @@ public class Startseite implements Button.ClickListener{
 	public static LoginApplication starta;
 	protected static Startseite seite;
 	
-	int userid, rang;
+	static int userid, rang;
 	Controller cont = new Controller(starta);
 	ControllerDozent contD = new ControllerDozent();
 	ControllerDekan contDek = new ControllerDekan();
