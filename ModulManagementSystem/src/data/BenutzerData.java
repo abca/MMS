@@ -528,7 +528,7 @@ public class BenutzerData extends KillConnections {
 			psmt.setString(4, neu.getEmail());
 			psmt.setBoolean(5, neu.isDozent());
 			psmt.setBoolean(6, neu.isDekan());
-			//psmt.setBoolean(7, neu.isDez2());
+			psmt.setBoolean(7, false);
 			psmt.setBoolean(8, neu.isAdmin());
 			psmt.setBoolean(9, neu.isStell());
 			psmt.setInt(10, neu.getStellid());
