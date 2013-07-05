@@ -55,10 +55,10 @@ public void buttonClick (Button.ClickEvent event) {
 				
 				confirmW = new Window("Stichtag");
 				Layout confirm = new VerticalLayout();	    		
-	    		text = new Label("Der Stichtag für Änderungen wurde festgelegt für den " + datumstr + ".");
+	    		text = new Label("Der Stichtag fï¿½r ï¿½nderungen wurde festgelegt fï¿½r den " + datumstr + ".");
 	    		confirmW.setContent(confirm);
 	    		confirmW.addComponent(text);
-	    		setDline = new Button("ok");
+	    		setDline = new Button("BestÃ¤tigen");
 	    		confirmW.addComponent(setDline);
 	    		dead.addWindow(confirmW);
 	    		setDline.addListener(this);
@@ -66,7 +66,7 @@ public void buttonClick (Button.ClickEvent event) {
 			}
 		}
 		if(event.getButton() == setDline) {
-			confirmW.removeWindow(confirmW);
+			dead.removeWindow(confirmW);
 		}
 		if(event.getButton() == okay){
 			out = group.getValue().toString();

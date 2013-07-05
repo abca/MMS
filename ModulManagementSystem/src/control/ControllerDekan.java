@@ -103,13 +103,13 @@ public class ControllerDekan extends Controller{
 		for(int i = 0; i < tmp.size(); i++) {
 			int resid = tmp.get(i).intValue();
 			//System.out.println(resid);
-			Nachricht deadLine = new Nachricht(nachrichtenData.getNewId(),"Der Stichtag für Moduländerungen ist am " +Deadline+".","Stichtag",resid, 0);
+			Nachricht deadLine = new Nachricht(nachrichtenData.getNewId(),"Der Stichtag fï¿½r Modulï¿½nderungen ist am " +Deadline+".","Stichtag",resid, 0);
 			nachrichtenData.newNachricht(deadLine);
 		}
 	}
 	public void saveHandbook(String name){
 		
-		book.newHandbook(name, userid);
+		book.newHandbook(name, userid);//nur fÃ¼r Mathi
 		
 	}
 }
