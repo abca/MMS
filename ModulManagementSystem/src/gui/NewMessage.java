@@ -92,7 +92,7 @@ public class NewMessage extends Startseite implements Button.ClickListener {
 			String[] splitResult = tmp.split(":");
 			int listnr = Integer.parseInt(splitResult[0])-1;
 			boolean del = cont.deleteMessage(lis.get(listnr).getid());
-			if(del){ openNewMessages();
+			if(del){ nachricht.removeItem(nachricht.getValue().toString());
 			}
 		}
 		if(event.getButton()==back){
