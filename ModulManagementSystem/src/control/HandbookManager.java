@@ -99,8 +99,8 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 			} else {
 				gui.delete.setEnabled(true);
 			}
-			//String[] splittedString = ((String) e.getItemId()).split(" ");
-			String[] splittedString = (e.getItem().getItemProperty("caption").toString()).split(" ");
+			String[] splittedString = ((String) e.getItemId()).split(" ");
+			//String[] splittedString = (e.getItem().getItemProperty("caption").toString()).split(" ");
 			if (Integer.parseInt(splittedString[0]) % 3 != 0) {
 				System.out.println("Dies ist ein Fach.");
 				//Speichere die ID des im Baum ausgewählten Elementes
