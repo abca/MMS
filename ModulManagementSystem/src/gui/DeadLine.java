@@ -52,16 +52,16 @@ public void buttonClick (Button.ClickEvent event) {
 			else{
 				//contDek.saveDatum(datumstr);
 				contDek.setDeadline(datumstr);
-				
-				confirmW = new Window("Stichtag");
+				InfoWindow info = new InfoWindow("Stichtag","Der Stichtag für Änderungen wurde festgelegt für den " + datumstr + ".",dead);
+				/*confirmW = new Window("Stichtag");
 				Layout confirm = new VerticalLayout();	    		
-	    		text = new Label("Der Stichtag f�r �nderungen wurde festgelegt f�r den " + datumstr + ".");
+	    		text = new Label("Der Stichtag für Änderungen wurde festgelegt für den " + datumstr + ".");
 	    		confirmW.setContent(confirm);
 	    		confirmW.addComponent(text);
 	    		setDline = new Button("Bestätigen");
 	    		confirmW.addComponent(setDline);
 	    		dead.addWindow(confirmW);
-	    		setDline.addListener(this);
+	    		setDline.addListener(this);*/
 				
 			}
 		}
@@ -103,6 +103,7 @@ public void archiveDate(){
 	dead.addWindow(archiveW);
 	archiveW.setHeight("300px");
 	archiveW.setWidth("300px");
+	archiveW.center();
 }
 
 private AbsoluteLayout buildMainLayout() {

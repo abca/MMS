@@ -7,6 +7,7 @@ import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.themes.BaseTheme;
+import com.vaadin.ui.themes.Runo;
 
 import control.Controller;
 
@@ -20,6 +21,7 @@ public class LoginApplication extends Application implements Button.ClickListene
 	Controller control = new Controller(this);
 	private VerticalLayout vertical;
 	private AbsoluteLayout mainLayout;
+	private Label label;
 	Label user, wrong, wrong2, userName, userMail, regErr;
 	TextField username, uName, uMail;
 	PasswordField pass1, pass2, password;
@@ -123,6 +125,15 @@ public class LoginApplication extends Application implements Button.ClickListene
     //Popup für Registration
     public void register() {
     	
+    	// label
+    	label = new Label();
+    	label.setImmediate(false);
+    	label.setWidth("-1px");
+    	label.setHeight("-1px");
+    	label.setValue("Modul Management System");
+    	label.setStyleName(Runo.LABEL_H1);
+    	mainLayout.addComponent(label, "top:6.2%;left:25.0%;");
+    	
     	regW = new Window("Registrieren");
     	userName = new Label("Username");
     	userMail = new Label("email-addresse");
@@ -173,6 +184,15 @@ public class LoginApplication extends Application implements Button.ClickListene
 		mainLayout.setWidth("100.0%");
 		mainLayout.setHeight("100.0%");
 		
+		
+		// label
+		label = new Label();
+		label.setImmediate(false);
+		label.setWidth("-1px");
+		label.setHeight("-1px");
+		label.setValue("Modul Management System");
+		label.setStyleName(Runo.LABEL_H1);
+		mainLayout.addComponent(label, "top:25.0%;left:30.0%;");
 		
 		// login
 		login = new Button();

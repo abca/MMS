@@ -90,7 +90,7 @@ public class Startseite implements Button.ClickListener{
 			}
 			organize = new Button("Modulhandbuch organisieren");
 			organize.addListener(this);
-			stichtag = new Button("neues Semester erstellen");
+			stichtag = new Button("Stichtag und Archivierung");
 			stichtag.addListener(this);
 			archives = new Button ("Archiv");
 			archives.addListener(this);
