@@ -74,6 +74,10 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 			else if(!cont.rangAusgeben(doz1).contains("Dozent"))
 				displayError("Den angegebenen Dozent gibt es nicht");
 			
+			else if(cont.doesModuleNameExist(title1)&&neu){
+				displayError("Es gibt bereits ein Modul mit diesem Namen");
+			}
+			
 			else{
 				Modul tmp1 = new Modul(tmp.getid(), title1, lp2, language1, turn1, cont.getID(responsible1), 
 							responsible1, cont.getID(doz1), doz1,filing1, requirements1, aims1, 
@@ -122,7 +126,7 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 		// lp
 		lp = new TextArea();
 		lp.setCaption("Leistungspunkte:*");
-		if (in.getlp()!=0)lp.setValue(in.getlp());
+		if (in.getlp()!=0)lp.setValue(Integer.toString(in.getlp()));
 		lp.setImmediate(false);
 		lp.setWidth("66.5%");
 		lp.setHeight("100px");

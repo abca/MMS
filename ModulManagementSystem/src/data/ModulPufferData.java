@@ -24,6 +24,7 @@ public class ModulPufferData extends KillConnections {
 	private static final String LOADBUFFERMODULE = "SELECT * FROM modulpufferdata " +
 								"WHERE id=?";
 	private static final String DELETEPUFFERMODULE = "DELETE FROM modulpufferdata WHERE id=?";
+	private static final String LOADBUFFERMODULELIST = "SELECT id FROM modulpufferdata";
 	//private static final String LOADBUFFERMODULELIST = "SELECT id FROM moduldata WHERE responsibleid=?";
 
 	public ModulPufferData(){
@@ -193,4 +194,39 @@ public class ModulPufferData extends KillConnections {
 			
 		}
 	}	
+	
+	public LinkedList<ModulKu> loadBufferModuleList (){
+		
+
+		PreparedStatement psmt = null;
+		ResultSet data = null;
+
+		try {
+			LinkedList<ModulKu> tmp = new LinkedList<ModulKu>();
+			con.setAutoCommit(false);
+
+			psmt = con.prepareStatement(LOADBUFFERMODULELIST);			
+			
+			data = psmt.executeQuery();
+			
+
+			while(data.next()){
+				
+				
+				int tmp1 = data.getInt("id");
+				tmp.add(loadModuleKu(tmp1));
+				System.out.println(tmp1);
+			}
+			return tmp;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			closeConnections(data, psmt);
+			
+		}
+	}
 }

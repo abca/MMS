@@ -18,6 +18,7 @@ public class ModulDatabase extends KillConnections {
 	
 	private static final String LOADMODULE = "SELECT * FROM moduldata WHERE id=?";
 	private static final String LOADMODULELIST = "SELECT id FROM moduldata WHERE dozid=?";
+	private static final String LOADWHOLEMODULELIST = "SELECT id FROM moduldata";
 	private static final String GETNEWID = "SELECT id FROM moduldata ORDER BY id DESC LIMIT 1";
 	private static final String GETNEWIDP = "SELECT id FROM modulpufferdata ORDER BY id DESC LIMIT 1";
 
@@ -109,6 +110,41 @@ public class ModulDatabase extends KillConnections {
 
 			psmt = con.prepareStatement(LOADMODULELIST);
 			psmt.setInt(1, userid);
+			
+			data = psmt.executeQuery();
+			
+
+			while(data.next()){
+				
+				
+				int tmp1 = data.getInt("id");
+				tmp.add(loadModuleKu(tmp1));
+				System.out.println(tmp1);
+			}
+			return tmp;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			closeConnections(data, psmt);
+			
+		}
+	}
+	
+public LinkedList<ModulKu> loadWholeModuleList (){
+		
+
+		PreparedStatement psmt = null;
+		ResultSet data = null;
+
+		try {
+			LinkedList<ModulKu> tmp = new LinkedList<ModulKu>();
+			con.setAutoCommit(false);
+
+			psmt = con.prepareStatement(LOADWHOLEMODULELIST);			
 			
 			data = psmt.executeQuery();
 			

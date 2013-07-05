@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import com.vaadin.ui.Window;
 
 import objects.Benutzer;
+import objects.ModulKu;
 import objects.Nachricht;
 
 import gui.LoginApplication;
@@ -209,6 +210,17 @@ public class Controller {
 		}
 		return false;
 	} 
+	
+	public boolean doesModuleNameExist(String name){		
+		LinkedList<ModulKu> list = modulDatabase.loadWholeModuleList();
+		LinkedList<ModulKu> list2 = modulPufferData.loadBufferModuleList();
+		for(int i=0;i<list.size();i++)
+			if(list.get(i).gettitle().equals(name)) return true;
+		for(int i=0;i<list2.size();i++)
+			if(list2.get(i).gettitle().equals(name)) return true;
+		return false;
+	}
+	
 	public void deleteUser(String name){
 		blarghs.deleteUser(blarghs.getID(name));
 	}
