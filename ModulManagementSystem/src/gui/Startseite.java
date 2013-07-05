@@ -20,7 +20,7 @@ import data.BenutzerData;
 public class Startseite implements Button.ClickListener{
 	Window start;
 	Label welcome;
-	Button changeModule, declareDeputy, messages, changes, stichtag, /*viewChangeRequests,*/ changeRights, viewChanges,changeBenutzer, nullButton, logout, organize ;
+	Button changeModule, declareDeputy, messages, changes, stichtag, /*viewChangeRequests,*/ changeRights, viewChanges,changeBenutzer, nullButton, logout, organize, archives ;
 	private AbsoluteLayout mainLayout;
 	private int count;//Zähler für Buttons
 	//Benutzer user;
@@ -92,6 +92,8 @@ public class Startseite implements Button.ClickListener{
 			organize.addListener(this);
 			stichtag = new Button("neues Semester erstellen");
 			stichtag.addListener(this);
+			archives = new Button ("Archiv");
+			archives.addListener(this);
 			changes = new Button("aktuelle Änderungen");
 			changes.addListener(this);			
 			//stichtag = new Button("Stichtag festlegen");
@@ -123,7 +125,7 @@ public class Startseite implements Button.ClickListener{
 	}
 
 	private AbsoluteLayout buildMainLayout() {
-		Button button_1,button_2,button_3,button_4,button_5,button_6,button_7,button_8,button_9,button_10;
+		Button button_1,button_2,button_3,button_4,button_5,button_6,button_7,button_8,button_9,button_10, button_11;
 		// common part: create layout
 		mainLayout = new AbsoluteLayout();
 		mainLayout.setImmediate(false);
@@ -234,8 +236,14 @@ public class Startseite implements Button.ClickListener{
 			mainLayout.addComponent(button_10, "top:80.0%;left:35.0%;");
 			
 		}
-		
-		
+		button_11 = getButton();  
+		if(button_11!=nullButton){
+			button_11.setWidth("-1px");
+			button_11.setHeight("-1px");
+			button_11.setStyleName(BaseTheme.BUTTON_LINK);
+			mainLayout.addComponent(button_11, "top:85.0%;left:35.0%;");
+			
+		}
 
 		return mainLayout;
 	}
@@ -285,6 +293,9 @@ public class Startseite implements Button.ClickListener{
 			Benutzer neu = cont.loadBenutzer(userid);
 			ChangeBenutzerData data = new ChangeBenutzerData(neu);
 		}
+		if(event.getButton() == archives){
+			contDek.archivListeAusgeben();
+		}
 		
 		if (event.getButton() == organize) {
 			contDek.requestModule();
@@ -325,11 +336,15 @@ public class Startseite implements Button.ClickListener{
 			count++;
 			if(stichtag!=null) return stichtag;			
 		}
-		if(count==8){
+		if (count==8){
+			count++;
+			if(archives!=null) return archives;
+		}
+		if(count==9){
 			count++;
 			if(changeBenutzer!=null) return changeBenutzer;
 		}
-		if (count==9){
+		if (count==10){
 			count++;
 			if(logout!=null) return logout;
 			

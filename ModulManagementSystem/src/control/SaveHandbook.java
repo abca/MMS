@@ -9,21 +9,22 @@ import data.Archive;
 
 import gui.LoginApplication;
 
-public class SaveHandbook {
+public class SaveHandbook extends Controller {
 	
 	Archive ar = new Archive();
 	ModuleHandbook tmp = new ModuleHandbook();
 	
-	public void archive(LinkedList<Integer> arr, String time){
-		LoginApplication test = new LoginApplication();
+	public void archive(LinkedList<Integer> arr, String time, String[] name, int userid){
 		
 		for(int i=0; i<arr.size(); i++){
 			
 			int local = arr.get(i);
-			FileResource file = tmp.generatePDF(local, test);
+			FileResource file = tmp.generatePDF(local, login);
 			File f = file.getSourceFile();
 			String path = f.getAbsolutePath();
-			ar.saveFile(local, path, time);
+			String locname = name[i];
+			ar.saveFile(local, path, time, locname, userid);
+
 		}
 		
 	}

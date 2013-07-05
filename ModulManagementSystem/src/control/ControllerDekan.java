@@ -1,5 +1,6 @@
 package control;
 
+import gui.ArchiveView;
 import gui.ChangeRequest;
 import gui.LoginApplication;
 import gui.ModulhandbuchRequest;
@@ -7,8 +8,11 @@ import gui.ModulhandbuchRequestAen;
 import gui.RequestView;
 import gui.Startseite;
 
+import java.io.File;
 import java.util.LinkedList;
 
+import com.vaadin.terminal.FileResource;
+import com.vaadin.ui.Link;
 import com.vaadin.ui.Window;
 
 import objects.Modul;
@@ -21,6 +25,7 @@ public class ControllerDekan extends Controller{
 	
 	BookName bookName = new BookName();
 	SaveHandbook save = new SaveHandbook();
+	Archive ar = new Archive();
 	
 	public ControllerDekan(){	  
 	}
@@ -92,9 +97,10 @@ public class ControllerDekan extends Controller{
 		ModulhandbuchRequestAen req = new ModulhandbuchRequestAen(ids, list);
 	}
 
-	public void scanHandbooks(int userid, String time) {
+	public void scanHandbooks(String time) {
+		String[] name = bookName.getBookNames(userid);
 		LinkedList<Integer> arr = bookName.getBookID(userid);
-		save.archive(arr, time);
+		save.archive(arr, time, name, userid);
 	}
 	
 	public void setDeadline(String Deadline) {
@@ -111,5 +117,19 @@ public class ControllerDekan extends Controller{
 		
 		book.newHandbook(name, userid);//nur für Mathi
 		
+	}
+
+	public void archivListeAusgeben() {
+		LinkedList<Integer> ids = ar.getBookID(userid);
+		String[] liste = ar.getBookNames(userid);
+		ArchiveView archView = new ArchiveView(ids, liste);
+	}
+
+	public Link requestArchBook(int book, LoginApplication app) {
+		String path = ar.getBook(book);
+		File f = new File(path);
+		FileResource fr = new FileResource(f, app);
+		Link l = new Link("Download the Modulehandbook here", fr, "Download", 0, 0, Link.TARGET_BORDER_DEFAULT);
+		return l;
 	}
 }

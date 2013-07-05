@@ -72,7 +72,7 @@ public void buttonClick (Button.ClickEvent event) {
 			out = group.getValue().toString();
 			out2 = (String)year.getValue();
 			time = out + " " + out2;
-			contDek.scanHandbooks(userid, time);
+			contDek.scanHandbooks(time);
 		}
 		if(event.getButton() == archive){
 			archiveDate();
