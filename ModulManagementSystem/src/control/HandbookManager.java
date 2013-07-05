@@ -99,6 +99,7 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 			} else {
 				gui.delete.setEnabled(true);
 			}
+			
 			String[] splittedString = ((String) e.getItemId()).split(" ");
 			//String[] splittedString = (e.getItem().getItemProperty("caption").toString()).split(" ");
 			if (Integer.parseInt(splittedString[0]) % 3 != 0) {
