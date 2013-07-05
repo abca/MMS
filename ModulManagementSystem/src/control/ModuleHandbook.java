@@ -251,12 +251,14 @@ public class ModuleHandbook{
 			String name = System.getProperty("os.name").toLowerCase();
 			if (name.indexOf("windows") >= 0) {
 				os = "Windows";
+			} else if (name.indexOf("win") >=0) {
+				os = "Windows";
 			} else if (name.indexOf("linux") >=0) {
 				os = "Linux";
 			} else {
 				os = "Unknown Oprating System";
 			}
-			
+			System.out.println(os);
 			return os;
 		}
 	
