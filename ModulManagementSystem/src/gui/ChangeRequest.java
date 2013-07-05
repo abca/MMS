@@ -57,6 +57,7 @@ public class ChangeRequest extends Startseite implements Button.ClickListener {
 			
 			nachricht.addItem(lis2.get(i).gettitle());			
 		}
+		nachricht.setNullSelectionAllowed(false);
 		/*changeR.addComponent(nachricht);
 		changeR.addComponent(auswaehlen);*/
 

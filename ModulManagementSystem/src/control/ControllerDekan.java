@@ -103,7 +103,7 @@ public class ControllerDekan extends Controller{
 		for(int i = 0; i < tmp.size(); i++) {
 			int resid = tmp.get(i).intValue();
 			//System.out.println(resid);
-			Nachricht deadLine = new Nachricht(nachrichtenData.getNewId(),"Stichtag",Deadline,resid, 0);
+			Nachricht deadLine = new Nachricht(nachrichtenData.getNewId(),"Der Stichtag für Moduländerungen ist am " +Deadline+".","Stichtag",resid, 0);
 			nachrichtenData.newNachricht(deadLine);
 		}
 	}

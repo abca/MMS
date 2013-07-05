@@ -22,7 +22,7 @@ public class NewMessage extends Startseite implements Button.ClickListener {
 	private AbsoluteLayout mainLayout;
 	private Label label;
 	ListSelect nachricht;
-	private Button anzeigen,logout,back;
+	private Button anzeigen,logout,back, delMessage;
 	private URL oldURL;
 	private Button okay;
 	private LinkedList<Nachricht>lis;
@@ -41,7 +41,6 @@ public class NewMessage extends Startseite implements Button.ClickListener {
 				
 		openNewMessages();
 		buildMainLayout();
-		anzeigen.addListener(this);
 		newMess.setContent(mainLayout);
 		Window old = starta.getWindow("Startseite");
 		oldURL = old.getURL();
@@ -57,6 +56,7 @@ public class NewMessage extends Startseite implements Button.ClickListener {
 			int u = i +1;
 			nachricht.addItem(u + ": " + lis.get(i).getBetreff());		
 		}
+		nachricht.setNullSelectionAllowed(false);
 		/*newMess.addComponent(nachricht);
 		newMess.addComponent(anzeigen);*/
 	}
@@ -86,6 +86,14 @@ public class NewMessage extends Startseite implements Button.ClickListener {
     	}*/
 		if(event.getButton()== logout){
 		       starta.getMainWindow().getApplication().close();				
+		}
+		if(event.getButton()== delMessage){
+			String tmp = nachricht.getValue().toString();
+			String[] splitResult = tmp.split(":");
+			int listnr = Integer.parseInt(splitResult[0])-1;
+			boolean del = cont.deleteMessage(lis.get(listnr).getid());
+			if(del){ openNewMessages();
+			}
 		}
 		if(event.getButton()==back){
 			newMess.open(new ExternalResource(oldURL));
@@ -124,7 +132,17 @@ public class NewMessage extends Startseite implements Button.ClickListener {
 		anzeigen.setImmediate(false);
 		anzeigen.setWidth("-1px");
 		anzeigen.setHeight("-1px");
+		anzeigen.addListener(this);
 		mainLayout.addComponent(anzeigen, "top:83.0%;left:35.0%;");
+		
+		//delMessage
+		delMessage = new Button();
+		delMessage.setCaption("loeschen");
+		delMessage.setImmediate(false);
+		delMessage.setWidth("-1px");
+		delMessage.setHeight("-1px");
+		delMessage.addListener(this);
+		mainLayout.addComponent(delMessage, "top:88.0%;left:35.0%;");
 		
 		// logout
 		logout = new Button();
@@ -134,7 +152,7 @@ public class NewMessage extends Startseite implements Button.ClickListener {
 		logout.setHeight("-1px");
 		logout.setStyleName(BaseTheme.BUTTON_LINK);
 		logout.addListener(this);
-		mainLayout.addComponent(logout, "top:93.0%;left:35.0%;");
+		mainLayout.addComponent(logout, "top:97.0%;left:35.0%;");
 		
 		// back
 		back = new Button();
@@ -144,7 +162,7 @@ public class NewMessage extends Startseite implements Button.ClickListener {
 		back.setHeight("-1px");
 		back.setStyleName(BaseTheme.BUTTON_LINK);
 		back.addListener(this);
-		mainLayout.addComponent(back, "top:89.0%;left:35.0%;");
+		mainLayout.addComponent(back, "top:94.0%;left:35.0%;");
 		
 		return mainLayout;
 	}

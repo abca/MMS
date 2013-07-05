@@ -12,15 +12,15 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 	String out, out2, time;
 	OptionGroup group;
 	TextField year;
-	Window dead, archiveW;
+	Window dead, archiveW, confirmW;
 	String datumstr;
-	Label label;
+	Label label, text;
 	TextField datum;  
-	private Button ok, archive, okay,back;
+	private Button ok, archive, okay,back, setDline;
 	private URL oldURL;
 	private AbsoluteLayout lay;
 	public DeadLine(){
-		Window test = starta.getWindow("Stellvertreter");
+		Window test = starta.getWindow("Stichtag");
 		if(test != null){
 			starta.removeWindow(test);	
 	}
@@ -39,7 +39,7 @@ public void buttonClick (Button.ClickEvent event) {
 	
 		if(event.getButton() == ok){	
 			try {
-				String datumstr = datum.getValue().toString();
+				datumstr = datum.getValue().toString();
 			}
 			catch (NullPointerException e){
 				datumstr = "";
@@ -52,7 +52,21 @@ public void buttonClick (Button.ClickEvent event) {
 			else{
 				//contDek.saveDatum(datumstr);
 				contDek.setDeadline(datumstr);
+				
+				confirmW = new Window("Stichtag");
+				Layout confirm = new VerticalLayout();	    		
+	    		text = new Label("Der Stichtag für Änderungen wurde festgelegt für den " + datumstr + ".");
+	    		confirmW.setContent(confirm);
+	    		confirmW.addComponent(text);
+	    		setDline = new Button("ok");
+	    		confirmW.addComponent(setDline);
+	    		dead.addWindow(confirmW);
+	    		setDline.addListener(this);
+				
 			}
+		}
+		if(event.getButton() == setDline) {
+			confirmW.removeWindow(confirmW);
 		}
 		if(event.getButton() == okay){
 			out = group.getValue().toString();

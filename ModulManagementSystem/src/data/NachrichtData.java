@@ -142,20 +142,20 @@ public class NachrichtData extends KillConnections {
 	}
 	
 	//löscht Nachricht
-	public void delete(int Id){
-
+	public boolean delete(int Id){
+		boolean delete = false;
 		PreparedStatement psmt = null;
 
 		try {
-
 		con.setAutoCommit(false);
-	
 		psmt = con.prepareStatement(DELETE);
 	
 		psmt.setInt(1, Id);
 
 		psmt.executeUpdate();
 		con.commit();
+		delete = true;
+		return delete;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -163,6 +163,7 @@ public class NachrichtData extends KillConnections {
 		} finally {
 			closeConnections(null, psmt);
 		}
+		return delete;
 	}
 
 	//schreibt neue Nachricht in Datenbank

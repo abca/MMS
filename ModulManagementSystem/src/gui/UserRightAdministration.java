@@ -18,7 +18,7 @@ import control.Controller;
 
 public class UserRightAdministration extends Startseite implements Button.ClickListener {
 	
-	private Button speichern,aendern,logout,back;
+	private Button speichern, aendern,logout, back, deleteUser;
 	private URL oldURL;
 	private Label label;
 	OptionGroup group;
@@ -117,6 +117,10 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 			String ausw = this.getAuswahl();
 			admin.removeWindow (auswahlW);
 			cont.aenderungSpeichern(aus, ausw);		//Methode in Controller-Klasse
+		}
+		if (event.getButton() == deleteUser){
+			cont.deleteUser(benutzer.getValue().toString());
+			openBenutzerListe(cont.benutzerListeAusgeben());
 		}
 		
 		if(event.getButton() == aendern){
@@ -223,6 +227,15 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 		aendern.setHeight("-1px");		
 		aendern.addListener(this);
 		mainLayout.addComponent(aendern, "top:83.0%;left:35.0%;");
+		
+		// deleteUser
+		deleteUser = new Button();
+		deleteUser.setCaption("Nutzer löschen");
+		deleteUser.setImmediate(true);
+		deleteUser.setWidth("-1px");
+		deleteUser.setHeight("-1px");		
+		deleteUser.addListener(this);
+		mainLayout.addComponent(deleteUser, "top:88.0%;left:35.0%;");
 		
 		// logout
 		logout = new Button();

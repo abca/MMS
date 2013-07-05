@@ -208,5 +208,12 @@ public class Controller {
 			if(liste[i].equals(name))return true;
 		}
 		return false;
+	} 
+	public void deleteUser(String name){
+		blarghs.deleteUser(blarghs.getID(name));
+	}
+	public boolean deleteMessage(int messid){
+		boolean delete = nachrichtenData.delete(messid);
+		return delete;
 	}
 }

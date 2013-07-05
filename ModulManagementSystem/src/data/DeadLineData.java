@@ -38,7 +38,7 @@ public class DeadLineData extends KillConnections{
 		ResultSet data = null;
 
 		try {
-			LinkedList<Integer> tmp = new LinkedList<Integer>();
+			LinkedList<Integer> list = new LinkedList<Integer>();
 			con.setAutoCommit(false);
 
 			psmt = con.prepareStatement(NEWDEADLINEMESSAGE);
@@ -50,15 +50,19 @@ public class DeadLineData extends KillConnections{
 			while(data.next()){
 				
 				
-				Integer tmp1 = new Integer(data.getInt("responsibleid"));
-				for (int i = 0; i < tmp.size(); i++) {
-					if(tmp.get(i) != tmp1){
-					tmp.add(tmp1);
-					}
-				}
+				
+				boolean add = true;
+				Integer insertValue = new Integer(data.getInt("responsibleid"));
+				for(int i = 0; i < list.size(); i++)
+					if(list.get(i).equals(insertValue))
+						add = false;
+				if(add)
+					list.add(insertValue);
+				
+				
 				
 			}
-			return tmp;
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
