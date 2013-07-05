@@ -119,8 +119,12 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 			cont.aenderungSpeichern(aus, ausw);		//Methode in Controller-Klasse
 		}
 		if (event.getButton() == deleteUser){
-			cont.deleteUser(benutzer.getValue().toString());
-			openBenutzerListe(cont.benutzerListeAusgeben());
+			if(benutzer.getValue()==null)selectError();
+			else{
+				cont.deleteUser(benutzer.getValue().toString());
+				benutzer.removeItem(benutzer.getValue().toString());
+			}
+			
 		}
 		
 		if(event.getButton() == aendern){
@@ -230,7 +234,7 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 		
 		// deleteUser
 		deleteUser = new Button();
-		deleteUser.setCaption("Nutzer löschen");
+		deleteUser.setCaption("Nutzer lÃ¶schen");
 		deleteUser.setImmediate(true);
 		deleteUser.setWidth("-1px");
 		deleteUser.setHeight("-1px");		
@@ -245,7 +249,7 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 		logout.setHeight("-1px");
 		logout.setStyleName(BaseTheme.BUTTON_LINK);
 		logout.addListener(this);
-		mainLayout.addComponent(logout, "top:93.0%;left:35.0%;");
+		mainLayout.addComponent(logout, "top:97.0%;left:35.0%;");
 		
 		// back
 		back = new Button();
@@ -255,7 +259,7 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 		back.setHeight("-1px");
 		back.setStyleName(BaseTheme.BUTTON_LINK);
 		back.addListener(this);
-		mainLayout.addComponent(back, "top:89.0%;left:35.0%;");
+		mainLayout.addComponent(back, "top:94.0%;left:35.0%;");
 		
 		return mainLayout;
 	}
