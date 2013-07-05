@@ -208,5 +208,5 @@ public class Controller {
 			if(liste[i].equals(name))return true;
 		}
 		return false;
-	} 
+	}
 }

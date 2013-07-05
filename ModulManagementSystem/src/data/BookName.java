@@ -18,8 +18,8 @@ public class BookName extends KillConnections {
 	private static final String GETBOOKIDS = "SELECT ID FROM handbuchname";
 	private static final String GETBOOKNAMESD = "SELECT name FROM handbuchname WHERE dekan=?";
 	private static final String GETBOOKIDSD = "SELECT ID FROM handbuchname WHERE dekan=?";
-	private static final String NEWHAND ="INSERT INTO handbookname VALUES(?,?,?)";
-	private static final String GETNEWID = "SELECT id FROM handbookname ORDER BY id DESC LIMIT 1";
+	private static final String NEWHAND ="INSERT INTO handbuchname VALUES(?,?,?)";
+	private static final String GETNEWID = "SELECT id FROM handbuchname ORDER BY id DESC LIMIT 1";
 
 	
 	public BookName(){
@@ -146,22 +146,37 @@ public void newHandbook(String name, int user){
 
 public int getNewId() {
 	
-	int id = 0;
-	
+	//int id = 0;
+	int x = 1;
 	PreparedStatement psmt = null;
 	ResultSet data = null;
 
 	try {
-
+		
 		con.setAutoCommit(false);
-
+		/*
 		psmt = con.prepareStatement(GETNEWID);
 
 		data = psmt.executeQuery();
 
 		data.next();
 		id = data.getInt("id");
-
+	*/
+		psmt = con.prepareStatement("SELECT id FROM handbuchname ORDER BY id ASC");
+		data = psmt.executeQuery();
+		
+		//x ist die neue ID, fängt bei 1 an
+		int temp = 0;
+		
+		while (data.next()) {
+			temp = data.getInt(1);
+			if (x == temp) {
+				x = x + 3;
+			}
+		}
+		
+		
+		
 	} catch (SQLException e) {
 		e.printStackTrace();
 	} catch (Exception e) {
@@ -170,8 +185,12 @@ public int getNewId() {
 		closeConnections(data, psmt);
 	}
 	
-	id = id+3;
+	/*id = id+3;
 	System.out.println(id);
-	return id;
+	*/
+	//return id;
+	
+	return x;
+	
 }
 }

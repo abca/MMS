@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import com.vaadin.event.ItemClickEvent;
+import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.Window;
 
@@ -14,7 +15,9 @@ public class ModuleTree {
 	
 	ModulDatabase m;
 	public Tree tree = null;
-
+	
+	//private static final Object CAPTION_PROPERTY = "caption";
+	
 	public Tree generateModuleTree (int rootID) {
 		
 		m = new ModulDatabase();
@@ -26,6 +29,13 @@ public class ModuleTree {
 		
 		
 		tree = new Tree("");
+		
+		//Es dürfen auch dopplete Elemente im Tree auftauchen
+		/*
+		tree.addContainerProperty(CAPTION_PROPERTY, String.class, "");
+		tree.setItemCaptionMode(AbstractSelect.ITEM_CAPTION_MODE_PROPERTY);
+		tree.setItemCaptionPropertyId(CAPTION_PROPERTY);
+		*/
 		
 		String e = rootID + " - " + modulhandbuchname;
 		
@@ -50,6 +60,11 @@ public class ModuleTree {
 	public void createTree (int actualID, String parent) {
 		BookData bd = new BookData();
 		LinkedList<Integer> next = bd.listeFaecher(actualID);
+		
+		//TODO Entfernen
+		for (int i = 0; i < next.size(); i++) {
+			System.out.println("next-ID" + next.get(i).intValue());
+		}
 			
 		//Sortierung nach Fächern und Modulen
 		LinkedList<Integer> nextFach = new LinkedList<Integer>();
@@ -62,6 +77,16 @@ public class ModuleTree {
 			}
 		}
 		
+		//TODO Entfernen
+		for (int i = 0; i < nextFach.size(); i++) {
+			System.out.println("nextFach-ID" + next.get(i).intValue());
+		}
+		//TODO Entfernen
+		for (int i = 0; i < module.size(); i++) {
+			System.out.println("module-ID" + next.get(i).intValue());
+		}
+		
+		
 		String fachname = "fachname";
 		String modulname = "modulname";
 		String element = "element";
@@ -70,7 +95,15 @@ public class ModuleTree {
 		for (int i = 0; i < nextFach.size(); i++) {
 			fachname = m.getFachname(nextFach.get(i).intValue());
 			element = nextFach.get(i).intValue() + " - " + fachname;
+			
+			Object itemId = tree.addItem();
+			tree.setItemCaption(itemId, element);
+			/*
 			tree.addItem(element);
+			*/
+			
+			//Object itemId = tree.addItem(element);
+			//tree.setItemCaption(itemId, element);
 			if (parent != null) {
 				tree.setParent(element, parent);
 			}
@@ -80,13 +113,21 @@ public class ModuleTree {
 		for (int i = 0; i < module.size(); i++) {
 			modulname = m.getModulname(module.get(i).intValue());
 			element = module.get(i).intValue() + " - " + modulname;
+			
+			Object itemId = tree.addItem();
+			tree.setItemCaption(itemId, element);
+			/*
 			tree.addItem(element);
+			*/
+			
+			//Object itemId = tree.addItem(element);
+			//tree.setItemCaption(itemId, element);
 			if (parent != null) {
 				tree.setParent(element, parent);
 			}
 			tree.setChildrenAllowed(element, false);
 		}
-	}		
+	}
 	
 	public static void main(String[] args) {
 
