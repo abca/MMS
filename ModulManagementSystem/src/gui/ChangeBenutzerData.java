@@ -10,6 +10,8 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Runo;
 
+import control.Password;
+
 public class ChangeBenutzerData extends Startseite implements Button.ClickListener{
 	
 	Window change;  
@@ -45,7 +47,9 @@ public class ChangeBenutzerData extends Startseite implements Button.ClickListen
 	public void buttonClick(ClickEvent event){
 		
 		if(event.getButton() == save){
-			if(oldPass.getValue().equals(tmp1.getPw()) ){
+			//Password pw = new Password();
+			//if(oldPass.getValue().equals(tmp1.getPw())){
+			if((new Password()).verifyPassword((String) oldPass.getValue(), tmp1.getPw())){
 				if(newPass1.getValue().equals(newPass.getValue())){
 					String name =(String) uName.getValue();		
 					String email =(String) uMail.getValue();

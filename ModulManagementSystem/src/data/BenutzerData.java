@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+import control.Password;
+
 import objects.Benutzer;
 import objects.Modul;
 
@@ -396,9 +398,12 @@ public class BenutzerData extends KillConnections {
 
 			data = psmt.executeQuery();
 			data.next();
+			/*
 			if(pw.equals(data.getString("pw"))){
 				loginpw = true;
-			}
+			}*/
+			loginpw = (new Password()).verifyPassword(pw, data.getString("pw"));
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -423,7 +428,13 @@ public class BenutzerData extends KillConnections {
 			psmt = con.prepareStatement(SETNEWUSER);
 			psmt.setInt(1, neu.getId());
 			psmt.setString(2, neu.getName());
-			psmt.setString(3, neu.getPw());
+			
+			Password pw = new Password();
+			String salt = pw.generateSalt(neu.getPw());
+			String hashValue = pw.hashPassword(neu.getPw(), salt);
+			String entry = salt + hashValue;
+			psmt.setString(3, entry);
+			
 			psmt.setString(4, neu.getEmail());
 			psmt.setBoolean(5, neu.isDozent());
 			psmt.setBoolean(6, neu.isDekan());
