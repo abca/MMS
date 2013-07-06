@@ -35,21 +35,6 @@ public class LoginApplication extends Application implements Button.ClickListene
         mainWindow = new Window("");
         mainWindow.setName("main");
         
-        /*vertical = new VerticalLayout();
-        user = new Label("Username");
-        login = new Button("login");
-        register = new Button("registrieren");
-        modul = new Button("Module");
-        username = new TextField();
-      
-        password = new PasswordField("Passwort");
-        mainWindow.setContent(vertical);
-        vertical.addComponent(user);
-        vertical.addComponent(username);
-        vertical.addComponent(password);
-        vertical.addComponent(login);
-        vertical.addComponent(register);
-        vertical.addComponent(modul);*/
         buildMainLayout();
         mainWindow.setContent(mainLayout);
         
@@ -76,21 +61,15 @@ public class LoginApplication extends Application implements Button.ClickListene
     	if (event.getButton() == modul) {
     		control.requestModule(this);
     	}
-    	/*if(event.getButton() == okay) {
-    		mainWindow.removeWindow(errW);
-    	}*/
-    
+        
     	if(event.getButton() == save) {
     		String us = uName.getValue().toString();
     		String em = uMail.getValue().toString();
     		String p1 = pass1.getValue().toString();
-    		String p2 = pass2.getValue().toString();
-    		/*System.out.println(p1);
-    		System.out.println(p2);
-    		System.out.println(us);
-    		System.out.println(em);*/
+    		String p2 = pass2.getValue().toString(); 
     		
-    		if (us.equals("")||em.equals("")||p1.equals("")||p2.equals("") ||!(p1.equals(p2))) {
+    		if (us.equals("")||em.equals("")||p1.equals("")||p2.equals("") ||!(p1.equals(p2))
+    				||us.length()>50||em.length()>50||p1.length()>10) {
     			registerError();
     		}
     		else if (control.doesNameExist(us)){
@@ -105,19 +84,7 @@ public class LoginApplication extends Application implements Button.ClickListene
     
     //Fehlerfenster für falschen Username/falsches Passwort
     public void displayError() {
-    		InfoWindow test = new InfoWindow("Fehler","Nutzername oder Passwort falsch",mainWindow);
-    		/*errW = new Window("Fehler");
-    		okay = new Button("Ok");
-    		wrong = new Label("username/passwort falsch");
-    		Layout error = new VerticalLayout();
-    		
-    		errW.setContent(error);
-    		errW.addComponent(wrong);
-    		errW.addComponent(okay);
-    		mainWindow.addWindow(errW);
-    		errW.setHeight("200px");
-    		errW.setWidth("200px");
-    		okay.addListener(this);*/
+    		InfoWindow test = new InfoWindow("Fehler","Nutzername oder Passwort falsch",mainWindow);    		
     }
     
    
@@ -125,14 +92,7 @@ public class LoginApplication extends Application implements Button.ClickListene
     //Popup für Registration
     public void register() {
     	
-    	// label
-    	label = new Label();
-    	label.setImmediate(false);
-    	label.setWidth("-1px");
-    	label.setHeight("-1px");
-    	label.setValue("Modul Management System");
-    	label.setStyleName(Runo.LABEL_H1);
-    	mainLayout.addComponent(label, "top:6.2%;left:25.0%;");
+    	
     	
     	regW = new Window("Registrieren");
     	userName = new Label("Username");
@@ -161,15 +121,7 @@ public class LoginApplication extends Application implements Button.ClickListene
     
     //Failsafe für die Registration
     public void registerError() {
-    	InfoWindow info = new InfoWindow("Fehler","Die eingegebenen Daten sind unvollständig",mainWindow);/*regErrW = new Window("Fehler");
-    	regErr = new Label("Daten unvollständig");
-    	Layout re = new VerticalLayout();
-    	
-    	regErrW.setContent(re);
-    	regErrW.addComponent(regErr);
-    	mainWindow.addWindow(regErrW);
-    	regErrW.setHeight("50px");
-    	regErrW.setWidth("200px");*/
+    	InfoWindow info = new InfoWindow("Fehler","Die eingegebenen Daten sind unvollständig oder zu lang",mainWindow);    	
     }
     
     private AbsoluteLayout buildMainLayout() {
