@@ -17,7 +17,6 @@ import com.vaadin.ui.Window;
 public class ModulPufferData extends KillConnections {
 	
 	private static Connection con;
-	
 	private static final String WRITEBUFFERMODULE = "INSERT INTO modulpufferdata " +
 								"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?," +
 								" ?, ?, ?, ?)";
@@ -25,7 +24,6 @@ public class ModulPufferData extends KillConnections {
 								"WHERE id=?";
 	private static final String DELETEPUFFERMODULE = "DELETE FROM modulpufferdata WHERE id=?";
 	private static final String LOADBUFFERMODULELIST = "SELECT id FROM modulpufferdata";
-	//private static final String LOADBUFFERMODULELIST = "SELECT id FROM moduldata WHERE responsibleid=?";
 
 	public ModulPufferData(){
 		
@@ -34,7 +32,6 @@ public class ModulPufferData extends KillConnections {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 		try {
 			con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost/MMS", "root", "root");
 		} catch (SQLException e) {
@@ -52,7 +49,6 @@ public class ModulPufferData extends KillConnections {
 			con.setAutoCommit(false);
 
 			psmt = con.prepareStatement(WRITEBUFFERMODULE);
-			
 			psmt.setInt(1, module.getid());
 			psmt.setString(2, module.gettitle());
 			psmt.setInt(3, module.getlp());
@@ -82,7 +78,6 @@ public class ModulPufferData extends KillConnections {
 		} finally {
 			closeConnections(data, psmt);
 		}
-		
 	}
 	
 	//holt sich Modul aus dem Puffer
@@ -133,9 +128,7 @@ public class ModulPufferData extends KillConnections {
 			return null;
 		} finally {
 			closeConnections(data, psmt);
-			
 		}
-		
 	}
 	
 	//löscht Modul aus dem Puffer
@@ -149,7 +142,6 @@ public class ModulPufferData extends KillConnections {
 
 			psmt = con.prepareStatement(DELETEPUFFERMODULE);
 			psmt.setInt(1, moduleid);
-
 			psmt.executeUpdate();
 			con.commit();
 		} catch (SQLException e) {
@@ -159,7 +151,6 @@ public class ModulPufferData extends KillConnections {
 		} finally {
 			closeConnections(data, psmt);
 		}
-		
 	}
 	
 	//holt sich Kurzbeschreibung aus dem Puffer
@@ -179,7 +170,6 @@ public class ModulPufferData extends KillConnections {
 			
 			int id = data.getInt("id");
 			String title = data.getString("title");
-			
 			ModulKu tmp = new ModulKu(id, title);
 			return tmp;
 
@@ -190,13 +180,11 @@ public class ModulPufferData extends KillConnections {
 			e.printStackTrace();
 			return null;
 		} finally {
-			closeConnections(data, psmt);
-			
+			closeConnections(data, psmt);		
 		}
 	}	
 	
 	public LinkedList<ModulKu> loadBufferModuleList (){
-		
 
 		PreparedStatement psmt = null;
 		ResultSet data = null;
@@ -209,7 +197,6 @@ public class ModulPufferData extends KillConnections {
 			
 			data = psmt.executeQuery();
 			
-
 			while(data.next()){
 				
 				
@@ -226,7 +213,6 @@ public class ModulPufferData extends KillConnections {
 			return null;
 		} finally {
 			closeConnections(data, psmt);
-			
 		}
 	}
 }

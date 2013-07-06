@@ -14,7 +14,6 @@ public class KillConnections {
 			} catch (Exception e) {
 			}
 		}
-
 		if (pstmt != null) {
 			try {
 				pstmt.close();

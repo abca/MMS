@@ -1,6 +1,5 @@
 package data;
 
-
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,7 +35,6 @@ public class ModulDatabase extends KillConnections {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 		try {
 			con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost/MMS", "root", "root");
 		} catch (SQLException e) {
@@ -83,7 +81,6 @@ public class ModulDatabase extends KillConnections {
 					  responsible, dozid, doz, filing, requirements, aims,
 					  content, lit, events, work, exams, formcond, grades);
 			return tmp;
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -91,16 +88,13 @@ public class ModulDatabase extends KillConnections {
 			e.printStackTrace();
 			return null;
 		} finally {
-			closeConnections(data, psmt);
-			
+			closeConnections(data, psmt);	
 		}
-		
 	}
 	
 	//schreibt Kurzbeschreibung des Moduls (Titel und ID) in LinkedList
 	public LinkedList<ModulKu> loadModuleList (int userid){
 		
-
 		PreparedStatement psmt = null;
 		ResultSet data = null;
 
@@ -113,10 +107,7 @@ public class ModulDatabase extends KillConnections {
 			
 			data = psmt.executeQuery();
 			
-
 			while(data.next()){
-				
-				
 				int tmp1 = data.getInt("id");
 				tmp.add(loadModuleKu(tmp1));
 				System.out.println(tmp1);
@@ -130,12 +121,10 @@ public class ModulDatabase extends KillConnections {
 			return null;
 		} finally {
 			closeConnections(data, psmt);
-			
 		}
 	}
 	
 public LinkedList<ModulKu> loadWholeModuleList (){
-		
 
 		PreparedStatement psmt = null;
 		ResultSet data = null;
@@ -148,10 +137,7 @@ public LinkedList<ModulKu> loadWholeModuleList (){
 			
 			data = psmt.executeQuery();
 			
-
 			while(data.next()){
-				
-				
 				int tmp1 = data.getInt("id");
 				tmp.add(loadModuleKu(tmp1));
 				System.out.println(tmp1);
@@ -165,13 +151,11 @@ public LinkedList<ModulKu> loadWholeModuleList (){
 			return null;
 		} finally {
 			closeConnections(data, psmt);
-			
 		}
 	}
 	
 public LinkedList<ModulKu> loadModuleListDek (int userid){
 		
-
 		PreparedStatement psmt = null;
 		ResultSet data = null;
 
@@ -183,10 +167,7 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 			
 			data = psmt.executeQuery();
 			
-
 			while(data.next()){
-				
-				
 				int tmp1 = data.getInt("id");
 				tmp.add(loadModuleKu(tmp1));
 				System.out.println(tmp1);
@@ -200,7 +181,6 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 			return null;
 		} finally {
 			closeConnections(data, psmt);
-			
 		}
 	}
 	
@@ -221,9 +201,7 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 			
 			int id = data.getInt("id");
 			String title = data.getString("title");
-			
 			ModulKu tmp = new ModulKu(id, title);
-			//System.out.println(title);
 			return tmp;
 
 		} catch (SQLException e) {
@@ -234,9 +212,7 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 			return null;
 		} finally {
 			closeConnections(data, psmt);
-			
 		}
-	
 	}
 	
 	//speichert Änderungen im Modul
@@ -249,7 +225,6 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 			con.setAutoCommit(false);
 
 			psmt = con.prepareStatement(SAVEMODULE);
-			
 			psmt.setInt(1, module.getid());
 			psmt.setString(2, module.gettitle());
 			psmt.setInt(3, module.getlp());
@@ -270,7 +245,6 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 			psmt.setString(18, module.getformcond());
 			psmt.setString(19, module.getgrades());
 			psmt.setBoolean(20,false);
-
 			psmt.executeUpdate();
 			con.commit();
 		} catch (SQLException e) {
@@ -279,8 +253,7 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 			e.printStackTrace();
 		} finally {
 			closeConnections(data, psmt);
-		}
-		
+		}	
 	}
 	
 	//holt sich neue id für neues Modul
@@ -295,24 +268,20 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 		ResultSet data1 = null;
 		
 		try {
-
 			con.setAutoCommit(false);
 
 			psmt = con.prepareStatement(GETNEWID);
 
 			data = psmt.executeQuery();
-
 			data.next();
 			id1 = data.getInt("id");
 		
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			closeConnections(data, psmt);
-
 		}
 		try{
 			con.setAutoCommit(false);
@@ -320,7 +289,6 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 			psmt1 = con.prepareStatement(GETNEWIDP);
 
 			data1 = psmt1.executeQuery();
-
 			data1.next();
 			id2 = data1.getInt("id");
 			}
@@ -331,7 +299,6 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 	} finally {
 		closeConnections(data1, psmt1);
 	}
-	
 		if(id1 >= id2){
 		id1 = id1+3;
 		}
@@ -347,7 +314,7 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 	public int deleteModule (int moduleid) {
 		
 		//Die Anzahl der Einträge die gelöscht wurden wird ausgegeben
-		int deletings = 0;
+		int deletion = 0;
 		
 		PreparedStatement psmt = null;
 		ResultSet data = null;
@@ -358,9 +325,8 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 			psmt = con.prepareStatement(DELETEMODULE);
 			psmt.setInt(1, moduleid);
 			
-			deletings = psmt.executeUpdate();
-			
-			System.out.println("DELETE?:"+deletings);
+			deletion = psmt.executeUpdate();
+			System.out.println("DELETE?:"+deletion);
 			con.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -369,18 +335,17 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 		} finally {
 			closeConnections(data, psmt);
 		}
-		return deletings;
+		return deletion;
 	}
 	
 	//überprüft, ob Moduldatensatz gesperrt ist oder nicht
 	public boolean getSperr(int id){
-		boolean sperr = false;
 		
+		boolean sperr = false;
 		PreparedStatement psmt = null;
 		ResultSet data = null;
 
 		try {
-
 			con.setAutoCommit(false);
 
 			psmt = con.prepareStatement(GETSPERR);
@@ -397,7 +362,6 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 		} finally {
 			closeConnections(data, psmt);
 		}
-		
 		return sperr;		
 	}
 	
@@ -407,14 +371,11 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 		PreparedStatement psmt = null;
 
 		try {
-
 			con.setAutoCommit(false);
 			
 			psmt = con.prepareStatement(SETSPERR);
-			
 			psmt.setBoolean(1, sperr);
 			psmt.setInt(2, id);
-
 			psmt.executeUpdate();
 			con.commit();
 		} catch (SQLException e) {
@@ -427,313 +388,263 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 	}
 	
 	//Gebe den Fachnamen zu einer ID zurück
-		//TODO Test
-		public String getFachname(int id) {
-			String fachname = null;
+	public String getFachname(int id) {
+		
+		String fachname = null;
+		PreparedStatement psmt = null;
+		ResultSet data = null;
+		
+		try {
+			con.setAutoCommit(false);
 			
-			PreparedStatement psmt = null;
-			ResultSet data = null;
+			psmt = con.prepareStatement("SELECT name FROM handbuchname WHERE id ="+id);
 			
-			try {
-				con.setAutoCommit(false);
-				psmt = con.prepareStatement("SELECT name FROM handbuchname WHERE id ="+id);
-				data = psmt.executeQuery();
-				
-				while (data.next()) {
-					fachname = data.getString(1);
-				}
+			data = psmt.executeQuery();
 			
-			} catch (Exception e) {
-				e.printStackTrace();
+			while (data.next()) {
+				fachname = data.getString(1);
 			}
-			closeConnections(data, psmt);
-			return fachname;
+		
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		//Gebe den Modulnamen zu einer ID zurück
-		//TODO Test
-		public String getModulname(int id) {
-			String modulname = null;
-		
-			PreparedStatement psmt = null;
-			ResultSet data = null;
-			
-			try {
-				con.setAutoCommit(false);
-				psmt = con.prepareStatement("SELECT title FROM moduldata WHERE id ="+id);
-				data = psmt.executeQuery();
-				
-				while (data.next()) {
-					modulname = data.getString(1);
-				}
-			
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			closeConnections(data, psmt);
-			return modulname;
-		}
-		//===================================================================================
-		
-		
-		//Gebe alle IDs von Modulhandbüchern aus
-		//TODO Test
-		public LinkedList<Integer> getModuleHandbookIDs() {
-			LinkedList<Integer> list = new LinkedList<Integer>();
-			int id;
-			
-			PreparedStatement psmt = null;
-			ResultSet data = null;
-			
-			try {
-				con.setAutoCommit(false);
-				psmt = con.prepareStatement("SELECT id FROM handbuchname");
-				data = psmt.executeQuery();
-				
-				while (data.next()) {
-					id = data.getInt(1);
-					if (id % 3 == 0) {
-						list.add(new Integer(id));
-					}
-				}
-			
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			closeConnections(data, psmt);
-			return list;
-		}
-		
-		//Trage ein neues Fach ein (trage Name und neue ID ein)
-				//TODO Ändern/Test
-				public void newFach(int id, String fachname) {
-					
-					PreparedStatement psmt = null;
-					ResultSet data = null;
-					
-					try {
-						
-						//Erzeuge eine neue ID
-						
-						//con.setAutoCommit(false);
-						
-						psmt = con.prepareStatement("SELECT id FROM handbuchname ORDER BY id ASC");
-						data = psmt.executeQuery();
-						
-						//x ist die neue ID
-						int x = 2;
-						int temp = 0;
-						
-						while (data.next()) {
-							temp = data.getInt(1);
-							if (x == temp) {
-								x = x + 3;
-							}
-						}
-						System.out.println(x);
-						
-						con.close();
-						
-						try {
-							con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost/MMS", "root", "root");
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
-						
-						//Füge den Zeiger auf das Fach hinzu
-						String query1 = "INSERT INTO handbuchdata VALUES("+id+","+x+");";
-						psmt = con.prepareStatement(query1);
-						psmt.executeUpdate();
-						
-						/*
-						psmt = con.prepareStatement("SELECT * FROM handbuchname");
-						data = psmt.executeQuery();
-						while (data.next()) {
-							System.out.println(data.getInt(1));
-						}
-						System.out.println();
-						
-						psmt = con.prepareStatement("SELECT * FROM handbuchdata");
-						data = psmt.executeQuery();
-						while (data.next()) {
-							System.out.println(data.getInt(1));
-						}		
-						System.out.println();
-						*/
-						
-						//Füge den Namen des Faches ein
-						String query2 = "INSERT INTO handbuchname VALUES("+x+",'"+fachname+"',dekan=null);";
-						psmt = con.prepareStatement(query2);
-						psmt.executeUpdate();
-						
-						System.out.println(query2);
-						
-						closeConnections(data, psmt);
-						
-								
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					closeConnections(data, psmt);
-				}
-				
-				//Lösche das angegebene Fach
-				public boolean deleteFachOrModul(int id) {
-					System.out.println("ID: " + id);
-					
-					boolean b = true;
-					
-					PreparedStatement psmt = null;
-					ResultSet data = null;
-					
-					try {
-						//Prüfe, ob das Element ein Fach oder Modul ist
-						if (id % 3 == 2) {
-						
-							//Das zu löschende Fach darf nicht auf andere Fächer zeigen
-							psmt = con.prepareStatement("SELECT id FROM handbuchdata");
-							data = psmt.executeQuery();
-							while (data.next()) {
-								if (id == data.getInt(1)) {
-									b = false;
-								}
-							}
-							
-							if (b == true) {
-											
-								//Lösche Zeiger, die auf das Fach zeigen
-								String s = "DELETE FROM handbuchdata WHERE fid ="+id;
-								psmt = con.prepareStatement(s);
-								int result = psmt.executeUpdate();
-								System.out.println("Zeiger auf Fach gelöscht: " + result);
-								
-								
-								//Lösche den Fachnamen
-								s = "DELETE FROM handbuchname WHERE id ="+id;
-								psmt = con.prepareStatement(s);
-								result = psmt.executeUpdate();
-								System.out.println("Fachname gelöscht: " + result);
-							
-							
-						}
-						} else if (id % 3 == 0) {
-							
-							//Lösche Zeiger, die auf das Modul zeigen
-							String s = "DELETE FROM handbuchdata WHERE fid ="+id;
-							psmt = con.prepareStatement(s);
-							int result = psmt.executeUpdate();
-							
-							System.out.println("Zeiger auf Modul gelöscht: " + result);
-							
-							//Lösche das Modul
-							s = "DELETE FROM moduldata WHERE id ="+id;
-							psmt = con.prepareStatement(s);
-							result = psmt.executeUpdate();
-							System.out.println("Modul gelöscht: " + result);
-						}
-					
-						
-					
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					closeConnections(data, psmt);
-					return b;
-				}
-				
-				//Gibt eine Liste mit den IDs von neuen nicht zugeordneten Modulen zurück
-				//TODO Test
-				public LinkedList<Integer> getNewModules() {
-					
-					LinkedList<Integer> list = new LinkedList<Integer>();
-					
-					PreparedStatement psmt = null;
-					ResultSet data = null;
-					
-					try {	
-							// Das Fach mit der ID 0 zeigt auf alle nicht zugeordneten Fächer und wird selbst nicht verwendet
-							psmt = con.prepareStatement("SELECT fid FROM handbuchdata WHERE id = 0");
-							data = psmt.executeQuery();
-							while (data.next()) {
-								list.add(new Integer(data.getInt(1)));			
-							}
-							
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					closeConnections(data, psmt);
-					return list;
-				}
-				
-				/*Ordne ein noch nicht zugeordnetes Modul (aus Fach 0) einem anderen Fach zu.
-				 * Der Zeiger von Fach 0 au das Modul wird dabei gelöscht.
-				 */
-				public boolean moveNewModule(int id, int fid) {
-					boolean b = false;
-					
-					PreparedStatement psmt = null;
-					ResultSet data = null;
-					
-					try {	
-							// Das Fach mit der ID 0 zeigt auf alle nicht zugeordneten Fächer und wird selbst nicht verwendet
-							// TODO Evtl. verbessern
-							psmt = con.prepareStatement("INSERT INTO handbuchdata VALUES("+id+", "+fid+")");
-							psmt.executeUpdate();
-							
-							psmt = con.prepareStatement("DELETE FROM handbuchdata WHERE id = 0 AND fid = "+fid);
-							psmt.executeUpdate();
-							
-							b = true;
-							
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					closeConnections(data, psmt);
-					return b;
-				}
-				
-				/*Ordne ein Modul einem Fach zu. Diese Methode ist für Module gedacht, die bereits einmal zugeordnet wurden.
-				 */
-				public boolean moveModule(int id, int fid) {
-					boolean b = false;
-					
-					PreparedStatement psmt = null;
-					ResultSet data = null;
-					
-					try {	
-						
-							psmt = con.prepareStatement("INSERT INTO handbuchdata VALUES("+id+", "+fid+")");
-							psmt.executeUpdate();
-							
-							b = true;
-							
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					closeConnections(data, psmt);
-					return b;
-				}
-				
-				//Erzeugt einen Zeiger von Fach 0 auf ein Modul
-				public boolean moveModuleIntoDefaultFach(int fid) {
-					boolean b = false;
-					
-					PreparedStatement psmt = null;
-					ResultSet data = null;
-					
-					try {	
-							// Das Fach mit der ID 0 zeigt auf das angegebene Modul
-							psmt = con.prepareStatement("INSERT INTO handbuchdata VALUES("+0+", "+fid+")");
-							psmt.executeUpdate();
-														
-							b = true;
-							
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					closeConnections(data, psmt);
-					return b;
-				}
-
+		closeConnections(data, psmt);
+		return fachname;
+	}
 	
+	//Gebe den Modulnamen zu einer ID zurück
+	public String getModulname(int id) {
+		String modulname = null;
+	
+		PreparedStatement psmt = null;
+		ResultSet data = null;
+		
+		try {
+			con.setAutoCommit(false);
+			psmt = con.prepareStatement("SELECT title FROM moduldata WHERE id ="+id);
+			data = psmt.executeQuery();
+			
+			while (data.next()) {
+				modulname = data.getString(1);
+			}
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		closeConnections(data, psmt);
+		return modulname;
+	}
+	
+	//Gebe alle IDs von Modulhandbüchern aus
+	public LinkedList<Integer> getModuleHandbookIDs() {
+		
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		int id;
+		PreparedStatement psmt = null;
+		ResultSet data = null;
+		
+		try {
+			con.setAutoCommit(false);
+			psmt = con.prepareStatement("SELECT id FROM handbuchname");
+			data = psmt.executeQuery();
+			
+			while (data.next()) {
+				id = data.getInt(1);
+				if (id % 3 == 0) {
+					list.add(new Integer(id));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		closeConnections(data, psmt);
+		return list;
+	}
+	
+	//Trage ein neues Fach ein (trage Name und neue ID ein)
+	
+	public void newFach(int id, String fachname) {
+				
+		PreparedStatement psmt = null;
+		ResultSet data = null;
+				
+		try {
+			//Erzeuge eine neue ID
+			//con.setAutoCommit(false);
+					
+			psmt = con.prepareStatement("SELECT id FROM handbuchname ORDER BY id ASC");
+			data = psmt.executeQuery();
+					
+			//x ist die neue ID
+			int x = 2;
+			int temp = 0;
+					
+			while (data.next()) {
+				temp = data.getInt(1);
+				if (x == temp) {
+					x = x + 3;
+				}
+			}
+			System.out.println(x);		
+			con.close();
+					
+			try {
+				con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost/MMS", "root", "root");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}	
+			//Füge den Zeiger auf das Fach hinzu
+			String query1 = "INSERT INTO handbuchdata VALUES("+id+","+x+");";
+			psmt = con.prepareStatement(query1);
+			psmt.executeUpdate();
+					
+			//Füge den Namen des Faches ein
+			String query2 = "INSERT INTO handbuchname VALUES("+x+",'"+fachname+"',dekan=null);";
+			psmt = con.prepareStatement(query2);
+			psmt.executeUpdate();
+						
+			closeConnections(data, psmt);
+							
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		closeConnections(data, psmt);
+	}
+			
+	//Lösche das angegebene Fach
+	public boolean deleteFachOrModul(int id) {
+		
+		System.out.println("ID: " + id);
+		boolean b = true;
+		PreparedStatement psmt = null;
+		ResultSet data = null;
+		
+		try {
+			//Prüfe, ob das Element ein Fach oder Modul ist
+			if (id % 3 == 2) {
+				//Das zu löschende Fach darf nicht auf andere Fächer zeigen
+				psmt = con.prepareStatement("SELECT id FROM handbuchdata");
+				data = psmt.executeQuery();
+				while (data.next()) {
+					if (id == data.getInt(1)) {
+						b = false;
+					}
+				}
+				if (b == true) {			
+					//Lösche Zeiger, die auf das Fach zeigen
+					String s = "DELETE FROM handbuchdata WHERE fid ="+id;
+					psmt = con.prepareStatement(s);
+					int result = psmt.executeUpdate();
+					System.out.println("Zeiger auf Fach gelöscht: " + result);
+					
+					//Lösche den Fachnamen
+					s = "DELETE FROM handbuchname WHERE id ="+id;
+					psmt = con.prepareStatement(s);
+					result = psmt.executeUpdate();
+					System.out.println("Fachname gelöscht: " + result);
+				}
+			}else if (id % 3 == 0){
+				//Lösche Zeiger, die auf das Modul zeigen
+				String s = "DELETE FROM handbuchdata WHERE fid ="+id;
+				psmt = con.prepareStatement(s);
+				int result = psmt.executeUpdate();
+				System.out.println("Zeiger auf Modul gelöscht: " + result);
+				
+				//Lösche das Modul
+				s = "DELETE FROM moduldata WHERE id ="+id;
+				psmt = con.prepareStatement(s);
+				result = psmt.executeUpdate();
+				System.out.println("Modul gelöscht: " + result);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		closeConnections(data, psmt);
+		return b;
+	}
+			
+	//Gibt eine Liste mit den IDs von neuen nicht zugeordneten Modulen zurück
+	public LinkedList<Integer> getNewModules() {
+		
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		PreparedStatement psmt = null;
+		ResultSet data = null;
+		
+		try {	
+				// Das Fach mit der ID 0 zeigt auf alle nicht zugeordneten Fächer und wird selbst nicht verwendet
+				psmt = con.prepareStatement("SELECT fid FROM handbuchdata WHERE id = 0");
+				data = psmt.executeQuery();
+				while (data.next()) {
+					list.add(new Integer(data.getInt(1)));			
+				}		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		closeConnections(data, psmt);
+		return list;
+	}
+	
+	/*Ordne ein noch nicht zugeordnetes Modul (aus Fach 0) einem anderen Fach zu.
+	 * Der Zeiger von Fach 0 au das Modul wird dabei gelöscht.
+	 */
+	public boolean moveNewModule(int id, int fid) {
+		
+		boolean b = false;
+		PreparedStatement psmt = null;
+		ResultSet data = null;
+		
+		try {	
+				// Das Fach mit der ID 0 zeigt auf alle nicht zugeordneten Fächer und wird selbst nicht verwendet
+				psmt = con.prepareStatement("INSERT INTO handbuchdata VALUES("+id+", "+fid+")");
+				psmt.executeUpdate();
+				psmt = con.prepareStatement("DELETE FROM handbuchdata WHERE id = 0 AND fid = "+fid);
+				psmt.executeUpdate();
+				b = true;
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		closeConnections(data, psmt);
+		return b;
+	}
+	
+	/*Ordne ein Modul einem Fach zu. Diese Methode ist für Module gedacht, die bereits einmal zugeordnet wurden.
+	 */
+	public boolean moveModule(int id, int fid) {
+		
+		boolean b = false;
+		PreparedStatement psmt = null;
+		ResultSet data = null;
+		
+		try {	
+				psmt = con.prepareStatement("INSERT INTO handbuchdata VALUES("+id+", "+fid+")");
+				psmt.executeUpdate();
+				b = true;
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		closeConnections(data, psmt);
+		return b;
+	}
+	
+	//Erzeugt einen Zeiger von Fach 0 auf ein Modul
+	public boolean moveModuleIntoDefaultFach(int fid) {
+		
+		boolean b = false;
+		PreparedStatement psmt = null;
+		ResultSet data = null;
+		
+		try {	
+				// Das Fach mit der ID 0 zeigt auf das angegebene Modul
+				psmt = con.prepareStatement("INSERT INTO handbuchdata VALUES("+0+", "+fid+")");
+				psmt.executeUpdate();					
+				b = true;
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		closeConnections(data, psmt);
+		return b;
+	}
 }

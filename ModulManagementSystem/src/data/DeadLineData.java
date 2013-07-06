@@ -11,6 +11,7 @@ import objects.Deadline;
 import objects.ModulKu;
 
 public class DeadLineData extends KillConnections{
+	
 	private static Connection con;
 	private static final String NEWDEADLINE = "Insert into deadlinedata Values(?,?,?)";
 	private static final String NEWDEADLINEMESSAGE = "SELECT responsibleid FROM moduldata WHERE dozid=?";
@@ -29,11 +30,10 @@ public class DeadLineData extends KillConnections{
 			e.printStackTrace();
 		}	
 	}
-     // in Datanbank schreiben
 	
+     // in Datanbank schreiben
 	public LinkedList<Integer> newDeadlineMessage (int dozid){
 		
-
 		PreparedStatement psmt = null;
 		ResultSet data = null;
 
@@ -46,11 +46,7 @@ public class DeadLineData extends KillConnections{
 			
 			data = psmt.executeQuery();
 			
-
 			while(data.next()){
-				
-				
-				
 				boolean add = true;
 				Integer insertValue = new Integer(data.getInt("responsibleid"));
 				for(int i = 0; i < list.size(); i++)
@@ -58,9 +54,6 @@ public class DeadLineData extends KillConnections{
 						add = false;
 				if(add)
 					list.add(insertValue);
-				
-				
-				
 			}
 			return list;
 		} catch (SQLException e) {
@@ -70,25 +63,21 @@ public class DeadLineData extends KillConnections{
 			e.printStackTrace();
 			return null;
 		} finally {
-			closeConnections(data, psmt);
-			
+			closeConnections(data, psmt);	
 		}
 	}
 
 	public void newDeadLine(Deadline deadline){
+		
 		PreparedStatement psmt = null;
 
 		try {
-
 			con.setAutoCommit(false);
 	
 			psmt = con.prepareStatement(NEWDEADLINE);
-	
 			psmt.setInt(1, deadline.getid());
 			psmt.setString(2, deadline.getdatum());
 			psmt.setString(3, deadline.getpdf());
-
-
 			psmt.executeUpdate();
 			con.commit();
 			} catch (SQLException e) {
@@ -97,7 +86,6 @@ public class DeadLineData extends KillConnections{
 				e.printStackTrace();
 			} finally {
 				closeConnections(null, psmt);
-			}
+		}
     }
-
 }
