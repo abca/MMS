@@ -91,6 +91,7 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 				gui.delete.setEnabled(true);
 			}
 			String[] splittedString = ((String) e.getItemId()).split(" ");
+			//String[] splittedString = (e.getItem().getItemProperty("caption").toString()).split(" ");
 			if (Integer.parseInt(splittedString[0]) % 3 != 0) {
 				//Speichere die ID des im Baum ausgewählten Elementes
 				selectedId = Integer.parseInt(splittedString[0]);
