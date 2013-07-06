@@ -11,7 +11,7 @@ import com.mysql.jdbc.Connection;
 
 public class Archive extends KillConnections {
 
-	private static Connection con;
+	//private static Connection con;
 	private static final String SAVEFILE = "INSERT INTO archiv VALUES(?, ?, ?, ?, ?)";
 	private static final String GETARCHIDS = "SELECT id FROM archiv WHERE dekID=?";
 	private static final String GETARCHBOOKNAMES = "SELECT * FROM archiv WHERE dekID=?";

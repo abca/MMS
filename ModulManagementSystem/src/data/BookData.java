@@ -10,7 +10,7 @@ import com.mysql.jdbc.Connection;
 
 public class BookData extends KillConnections {
 	
-	private static Connection con;
+	//private static Connection con;
 	private static final String GETFACHLIST = "SELECT Fid FROM handbuchdata where id=?";
 
 	public BookData(){
