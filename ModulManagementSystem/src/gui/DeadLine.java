@@ -60,8 +60,12 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 		if(event.getButton() == okay){
 			out = group.getValue().toString();
 			out2 = (String)year.getValue();
+			if(out==""||out2==""){
+				InfoWindow fatalerr = new InfoWindow("archivieren", "Sie müssen Angaben bezüglich Jahr und Semester machen", dead);
+			}else{
 			time = out + " " + out2;
 			contDek.scanHandbooks(time);
+			}
 		}
 		if(event.getButton() == archive){
 			archiveDate();
