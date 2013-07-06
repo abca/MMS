@@ -19,9 +19,12 @@ public class ControllerDozent extends Controller{
 
 	//öffnet Datensatz zum Bearbeiten in neuem Fenster
 	public void ändernModul(int modul, ModulReview tmp ){
+		int uid=userid;
+		if(getStell(userid)&&!blarghs.getRangDozent(userid)&&!blarghs.getRangDekan(userid))
+			uid=blarghs.getStellID(userid);
 		if (modul == 0){
 		Modul neu = new Modul(modulDatabase.getNewId(),  null, 0, null,
-				 null, 0, null, userid , 
+				 null, 0, null, uid , 
 				 null, null, null,
 				 null, null,null, null,
 				 null, null, null, null);
@@ -29,10 +32,9 @@ public class ControllerDozent extends Controller{
 		ModulEditCreate b = new ModulEditCreate(neu,true);		
 		}else {
 			
-		 Modul test = modulDatabase.loadModule(modul);			
-		 if(modulDatabase.getSperr(test.getid())== true){
-			 tmp.displayError("Das Modul wurde bereits geändert. Warten Sie bitte auf eine Bestätigung");
-			 /* NOCH FEHLT POP FENSTER*/
+		Modul test = modulDatabase.loadModule(modul);			
+		if(modulDatabase.getSperr(test.getid())== true){
+			tmp.displayError("Das Modul wurde bereits geändert. Warten Sie bitte auf eine Bestätigung");		
 			 
 		 } else {
 

@@ -163,10 +163,9 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 		// doz
 		doz = new TextArea();
 		doz.setCaption("Dozent:*");
-		if (in.getdoz()!=null)doz.setValue(in.getdoz());
-		System.out.println(userid);
+		if (in.getdoz()!=null)doz.setValue(in.getdoz());		
 		if(cont.getDozent(userid)&&!cont.getDekan(userid)){
-			doz.setValue(cont.loadBenutzer(userid).getName());
+			doz.setValue(cont.loadBenutzer(in.getdozid()).getName());
 			doz.setEnabled(false);
 		}
 		doz.setImmediate(false);
