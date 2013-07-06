@@ -14,6 +14,8 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Runo;
 
+import control.Controller;
+
 public class ArchiveView extends Startseite implements ClickListener {
 
 	private String [] tmp;
@@ -23,8 +25,12 @@ public class ArchiveView extends Startseite implements ClickListener {
 	Label label;
 	Button request;
 	ListSelect archiv;
+	LoginApplication starta;
 	
-	public ArchiveView(LinkedList<Integer> arids, String [] liste){
+	public ArchiveView(LinkedList<Integer> arids, String [] liste, Controller d){
+		super(d);
+		starta =cont.getStart();
+		 
 		Window test = starta.getWindow("Stellvertreter");
 		if(test != null){
 			starta.removeWindow(test);	
@@ -53,7 +59,7 @@ public class ArchiveView extends Startseite implements ClickListener {
 					book = tmp2.get(i);
 				}
 			}
-			Link download = contDek.requestArchBook(book, starta);
+			Link download = cont.getcDe().requestArchBook(book, starta);
 			LinkPopup(download);	
 		}
 		if(event.getButton() == logout){

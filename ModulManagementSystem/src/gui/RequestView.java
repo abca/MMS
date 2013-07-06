@@ -15,6 +15,8 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Runo;
 
+import control.Controller;
+
 public class RequestView extends Startseite implements Button.ClickListener {
 	
 	Panel title,lp,language,turn,responsibleid,doz,filing,requirements,aims,content,lit,events,work,		//Titellabels
@@ -30,10 +32,12 @@ public class RequestView extends Startseite implements Button.ClickListener {
 	Window Requw;
 	Modul tmp;
 	Nachricht tmp2;
+	LoginApplication starta;
 	
-	//schreibt alle Werte In Labels
-	public RequestView(Modul b, Nachricht d){
-		
+	//schreibt alle Werte In Labelsp
+	public RequestView(Modul b, Nachricht d, Controller a){
+		super(a);
+		 starta =cont.getStart();
 		Window test = starta.getWindow("Aenderungsantrag");
 		if(test != null){
 			starta.removeWindow(test);	
@@ -79,10 +83,10 @@ public class RequestView extends Startseite implements Button.ClickListener {
 	public void buttonClick(Button.ClickEvent event){
 		
 		if (event.getButton() == confirm){
-			contDek.okRequest(tmp, tmp2, true);
+			cont.getcDe().okRequest(tmp, tmp2, true);
 		}
 		if (event.getButton() == deny){
-			contDek.okRequest(tmp, tmp2,false);
+			cont.getcDe().okRequest(tmp, tmp2,false);
 		}
 		if(event.getButton()==logout){
 			starta.getMainWindow().getApplication().close();

@@ -7,6 +7,8 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Runo;
 
+import control.Controller;
+
 public class DeadLine extends Startseite implements Button.ClickListener {
 
 	String out, out2, time;
@@ -19,9 +21,11 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 	private Button ok, archive, okay,back, setDline;
 	private URL oldURL;
 	private AbsoluteLayout lay;
+	LoginApplication starta;
 	
-	public DeadLine(){
-		
+	public DeadLine(Controller d){
+		super(d);
+		 starta =cont.getStart();
 		Window test = starta.getWindow("Stichtag");
 		if(test != null){
 			starta.removeWindow(test);	
@@ -50,7 +54,7 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 				InfoWindow err = new InfoWindow("Fehler","Geben Sie bitte ein Datum ein",dead);
 			}
 			else{
-				contDek.setDeadline(datumstr);
+				cont.getcDe().setDeadline(datumstr);
 				InfoWindow info = new InfoWindow("Stichtag","Der Stichtag für Änderungen wurde festgelegt für den " + datumstr + ".",dead);
 			}
 		}
@@ -64,7 +68,7 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 				InfoWindow fatalerr = new InfoWindow("archivieren", "Sie müssen Angaben bezüglich Jahr und Semester machen", dead);
 			}else{
 			time = out + " " + out2;
-			contDek.scanHandbooks(time);
+			cont.getcDe().scanHandbooks(time);
 			}
 		}
 		if(event.getButton() == archive){

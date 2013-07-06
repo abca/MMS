@@ -29,17 +29,20 @@ public class Controller {
 	protected DeadLineData deadlineData = new DeadLineData();
 	protected BookName book = new BookName();
 	protected BookData bookdata = new BookData();
-	protected static int userid ;
-	protected static LoginApplication login;
-	
+	protected int userid ;
+    public LoginApplication login;
+    ControllerDozent contD;
+    ControllerDekan contDe;
+    
 	BenutzerData userData = new BenutzerData();
 	
 	//Konstruktor
-	public Controller (){	
+	public Controller (LoginApplication tmp){	
+		login = tmp;
 	}
 	
-	public Controller(LoginApplication tmp){
-	
+	public Controller(LoginApplication tmp,int  user){
+		userid =user;
 		login = tmp;
 	}
 	
@@ -114,7 +117,7 @@ public class Controller {
 		userData.setRangDozent(Id, Rang.contains("Dozent"));
 		userData.setRangDekan(Id, Rang.contains("Dekan"));		
 		Window old = login.getWindow("adminWindow");
-		Startseite tmp1 = new Startseite(login, userid,old);
+		Startseite tmp1 = new Startseite(login, userid,old,this);
 	}
 	
 	//gibt Username und Passwort an Benutzer-Klasse weiter zur Verifizierung, wenn verifiziert werden angegebene Aktionen ausgeführt
@@ -123,7 +126,8 @@ public class Controller {
 		if( userData.loginCheck(us,pw) == true){
 		userid = userData.getID(us);
 		Window old = login.getWindow("main");
-		Startseite aa = new Startseite(b, userid, old);
+		Startseite aa = new Startseite(b, userid, old, this);
+		System.out.println(userid);
 		}else {
 			b.displayError();
 		}
@@ -179,7 +183,7 @@ public class Controller {
 	public void loadNewMessageList(){
 
 		LinkedList<Nachricht> list = nachrichtenData.loadNewBenachrichtList(userid);
-		NewMessage newMessages = new NewMessage(list);
+		NewMessage newMessages = new NewMessage(list, this);
 	}
 	
 	public boolean doesNameExist(String name){
@@ -211,5 +215,23 @@ public class Controller {
 	public boolean deleteMessage(int messid){
 		boolean delete = nachrichtenData.delete(messid);
 		return delete;
+	}
+	public int getUserID(){
+		return userid;
+	}
+	public LoginApplication getStart(){
+		return login;
+	}
+	public void setController(ControllerDozent a, ControllerDekan b){
+		contD =a;
+		contDe= b;
+		
+	}
+	public ControllerDozent getcDo(){
+		return contD;	
+	}
+	public ControllerDekan getcDe(){
+		
+		return contDe;
 	}
 }

@@ -26,8 +26,11 @@ public class ControllerDekan extends Controller{
 	BookName bookName = new BookName();
 	SaveHandbook save = new SaveHandbook();
 	Archive ar = new Archive();
+	Controller cont;
 	
-	public ControllerDekan(){	  
+	public ControllerDekan(LoginApplication starta, int id, Controller con){	  
+		super(starta, id);
+		cont = con;
 	}
 	
 	//bestätigt oder verwirft Änderung
@@ -52,14 +55,14 @@ public class ControllerDekan extends Controller{
 			modulPufferData.deleteBufferModule(modul.getid());
 		}
 		Window old = login.getWindow("Aenderungsantrag");
-		Startseite tmp1 = new Startseite(login, userid,old);
+		Startseite tmp1 = new Startseite(login, userid,old, cont);
 	}
 
 	//lädt Änderung
 	public void loadRequest(int modul, Nachricht nachricht){
 		
 		Modul tmp = modulPufferData.loadBufferModule(modul);
-		RequestView test = new RequestView(tmp, nachricht);
+		RequestView test = new RequestView(tmp, nachricht, cont);
 		
 	}
 
@@ -77,7 +80,7 @@ public class ControllerDekan extends Controller{
 			list2.add(modulPufferData.loadModuleKu(list.get(i).getmodule()));
 			System.out.println(list.get(i).getbeschreibung());	
 		}
-		ChangeRequest tmp = new ChangeRequest(list, list2);	
+		ChangeRequest tmp = new ChangeRequest(list, list2, cont);	
 	}
 	
 	//speichert Datum und Handbuch-PDF
@@ -89,14 +92,14 @@ public class ControllerDekan extends Controller{
 		
 		String[] list = book.getBookNames(userid);
 		LinkedList<Integer>  ids = book.getBookID(userid);
-		ModulhandbuchRequestAen req = new ModulhandbuchRequestAen(ids, list);
+		ModulhandbuchRequestAen req = new ModulhandbuchRequestAen(ids, list, cont);
 	}
 
 	public void scanHandbooks(String time) {
 		
 		String[] name = bookName.getBookNames(userid);
 		LinkedList<Integer> arr = bookName.getBookID(userid);
-		save.archive(arr, time, name, userid);
+		save.archive(arr, time, name, userid, login);
 	}
 	
 	public void setDeadline(String Deadline) {
@@ -119,7 +122,7 @@ public class ControllerDekan extends Controller{
 		
 		LinkedList<Integer> ids = ar.getBookID(userid);
 		String[] liste = ar.getBookNames(userid);
-		ArchiveView archView = new ArchiveView(ids, liste);
+		ArchiveView archView = new ArchiveView(ids, liste, cont);
 	}
 
 	public Link requestArchBook(int book, LoginApplication app) {

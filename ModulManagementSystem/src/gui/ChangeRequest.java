@@ -12,6 +12,8 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Runo;
 
+import control.Controller;
+
 
 public class ChangeRequest extends Startseite implements Button.ClickListener {
 
@@ -22,9 +24,11 @@ public class ChangeRequest extends Startseite implements Button.ClickListener {
 	private URL oldURL;
 	private Label label;
 	private LinkedList<Nachricht>list; private LinkedList<ModulKu> lis2;
+	LoginApplication starta;
 	
-	public ChangeRequest(LinkedList<Nachricht>lis, LinkedList<ModulKu> list2) {
-		
+	public ChangeRequest(LinkedList<Nachricht>lis, LinkedList<ModulKu> list2, Controller d) {
+		super(d);
+		starta =cont.getStart();
 		this.list = lis;
 		this.lis2 = list2;
 		
@@ -67,7 +71,7 @@ public class ChangeRequest extends Startseite implements Button.ClickListener {
 			while( i<list.size()&& !(lis2.get(i).gettitle().equals(tmp))){
 				i++;
 				}
-			contDek.loadRequest(lis2.get(i).getid(), list.get(i));	
+			cont.getcDe().loadRequest(lis2.get(i).getid(), list.get(i));	
 		}
 		if(event.getButton()== logout){
 			starta.getMainWindow().getApplication().close();		

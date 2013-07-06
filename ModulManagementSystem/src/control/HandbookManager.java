@@ -26,14 +26,15 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 	int selectedId;
 	String selectedUnassignedModule;
 	String selectedModule;
+	Controller cont;
 	
 	//Der Konstruktor erwartet die ID des Modulhandbuches, dass angezeigt
 	//werden soll
-	public HandbookManager(int _id) {
-		
+	public HandbookManager(int _id, Controller con) {
+		cont = con;
 		id = _id;
 		
-		gui = new HandbookManager_View(id);
+		gui = new HandbookManager_View(id, cont);
 		gui.delete.setEnabled(false);
 		
 		data = new ModulDatabase();
@@ -75,7 +76,7 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 		}
 		// TODO Refresh noch ausbessern
 		gui.starta.removeWindow(gui.w);
-		HandbookManager t = new HandbookManager(id);		
+		HandbookManager t = new HandbookManager(id,cont);		
 	}
 	
 	public void itemClick(ItemClickEvent e) {

@@ -15,6 +15,8 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Runo;
 
+import control.Controller;
+
 public class ModulReview extends Startseite implements Button.ClickListener{
 	
 	String savestr;	
@@ -25,9 +27,11 @@ public class ModulReview extends Startseite implements Button.ClickListener{
 	private URL oldURL;
 	private LinkedList<ModulKu> liste;
 	private Label label;
+	LoginApplication starta;
 	
-	public ModulReview(LinkedList<ModulKu> idiot){
-		
+	public ModulReview(LinkedList<ModulKu> idiot, Controller d){
+		super(d);
+		 starta =cont.getStart();
 		Window test = starta.getWindow("Modulbearbeiten");
 		if(test != null){
 			starta.removeWindow(test);	
@@ -52,7 +56,7 @@ public class ModulReview extends Startseite implements Button.ClickListener{
 	
 		if(event.getButton() == create){
 			int modul = 0;
-			contD.ändernModul(modul,this);
+			cont.getcDo().ändernModul(modul,this);
 			}
 			
 		if(event.getButton()== logout){
@@ -73,7 +77,7 @@ public class ModulReview extends Startseite implements Button.ClickListener{
 				}
 			}
 			//System.out.println(modul);
-			contD.ändernModul(modul,this);
+			cont.getcDo().ändernModul(modul,this);
 		}	
 	}
 	

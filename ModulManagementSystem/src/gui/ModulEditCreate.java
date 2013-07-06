@@ -9,6 +9,8 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Runo;
 
+import control.Controller;
+
 public class ModulEditCreate extends Startseite implements Button.ClickListener{
 	
 	TextArea title,lp,language,turn, doz,filing,requirements,aims,content,lit,events,work,
@@ -20,10 +22,12 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 	private Button save,back;
 	private URL oldURL;
 	private boolean neu;//true wenn neues Modul erstellt wird
+	LoginApplication starta;
 	
 	//gibt vorhandene Werte in Textboxen zur Bearbeitung aus
-	public ModulEditCreate(Modul b,boolean _neu){
-		
+	public ModulEditCreate(Modul b,boolean _neu, Controller d){
+		super(d);
+		 starta =cont.getStart();
 		neu=_neu;
 		Window test = starta.getWindow("Modulaendern");
 		if(test != null){
@@ -90,7 +94,7 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 				Modul tmp1 = new Modul(tmp.getid(), title1, lp2, language1, turn1, cont.getID(responsible1), 
 							responsible1, cont.getID(doz1), doz1,filing1, requirements1, aims1, 
 							content1, lit1, events1, work1, exams1, formcond1, grades1 );
-				contD.speichernModul(tmp1);//Methode in Controller-Klasse
+				cont.getcDo().speichernModul(tmp1);//Methode in Controller-Klasse
 			}
 			}
 			catch(Exception e){
@@ -168,7 +172,7 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 		doz = new TextArea();
 		doz.setCaption("Dozent:*");
 		if (in.getdoz()!=null)doz.setValue(in.getdoz());		
-		if(cont.getDozent(userid)&&!cont.getDekan(userid)){
+		if(cont.getDozent(cont.getUserID())&&!cont.getDekan(cont.getUserID())){
 			doz.setValue(cont.loadBenutzer(in.getdozid()).getName());
 			doz.setEnabled(false);
 		}

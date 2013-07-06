@@ -29,10 +29,10 @@ public class LoginApplication extends Application implements Button.ClickListene
 	ListSelect modules;
 	String read;
 	UserRightAdministration test;
-	public static LoginApplication start;
+	public LoginApplication start;
 	
     public void init() {
-    	
+   	
         mainWindow = new Window("");
         mainWindow.setName("main");
         

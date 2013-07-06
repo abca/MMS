@@ -9,12 +9,12 @@ import data.Archive;
 
 import gui.LoginApplication;
 
-public class SaveHandbook extends Controller {
+public class SaveHandbook {
 	
 	Archive ar = new Archive();
 	ModuleHandbook tmp = new ModuleHandbook();
 	
-	public void archive(LinkedList<Integer> arr, String time, String[] name, int userid){
+	public void archive(LinkedList<Integer> arr, String time, String[] name, int userid, LoginApplication login){
 		
 		for(int i=0; i<arr.size(); i++){
 			int local = arr.get(i);

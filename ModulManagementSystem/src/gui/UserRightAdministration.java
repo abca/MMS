@@ -26,10 +26,12 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 	private AbsoluteLayout mainLayout;
 	ListSelect benutzer;
 	String aus;
+	LoginApplication starta;
 	
 	//übergibt Hauptwindow
-	public UserRightAdministration() {
-		
+	public UserRightAdministration(Controller d) {
+		super(d);
+		starta =cont.getStart();
 		Window test = starta.getWindow("adminWindow");
 		if(test != null){
 			starta.removeWindow(test);	
@@ -87,7 +89,7 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 		if (event.getButton() == deleteUser){
 			InfoWindow info;
 			if(benutzer.getValue()==null)selectError();
-			else if(cont.getID((String)benutzer.getValue())==userid)
+			else if(cont.getID((String)benutzer.getValue())==cont.getUserID())
 				info = new InfoWindow("Fehler","Sie können sich nicht selbst löschen",admin);
 			else{
 				cont.deleteUser(benutzer.getValue().toString());

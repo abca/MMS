@@ -10,6 +10,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Runo;
 
+import control.Controller;
 import control.Password;
 
 public class ChangeBenutzerData extends Startseite implements Button.ClickListener{
@@ -22,9 +23,11 @@ public class ChangeBenutzerData extends Startseite implements Button.ClickListen
 	Benutzer tmp1;
 	private AbsoluteLayout mainLayout;
 	private URL oldURL;
-	
-	public ChangeBenutzerData(Benutzer tmp){
-		
+	LoginApplication starta;
+
+	public ChangeBenutzerData(Benutzer tmp,Controller d){
+		super(d);
+		 starta =cont.getStart();
 		tmp1 = tmp; 
 		Window test = starta.getWindow("AenderungBenutzer");
 		if(test != null){
@@ -39,7 +42,7 @@ public class ChangeBenutzerData extends Startseite implements Button.ClickListen
 		logout.addListener(this);
 		starta.addWindow(change);
 		
-		Window old = starta.getWindow("Startseite");
+		Window old = cont.login.getWindow("Startseite");
 		oldURL = old.getURL();
 		old.open(new ExternalResource(change.getURL()));
 	}

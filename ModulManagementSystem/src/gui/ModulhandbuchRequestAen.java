@@ -8,6 +8,7 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Runo;
 
+import control.Controller;
 import control.HandbookManager;
 import control.ModuleHandbook;
 
@@ -21,9 +22,11 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
 	private LinkedList<Integer> tmp2;
 	ListSelect modules;
 	TextField name;
+	LoginApplication starta;
 	
-	public ModulhandbuchRequestAen( LinkedList<Integer> ids, String[] list) {
-		
+	public ModulhandbuchRequestAen( LinkedList<Integer> ids, String[] list, Controller d) {
+		super(d);
+		 starta =cont.getStart();
 		Window test = starta.getWindow("Modul auswählen");
 		if(test != null){
 			start.removeWindow(test);	
@@ -73,7 +76,7 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
 					}
 				}
 				System.out.println("Modul-ID:" + modul);
-				HandbookManager hbm = new HandbookManager(modul);
+				HandbookManager hbm = new HandbookManager(modul, cont);
     	}
     	if(event.getButton()== back){
     		starta.getMainWindow().getApplication().close();      
@@ -83,7 +86,7 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     	}
     	if(event.getButton() == okay2){
     		String name1 =(String) name.getValue();
-    		contDek.saveHandbook(name1);
+    		cont.getcDe().saveHandbook(name1);
     	}
     }
     

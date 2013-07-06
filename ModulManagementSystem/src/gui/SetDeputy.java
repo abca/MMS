@@ -25,10 +25,12 @@ public class SetDeputy extends Startseite implements Button.ClickListener {
 	ListSelect benutzer;
 	Label label;
 	String aus;
+	LoginApplication starta;
 	
 	//übergibt Hauptwindow
-	public SetDeputy() {
-		
+	public SetDeputy(Controller d) {
+		super(d);
+		 starta =cont.getStart();
 		Window test = starta.getWindow("Stellvertreter");
 		if(test != null){
 			starta.removeWindow(test);	

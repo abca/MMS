@@ -16,6 +16,8 @@ import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Runo;
 
+import control.Controller;
+
 public class NewMessage extends Startseite implements Button.ClickListener {
 	
 	private Window newMess;  
@@ -27,9 +29,11 @@ public class NewMessage extends Startseite implements Button.ClickListener {
 	private Button okay;
 	private LinkedList<Nachricht>lis;
 	Label text;
+	LoginApplication starta;
 	
-	public NewMessage(LinkedList<Nachricht>lis){
-		
+	public NewMessage(LinkedList<Nachricht>lis, Controller d){
+		super(d);
+		 starta =cont.getStart();
 		this.lis = lis;
 		
 		Window test = starta.getWindow("Nachrichten");

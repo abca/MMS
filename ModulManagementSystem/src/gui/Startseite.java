@@ -23,22 +23,24 @@ public class Startseite implements Button.ClickListener{
 	Button changeModule, declareDeputy, messages, changes, stichtag, changeRights, viewChanges,changeBenutzer, nullButton, logout, organize, archives ;
 	private AbsoluteLayout mainLayout;
 	private int count;//Zähler für Buttons
-	public static LoginApplication starta;
-	protected static Startseite seite;
+	private LoginApplication starta;
+	protected Startseite seite;
 	
-	static int userid, rang;
-	Controller cont = new Controller(starta);
-	ControllerDozent contD = new ControllerDozent();
-	ControllerDekan contDek = new ControllerDekan();
+	private int userid, rang;
+	Controller cont;
+
 	
 	//übergibt Hauptwindow
-	public Startseite(){
+	public Startseite(Controller d){
+		cont =d;
 	}
 	
-	public Startseite (LoginApplication aa, int id, Window old){
+	
+	public Startseite (LoginApplication aa, int id, Window old,Controller con){
 		
 		starta = aa;
 		seite = this;
+		cont = con;
 		String name = cont.loadBenutzer(id).getName(); 
 		Window test = starta.getWindow("Startseite");
 		if(test != null){
@@ -91,9 +93,15 @@ public class Startseite implements Button.ClickListener{
 		logout = new Button("logout");
 		logout.addListener(this);
 		
+		cont = new Controller(starta,userid);
+		ControllerDozent	contD = new ControllerDozent(starta,userid,cont);
+		ControllerDekan contDek = new ControllerDekan(starta,userid,cont);
+		cont.setController(contD, contDek);
+		
 		mainLayout = buildMainLayout();
 		start.setContent(mainLayout);
 		old.open(new ExternalResource(start.getURL()));
+		
 	}
 
 	private AbsoluteLayout buildMainLayout() {
@@ -226,18 +234,18 @@ public class Startseite implements Button.ClickListener{
 	public void buttonClick(ClickEvent event) {
 		
 		if(event.getButton() == changeModule){
-			contD.ausgebenModulList(userid);
+			cont.getcDo().ausgebenModulList(userid);
 			//Dozent, Dekan
 		}
 		
 		if(event.getButton() == changes){
 			//Dekan
-			contDek.loadRequestlist();
+			cont.getcDe().loadRequestlist();
 		}
 		
 		if(event.getButton() == declareDeputy){
 			//Dozent, Dekan
-			SetDeputy dep = new SetDeputy();
+			SetDeputy dep = new SetDeputy(cont);
 		}
 		
 		if(event.getButton() == messages){
@@ -246,14 +254,14 @@ public class Startseite implements Button.ClickListener{
 		
 		if(event.getButton()== changeRights){
 			//Administrator
-			UserRightAdministration b = new UserRightAdministration();
+			UserRightAdministration b = new UserRightAdministration(cont);
 		}
 		
 		if(event.getButton()== viewChanges){
 			//Dekan
 		}
 		if(event.getButton()==stichtag){
-			DeadLine line = new DeadLine();
+			DeadLine line = new DeadLine(cont);
 			//Dekan
 		}
 		if(event.getButton()== logout){
@@ -262,14 +270,14 @@ public class Startseite implements Button.ClickListener{
 		}
 		if(event.getButton() == changeBenutzer){
 			Benutzer neu = cont.loadBenutzer(userid);
-			ChangeBenutzerData data = new ChangeBenutzerData(neu);
+			ChangeBenutzerData data = new ChangeBenutzerData(neu, cont);
 		}
 		if(event.getButton() == archives){
-			contDek.archivListeAusgeben();
+			cont.getcDe().archivListeAusgeben();
 		}
 		
 		if (event.getButton() == organize) {
-			contDek.requestModule();
+			cont.getcDe().requestModule();
 		}
 	}
 	

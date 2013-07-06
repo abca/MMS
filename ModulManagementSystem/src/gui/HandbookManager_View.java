@@ -17,6 +17,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Window.Notification;
 
+import control.Controller;
 import control.ModuleTable;
 import control.UnassignedModulesTable;
 import control.ModuleTree;
@@ -47,8 +48,11 @@ public class HandbookManager_View extends Startseite {
 	public ModuleTable mta;
 	public Table modules;
 	public Button add2;
+	public LoginApplication starta;
 	
-	public HandbookManager_View (int id) {
+	public HandbookManager_View (int id, Controller d) {
+		super(d);
+		starta =cont.getStart();
 		
 		mt = new ModuleTree();	
 		w = new Window("");
@@ -91,8 +95,8 @@ public class HandbookManager_View extends Startseite {
 		tablePanel12 = new Panel();
 		tablePanel12.setContent(new VerticalLayout());
 		
-		mta = new ModuleTable(userid);
-		System.out.println("User-ID:" + userid);
+		mta = new ModuleTable(cont.getUserID());
+		System.out.println("User-ID:" + cont.getUserID());
 		modules = mta.generateTable();
 		tablePanel12.addComponent(modules);
 		
