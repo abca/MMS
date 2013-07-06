@@ -31,7 +31,8 @@ public class ControllerDekan extends Controller{
 	}
 	
 	//bestätigt oder verwirft Änderung
-	public void okRequest(Modul modul, Nachricht tmp, boolean ok){		
+	public void okRequest(Modul modul, Nachricht tmp, boolean ok){	
+		
 		nachrichtenData.delete(tmp.getid());	
 		
 		if (ok){			
@@ -43,10 +44,8 @@ public class ControllerDekan extends Controller{
 			modulDatabase.saveModule(modul);		
 			modulDatabase.setSperr(modul.getid(), false);
 			Nachricht nachricht = new Nachricht(nachrichtenData.getNewId(), "Ihre Anfrage bezüglich des Moduls " +modul.gettitle()+" wurde angenommen.","Anfrage akzeptiert",modul.getdozid(), 0);
-			nachrichtenData.newNachricht(nachricht);
-			
-		}
-		else{	
+			nachrichtenData.newNachricht(nachricht);	
+		}else{	
 			modulDatabase.setSperr(modul.getid(), false);
 			Nachricht nachricht = new Nachricht(nachrichtenData.getNewId(), "Ihre Anfrage bezüglich des Moduls " +modul.gettitle()+" wurde abgelehnt.","Anfrage abgelehnt",modul.getdozid(), 0);
 			nachrichtenData.newNachricht(nachricht);
@@ -54,7 +53,6 @@ public class ControllerDekan extends Controller{
 		}
 		Window old = login.getWindow("Aenderungsantrag");
 		Startseite tmp1 = new Startseite(login, userid,old);
-
 	}
 
 	//lädt Änderung
@@ -69,22 +67,19 @@ public class ControllerDekan extends Controller{
 	public void loadRequestlist(){
 
 		LinkedList<Nachricht> list = nachrichtenData.loadBenachrichtList(userid);
-		LinkedList<Nachricht> listStell = nachrichtenData.loadBenachrichtList(blarghs.getStellID(userid));
+		LinkedList<Nachricht> listStell = nachrichtenData.loadBenachrichtList(userData.getStellID(userid));
 		LinkedList<ModulKu> list2 = new LinkedList<ModulKu>();
 		
 		for(int i = 0; i<listStell.size();i++){
 			list.add(listStell.get(i));
 		}
-		
 		for (int i =0; i<list.size(); i++){
-			
-		list2.add(modulPufferData.loadModuleKu(list.get(i).getmodule()));
-			System.out.println(list.get(i).getbeschreibung());
-			
+			list2.add(modulPufferData.loadModuleKu(list.get(i).getmodule()));
+			System.out.println(list.get(i).getbeschreibung());	
 		}
-		ChangeRequest tmp = new ChangeRequest(list, list2);
-		
+		ChangeRequest tmp = new ChangeRequest(list, list2);	
 	}
+	
 	//speichert Datum und Handbuch-PDF
 	public void saveDatum(String datumstr){
 		
@@ -98,34 +93,37 @@ public class ControllerDekan extends Controller{
 	}
 
 	public void scanHandbooks(String time) {
+		
 		String[] name = bookName.getBookNames(userid);
 		LinkedList<Integer> arr = bookName.getBookID(userid);
 		save.archive(arr, time, name, userid);
 	}
 	
 	public void setDeadline(String Deadline) {
+		
 		LinkedList<Integer> tmp = new LinkedList<Integer>(); 
 		tmp = deadlineData.newDeadlineMessage(userid);
 		for(int i = 0; i < tmp.size(); i++) {
 			int resid = tmp.get(i).intValue();
-			//System.out.println(resid);
-			Nachricht deadLine = new Nachricht(nachrichtenData.getNewId(),"Der Stichtag f�r Modul�nderungen ist am " +Deadline+".","Stichtag",resid, 0);
+			Nachricht deadLine = new Nachricht(nachrichtenData.getNewId(),"Der Stichtag für Moduländerungen ist am " +Deadline+".","Stichtag",resid, 0);
 			nachrichtenData.newNachricht(deadLine);
 		}
 	}
+	
 	public void saveHandbook(String name){
 		
-		book.newHandbook(name, userid);//nur für Mathi
-		
+		book.newHandbook(name, userid);
 	}
 
 	public void archivListeAusgeben() {
+		
 		LinkedList<Integer> ids = ar.getBookID(userid);
 		String[] liste = ar.getBookNames(userid);
 		ArchiveView archView = new ArchiveView(ids, liste);
 	}
 
 	public Link requestArchBook(int book, LoginApplication app) {
+		
 		String path = ar.getBook(book);
 		File f = new File(path);
 		FileResource fr = new FileResource(f, app);

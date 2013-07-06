@@ -21,11 +21,8 @@ import data.ModulPufferData;
 import data.NachrichtData;
 import data.DeadLineData;
 
-
-
 public class Controller {
 	
-	//test
 	protected ModulDatabase modulDatabase = new ModulDatabase();
 	protected ModulPufferData modulPufferData = new ModulPufferData();
 	protected NachrichtData nachrichtenData = new NachrichtData();
@@ -35,24 +32,23 @@ public class Controller {
 	protected static int userid ;
 	protected static LoginApplication login;
 	
-	BenutzerData blarghs = new BenutzerData();
+	BenutzerData userData = new BenutzerData();
+	
 	//Konstruktor
-	public Controller (){
-		
-		
+	public Controller (){	
 	}
+	
 	public Controller(LoginApplication tmp){
-	login = tmp;
+	
+		login = tmp;
 	}
 	
 	//Zugriff auf Datenbank-Klasse, holt sich Benutzerliste
 	public String[] benutzerListeAusgeben(){
 		
 		String[] liste;
-		liste = blarghs.getBenutzerListe();
-		return liste;
-		
-		
+		liste = userData.getBenutzerListe();
+		return liste;	
 	}
 	
 	//liest anhand der Benutzernamen (bzw. deren IDs über getID(Name) in einer Instanz der Benutzer-Klasse die Ränge aus
@@ -60,97 +56,80 @@ public class Controller {
 		
 		String rangname = "";
 		int Id;
-		Id = blarghs.getID(Name);
+		Id = userData.getID(Name);
 		
-		//if(blarghs.getRangDozent(Id) && blarghs.getRangDekan(Id) && blarghs.getRangDez2(Id)){rangname="[Dozent, Dekan, Dezernat 2]"; return rangname;}
-		if(blarghs.getRangDozent(Id) && blarghs.getRangDekan(Id)){rangname="[Dozent, Dekan]"; return rangname;}
-		//if(blarghs.getRangDozent(Id) && blarghs.getRangDez2(Id)){rangname="[Dozent, Dezernat 2]"; return rangname;}
-		//if(blarghs.getRangDekan(Id) && blarghs.getRangDez2(Id)){rangname="[Dekan, Dezernat 2]"; return rangname;}
-		if(blarghs.getRangDozent(Id)){rangname="Dozent"; return rangname;}
-		if(blarghs.getRangDekan(Id)){rangname="Dekan"; return rangname;}
-		//if (blarghs.getRangDez2(Id)){rangname="Dezernat 2"; return rangname;}
-		return rangname;
-		
+		if(userData.getRangDozent(Id) && userData.getRangDekan(Id)){rangname="[Dozent, Dekan]"; return rangname;}
+		if(userData.getRangDozent(Id)){rangname="Dozent"; return rangname;}
+		if(userData.getRangDekan(Id)){rangname="Dekan"; return rangname;}
+
+		return rangname;	
 	}
 	
 	//liefert aus Benutzer id zu name
 	public int getID(String name){
-		return blarghs.getID(name);
+		
+		return userData.getID(name);
 	}
 	
 	//gibt an, ob ein User bereits Stellvertreter ist
 	public boolean getStell(int id){
-		return blarghs.getRangStell(id);
+		
+		return userData.getRangStell(id);
 	}
 	
 	//gibt an, ob der User idStell Stellvertreter von User userid ist
 	public  boolean getMyStell(int idStell){
-		return (blarghs.getRangStell(idStell)
-				&&blarghs.getStellID(idStell)==userid);
+		
+		return (userData.getRangStell(idStell)
+				&&userData.getStellID(idStell)==userid);
 	}
 	
 	//gibt an, ob ein User Rechte hat, auch über Stellvertreter
 	public boolean getAdmin(int id){
-		if(blarghs.getRangAdmin(id))return true;
-		else if(blarghs.getStellAdmin(id))return true;
+		
+		if(userData.getRangAdmin(id))return true;
+		else if(userData.getStellAdmin(id))return true;
 		else return false;
 	}
 		
 	public boolean getDozent(int id){
-		if(blarghs.getRangDozent(id))return true;
-		else if(blarghs.getStellDozent(id))return true;
+		
+		if(userData.getRangDozent(id))return true;
+		else if(userData.getStellDozent(id))return true;
 		else return false;
 	}
 		
 	public boolean getDekan(int id){
-		if(blarghs.getRangDekan(id))return true;
-		else if(blarghs.getStellDekan(id))return true;
+		
+		if(userData.getRangDekan(id))return true;
+		else if(userData.getStellDekan(id))return true;
 		else return false;
 	}
-		
-	/*public boolean getDez2(int id){
-		if(blarghs.getRangDez2(id))return true;
-		else if(blarghs.getStellDez2(id))return true;
-		else return false;
-	}*/
 	
 	//gibt neuen Rang an Datenbankklasse weiter, um diesen zu speichern
 	public void aenderungSpeichern(String Name, String Rang){
 		
 		int Id;
-		Id = blarghs.getID(Name);
-		blarghs.setRangDozent(Id, Rang.contains("Dozent"));
-		blarghs.setRangDekan(Id, Rang.contains("Dekan"));		
-		//blarghs.setRangDez2(Id, Rang.contains("Dezernat 2"));
-		/*if (Rang.equals("[Dekan, Dozent]")||Rang.equals("[Dozent, Dekan]")){blarghs.setRangDozent(Id, true); blarghs.setRangDekan(Id, true); blarghs.setRangDez2(Id, false);}				//mehrere M�glichkeiten, da Reihenfolge im String nicht festgelegt
-		if (Rang.equals("[Dozent, Dezernat 2]")||Rang.equals("[Dezernat 2, Dozent]")){blarghs.setRangDozent(Id, true); blarghs.setRangDez2(Id, true); blarghs.setRangDekan(Id, false);}
-		if (Rang.equals("[Dekan, Dezernat 2]")||Rang.equals("[Dezernat 2, Dekan]")){blarghs.setRangDekan(Id, true); blarghs.setRangDez2(Id, true); blarghs.setRangDozent(Id, false);}
-		if (Rang.equals("[Dozent]")){blarghs.setRangDozent(Id, true); blarghs.setRangDekan(Id, false); blarghs.setRangDez2(Id, false);}
-		if (Rang.equals("[Dekan]")){blarghs.setRangDekan(Id, true); blarghs.setRangDez2(Id, false); blarghs.setRangDozent(Id, false);}
-		if (Rang.equals("[Dezernat 2]")){blarghs.setRangDez2(Id, true); blarghs.setRangDozent(Id, false); blarghs.setRangDekan(Id, false);}*/
+		Id = userData.getID(Name);
+		userData.setRangDozent(Id, Rang.contains("Dozent"));
+		userData.setRangDekan(Id, Rang.contains("Dekan"));		
 		Window old = login.getWindow("adminWindow");
 		Startseite tmp1 = new Startseite(login, userid,old);
-		
 	}
 	
 	//gibt Username und Passwort an Benutzer-Klasse weiter zur Verifizierung, wenn verifiziert werden angegebene Aktionen ausgeführt
 	public void login(String us, String pw, LoginApplication b) {
 		
-	if( blarghs.loginCheck(us,pw) == true){
-		
-		//UserRightAdministration test = new UserRightAdministration(b);
-		userid = blarghs.getID(us);
+		if( userData.loginCheck(us,pw) == true){
+		userid = userData.getID(us);
 		Window old = login.getWindow("main");
 		Startseite aa = new Startseite(b, userid, old);
-		
-		
-
-	}else {
-		b.displayError();
+		}else {
+			b.displayError();
 		}
 	}
 	
-	//übernimmt eingegebene Benutzerdaten, erg�nzt Booleans f�r den Rang und ruft Methode zur Generierung einer neuen ID auf
+	//übernimmt eingegebene Benutzerdaten, ergänzt Booleans für den Rang und ruft Methode zur Generierung einer neuen ID auf
 	public void register(String us, String em, String p1) {
 		
 		boolean dozent = false;
@@ -159,10 +138,10 @@ public class Controller {
 		boolean admin = false;
 		boolean stell = false;
 		int stellid = 0;
-		int id = blarghs.getNewId();
+		int id = userData.getNewId();
 		
-		Benutzer test = new Benutzer(id, us, em, p1, dozent, dekan, /*dez2,*/ admin, stell, stellid);
-		blarghs.newUser(test);
+		Benutzer test = new Benutzer(id, us, em, p1, dozent, dekan, admin, stell, stellid);
+		userData.newUser(test);
 	}
 
 	//ruft Datenbankzugriffe für Modulhandbuchnamen und -ids auf, übergibt Loginapplication
@@ -174,26 +153,26 @@ public class Controller {
 	}
 
 	public void setDep (String StellName,boolean bool){
-		int ID = blarghs.getID(StellName);
+		
+		int ID = userData.getID(StellName);
 		if(bool){			
-			blarghs.setRangStell(ID, true);
-			blarghs.setStellID(ID, userid);
+			userData.setRangStell(ID, true);
+			userData.setStellID(ID, userid);
+		}else {
+			userData.setRangStell(ID,false);
+			userData.setStellID(ID, 0);
 		}
-		else {
-			blarghs.setRangStell(ID,false);
-			blarghs.setStellID(ID, 0);
-		}
-		/*if(blarghs.getRangDozent(userid)) { blarghs.setRangDozent(ID, true); }
-		if(blarghs.getRangDekan(userid)) { blarghs.setRangDekan(ID, true); }
-		if(blarghs.getRangDez2(userid)) { blarghs.setRangDez2(ID, true); }
-		if(blarghs.getRangAdmin(userid)) { blarghs.setRangAdmin(ID, true); }*/
 	}
+	
 	public void changeBenutzer(Benutzer neu){		
-		blarghs.deleteUser(neu.getId());
-		blarghs.newUser(neu);		
+		
+		userData.deleteUser(neu.getId());
+		userData.newUser(neu);		
 	}
+	
 	public Benutzer loadBenutzer(int userid1){
-		Benutzer tmp = blarghs.loadBenutzer(userid1);
+		
+		Benutzer tmp = userData.loadBenutzer(userid1);
 		return tmp;
 	}
 	
@@ -204,16 +183,19 @@ public class Controller {
 	}
 	
 	public boolean doesNameExist(String name){
-		String[] liste = blarghs.getBenutzerListe();
+		
+		String[] liste = userData.getBenutzerListe();
 		for (int i = 0;i<liste.length;i++){
 			if(liste[i].equals(name))return true;
 		}
 		return false;
 	} 
 	
-	public boolean doesModuleNameExist(String name){		
+	public boolean doesModuleNameExist(String name){
+		
 		LinkedList<ModulKu> list = modulDatabase.loadWholeModuleList();
 		LinkedList<ModulKu> list2 = modulPufferData.loadBufferModuleList();
+		
 		for(int i=0;i<list.size();i++)
 			if(list.get(i).gettitle().equals(name)) return true;
 		for(int i=0;i<list2.size();i++)
@@ -222,8 +204,10 @@ public class Controller {
 	}
 	
 	public void deleteUser(String name){
-		blarghs.deleteUser(blarghs.getID(name));
+		
+		userData.deleteUser(userData.getID(name));
 	}
+	
 	public boolean deleteMessage(int messid){
 		boolean delete = nachrichtenData.delete(messid);
 		return delete;

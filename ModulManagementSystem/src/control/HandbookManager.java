@@ -43,11 +43,11 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 		gui.unassignedModules.addListener(this);
 		gui.modules.addListener(this);
 		gui.add1.addListener(this);
-		gui.add2.addListener(this);
-		
+		gui.add2.addListener(this);	
 	}
 	
 	public void buttonClick(ClickEvent e) {
+		
 		//Hinzufügen eines neuen Fachs
 		if (e.getSource() == gui.addFach) {
 			String s = (String) gui.fachname.getValue();
@@ -55,17 +55,13 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 			String[] splittedString = s.split(" ");
 			//Erzeuge neues Fach, lade Tree bzw. Window neu
 			//gui.moduletree = gui.mt.generateModuleTree(id);
-			data.newFach(selectedId, s);
-						
+			data.newFach(selectedId, s);				
 		}
 		if (e.getSource() == gui.add1) {
-			
 			String s = selectedUnassignedModule;			
 			String[] splittedString = s.split(" ");
 			int fid = Integer.parseInt(splittedString[0]);
-			System.out.println("Modul zugeordnet: " + data.moveNewModule(selectedId, fid));
-			
-			
+			System.out.println("Modul zugeordnet: " + data.moveNewModule(selectedId, fid));	
 		}
 		if (e.getSource() == gui.add2) {
 			String s = selectedModule;
@@ -77,18 +73,13 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 			//Löschen eines Faches
 			System.out.println("Löschvorgang durchgeführt: " + data.deleteFachOrModul(selectedId));
 		}
-	/*	// TODO Refresh noch ausbessern
-			try {
-				data.con.close();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}*/
-			gui.starta.removeWindow(gui.w);
-			HandbookManager t = new HandbookManager(id);		
+		// TODO Refresh noch ausbessern
+		gui.starta.removeWindow(gui.w);
+		HandbookManager t = new HandbookManager(id);		
 	}
 	
-	
 	public void itemClick(ItemClickEvent e) {
+		
 		//Tree
 		if (e.getSource() == gui.moduletree &&
 				e.getButton() == ItemClickEvent.BUTTON_LEFT) {
@@ -96,14 +87,11 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 			//möglich
 			if (gui.moduletree.hasChildren(e.getItemId())) {
 				gui.delete.setEnabled(false);
-			} else {
+			}else{
 				gui.delete.setEnabled(true);
 			}
-			
 			String[] splittedString = ((String) e.getItemId()).split(" ");
-			//String[] splittedString = (e.getItem().getItemProperty("caption").toString()).split(" ");
 			if (Integer.parseInt(splittedString[0]) % 3 != 0) {
-				System.out.println("Dies ist ein Fach.");
 				//Speichere die ID des im Baum ausgewählten Elementes
 				selectedId = Integer.parseInt(splittedString[0]);
 				gui.addFach.setEnabled(true);
@@ -115,7 +103,7 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 				if (gui.modules.getValue() != null) {
 					gui.add2.setEnabled(true);
 				}
-			} else {
+			}else{
 				System.out.println("Dies ist ein Modul.");
 				selectedId = Integer.parseInt(splittedString[0]);
 				gui.addFach.setEnabled(false);
@@ -123,35 +111,27 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 				
 				gui.add1.setEnabled(false);
 				gui.add2.setEnabled(false);
-				
-	
 			}
 			gui.choice.setValue("Ausgewähltes Element: Fach " + splittedString[2]);
 			
 			//Table
-		} else if (e.getSource() == gui.unassignedModules) {
+		}else if (e.getSource() == gui.unassignedModules){
 			selectedUnassignedModule = e.getItem().toString();
 			System.out.println(selectedUnassignedModule);
-			//if (gui.fachname2.isEnabled() == true && gui.modules.getValue() != null) {}
-			if (gui.fachname.isEnabled() == true) {
+
+			if (gui.fachname.isEnabled() == true){
 				gui.add1.setEnabled(true);
-			} else {
+			}else{
 				gui.add1.setEnabled(false);
 			}
-		} else if (e.getSource() == gui.modules) {
+		}else if (e.getSource() == gui.modules){
 			selectedModule = e.getItem().toString();
 			System.out.println(selectedModule);
 			if (gui.fachname.isEnabled() == true) {
 				gui.add2.setEnabled(true);
-			} else {
+			}else{
 				gui.add2.setEnabled(false);
 			}
-		}
-		
+		}	
 	}
-	
-	
-
-
-
 }

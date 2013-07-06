@@ -13,62 +13,50 @@ import objects.Modul;
 import objects.ModulKu;
 import objects.Nachricht;
 
-
-
 public class ControllerDozent extends Controller{
 
 	//öffnet Datensatz zum Bearbeiten in neuem Fenster
 	public void ändernModul(int modul, ModulReview tmp ){
+		
 		int uid=userid;
-		if(getStell(userid)&&!blarghs.getRangDozent(userid)&&!blarghs.getRangDekan(userid))
-			uid=blarghs.getStellID(userid);
+		if(getStell(userid)&&!userData.getRangDozent(userid)&&!userData.getRangDekan(userid))
+			uid=userData.getStellID(userid);
 		if (modul == 0){
 		Modul neu = new Modul(modulDatabase.getNewId(),  null, 0, null,
 				 null, 0, null, uid , 
 				 null, null, null,
 				 null, null,null, null,
 				 null, null, null, null);
-		
 		ModulEditCreate b = new ModulEditCreate(neu,true);		
-		}else {
-			
+		}else{
 		Modul test = modulDatabase.loadModule(modul);			
 		if(modulDatabase.getSperr(test.getid())== true){
 			tmp.displayError("Das Modul wurde bereits geändert. Warten Sie bitte auf eine Bestätigung");		
-			 
-		 } else {
-
+			}else{
 			 ModulEditCreate gg = new ModulEditCreate(test,false);
-		 }
-		}
-		
+			}
+		}	
 	}
 	
 	//gibt Änderungsantrag aus
 	public void ausgebenModulList(int userid){
+		
 		LinkedList<ModulKu> list = modulDatabase.loadModuleList(userid);
-		if (blarghs.getRangStell(userid)){
-			LinkedList<ModulKu> stellList = modulDatabase.loadModuleList(blarghs.getStellID(userid));
+		if (userData.getRangStell(userid)){
+			LinkedList<ModulKu> stellList = modulDatabase.loadModuleList(userData.getStellID(userid));
 			for(int i=0;i<stellList.size();i++)list.add(stellList.get(i));
 		}	
-		
-		ModulReview a = new ModulReview(list);
-		
+		ModulReview a = new ModulReview(list);	
 	}
-	
-	/*public void showMessages(LoginApplication aa){
-		//Annahme: Messaging ist GUI-Klasse
-		Messaging m = new Messaging(aa);
-	}*/
 	
 	//Methode zum Speichern des Moduls im Puffer
 	public void speichernModul(Modul modul){
+		
 		modulPufferData.writeBufferModule(modul);
 	    modulDatabase.setSperr(modul.getid(), true);
 
 		Nachricht test = new Nachricht(nachrichtenData.getNewId(),"", "",modul.getresponsibleid(), modul.getid());
 		nachrichtenData.newNachricht(test);
-		//nachrichtenData.newBenachrichtigung(modul);
 		
 		Window old = login.getWindow("Modulaendern");
 		Startseite tmp = new Startseite(login, userid,old);
