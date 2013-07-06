@@ -1,7 +1,6 @@
 package objects;
 
 public class Modul extends ModulKu {
-	
 
 	private int lp;
 	private String language;
@@ -27,6 +26,7 @@ public class Modul extends ModulKu {
 				 String condoz, String confiling, String conrequirements,
 				 String conaims, String concontent, String conlit, String conevents,
 				 String conwork, String conexams, String conformcond, String congrades){
+		
 		super(conid,contitle);
 		lp = conlp;
 		language = conlanguage;
@@ -47,8 +47,6 @@ public class Modul extends ModulKu {
 		grades = congrades;
 	}
 	
-
-	
 	public int getlp(){
 		return lp;
 	}
@@ -68,11 +66,11 @@ public class Modul extends ModulKu {
 	public String getresponsible(){
 		return responsible;
 	}
+	
 	public int getdozid(){
-		
-	return dozid;	
-		
+		return dozid;	
 	}
+	
 	public String getdoz(){
 		return doz;
 	}
@@ -116,5 +114,4 @@ public class Modul extends ModulKu {
 	public String getgrades(){
 		return grades;
 	}
-	
 }

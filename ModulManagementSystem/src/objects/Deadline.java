@@ -6,9 +6,8 @@ public class Deadline {
 	private String datum;
 	private String pdf;   
 	
-	
-	
 	public Deadline(int id, String datum, String pdf){
+		
 		this.id = id;
 		this.datum = datum;
 		this.pdf = pdf;
@@ -23,5 +22,4 @@ public class Deadline {
 	public String getpdf(){	
 		return pdf;
 	} 
-	
 }

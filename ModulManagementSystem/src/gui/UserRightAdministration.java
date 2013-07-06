@@ -22,28 +22,21 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 	private URL oldURL;
 	private Label label;
 	OptionGroup group;
-	Window auswahlW, admin;   //, errW;
-	//private VerticalLayout vertical;
+	Window auswahlW, admin;   
 	private AbsoluteLayout mainLayout;
 	ListSelect benutzer;
 	String aus;
 	
 	//übergibt Hauptwindow
 	public UserRightAdministration() {
+		
 		Window test = starta.getWindow("adminWindow");
 		if(test != null){
 			starta.removeWindow(test);	
 		}
-		
 		admin = new Window("");
 	    admin.setName("adminWindow");
-	    
 	    starta.addWindow(admin);		//aktuelles window wird zum Hauptwindow geaddet
-	   
-		/*Label label = new Label("Modul Managment System");
-		vertical = new VerticalLayout ();	    
-		vertical.addComponent(label);
-		admin.addComponent(label);*/
 	    
 		openBenutzerListe(cont.benutzerListeAusgeben());
 		
@@ -53,11 +46,7 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 		Window old = starta.getWindow("Startseite");
 		oldURL = old.getURL();
 		old.open(new ExternalResource(admin.getURL()));
-		//starta.removeWindow(old);	
-
 	}
-	
-
 
 	//öffnet Fenster in dem Ränge verteilt werden
 	public void openRangWindow(String Rang){
@@ -73,39 +62,16 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 		
 		group.addItem("Dozent");
 		group.addItem("Dekan");
-		//group.addItem("Dezernat 2");
 		if (Rang == "Benutzer" ){
 			//kein Rang verteilt
 		}
 		else{
 			if(Rang.contains("Dozent")) group.select("Dozent");
 			if(Rang.contains("Dekan")) group.select("Dekan");
-			//if(Rang.contains("Dezernat 2")) group.select("Dezernat 2");
 		}
-			/*if(Rang == "[Dozent, Dekan]"){
-				group.select("Dekan");
-				group.select("Dozent");
-			}
-			else{
-				if (Rang.equals("[Dekan, Dezernat 2]" )){
-					group.select("Dekan");
-					group.select("Dezernat 2");	
-				
-					}else{if (Rang.equals("[Dozent, Dezernat 2]")){
-							group.select("Dozent");
-							group.select("Dezernat 2");	
-				
-							} else{
-			
-								group.select(Rang);
-							}
-			}
-		}*/
-		
 		lay.addComponent(group);
 		speichern = new Button ("speichern");
 		speichern.addListener(this);	
-		
 		lay.addComponent(speichern);
 		admin.addWindow(auswahlW);	
 	}
@@ -124,9 +90,7 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 				cont.deleteUser(benutzer.getValue().toString());
 				benutzer.removeItem(benutzer.getValue().toString());
 			}
-			
 		}
-		
 		if(event.getButton() == aendern){
 			try {
 				aus = benutzer.getValue().toString();
@@ -143,11 +107,6 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 				openRangWindow(blub);
 			}
 		}
-		
-		/*if(event.getButton() == okay){
-			admin.removeWindow(errW);
-		}*/
-		
 		if(event.getButton() == logout){
 			starta.getMainWindow().getApplication().close();
 		}
@@ -173,30 +132,17 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 			benutzer.addItem(liste[i]);			//geht durch Liste durch und addet Benutzer
 		}
 		
-		benutzer.setNullSelectionAllowed(false);	//leere Auswahl ist nicht erlaubt
-		/*aendern = new Button("Ändern"); 
-		aendern.addListener(this);
-		vertical.addComponent(benutzer);
-		vertical.addComponent(aendern);*/				
+		benutzer.setNullSelectionAllowed(false);	//leere Auswahl ist nicht erlaubt				
 	}
 	
 	//Fehlerfenster falls keinUser ausgewählt wurde
-	public void selectError() {      
+	public void selectError() {     
+		
 		InfoWindow errW = new InfoWindow("Fehler","Wählen Sie bitte einen Nutzer aus",admin);
-		/*errW = new Window("Fehler");
-	    okay = new Button("Ok");
-	    Label wrong = new Label("Wählen Sie bitte einen Nutzer aus.");
-	    Layout error = new VerticalLayout();	
-	    errW.setContent(error);
-	    errW.addComponent(wrong);
-	    errW.addComponent(okay);
-	    admin.addWindow(errW);
-	    errW.setHeight("200px");
-	    errW.setWidth("200px");
-	    okay.addListener(this);*/
 	}
 	
 	private AbsoluteLayout buildMainLayout() {
+		
 		// common part: create layout
 		mainLayout = new AbsoluteLayout();
 		mainLayout.setImmediate(false);

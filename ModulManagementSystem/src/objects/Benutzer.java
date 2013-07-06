@@ -7,13 +7,12 @@ public class Benutzer {
 	private String pw;
 	private boolean dozent; 
 	private boolean dekan;
-	//private boolean dez2;
 	private boolean admin;
 	private boolean stell;
 	private int stellid;
 	
 	public Benutzer(int ID, String Name, String Email, String Pw, boolean Dozent,
-						boolean Dekan, /*boolean Dez2,*/ boolean Admin, boolean Stell,int Stellid ){
+						boolean Dekan, boolean Admin, boolean Stell,int Stellid ){
 		
 		id =ID;
 		name= Name; 
@@ -21,14 +20,9 @@ public class Benutzer {
 		pw = Pw;
 		dozent = Dozent;
 		dekan = Dekan;
-		//dez2= Dez2;
 		admin = Admin;
 		stell = Stell;
 		stellid = Stellid;
-		
-		
-		
-		
 	}
 	public int getId() {
 		return id;
@@ -48,9 +42,6 @@ public class Benutzer {
 	public boolean isDekan() {
 		return dekan;
 	}
-	/*public boolean isDez2() {
-		return dez2;
-	}*/
 	public boolean isAdmin() {
 		return admin;
 	}
@@ -60,6 +51,4 @@ public class Benutzer {
 	public int getStellid() {
 		return stellid;
 	}
-	
-
 }

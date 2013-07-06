@@ -15,7 +15,7 @@ public class Nachricht {
 		this.benutzer = benutzer;
 		this.module = module; 
 		this.Betreff = betreff;
-		}
+	}
 
 	public int getid(){
 		return id;	
@@ -30,7 +30,6 @@ public class Nachricht {
 		return benutzer;
 	} 
 	public int getmodule(){
-		
 		return module;
 	}
 }
