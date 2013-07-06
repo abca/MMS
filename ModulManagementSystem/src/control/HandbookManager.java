@@ -55,7 +55,7 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 			String[] splittedString = s.split(" ");
 			//Erzeuge neues Fach, lade Tree bzw. Window neu
 			//gui.moduletree = gui.mt.generateModuleTree(id);
-			data.newFach(selectedId, s);				
+			data.newFach(selectedId, s);			
 		}
 		if (e.getSource() == gui.add1) {
 			String s = selectedUnassignedModule;			

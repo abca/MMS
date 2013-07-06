@@ -66,30 +66,30 @@ public class ModuleTree {
 		for (int i = 0; i < nextFach.size(); i++) {
 			fachname = m.getFachname(nextFach.get(i).intValue());
 			element = nextFach.get(i).intValue() + " - " + fachname;
-			int number = nextFach.get(i).intValue();
+			//int number = nextFach.get(i).intValue();
 			
-			Object itemId = tree.addItem(fachname);
-			tree.setItemCaption(itemId, String.valueOf(number));
-			System.out.println("Fachname: "+fachname+", Caption: " +String.valueOf(nextFach.get(i).intValue()));
-			
-				if (parent != null) {
-				tree.setParent(itemId, parent);
-				}
-			createTree(nextFach.get(i).intValue(), fachname);
-		}	
+			//Object itemId = tree.addItem(fachname);
+			tree.addItem(element);
+			if (parent != null) {
+				tree.setParent(element, parent);
+			}
+			createTree(nextFach.get(i).intValue(), element);
+		}
+		
 		for (int i = 0; i < module.size(); i++) {
 			modulname = m.getModulname(module.get(i).intValue());
 			element = module.get(i).intValue() + " - " + modulname;
-			int number = nextFach.get(i).intValue();
+			//int number = nextFach.get(i).intValue();
 			
-			Object itemId = tree.addItem(modulname);
-			tree.setItemCaption(itemId, String.valueOf(number));
+			//Object itemId = tree.addItem(modulname);
+			tree.addItem(element);
+			//tree.setItemCaption(itemId, String.valueOf(number));
 			System.out.println("Modulname: "+fachname+", Caption: " +String.valueOf(nextFach.get(i).intValue()));
 			
 			if (parent != null) {
-				tree.setParent(itemId, parent);
+				tree.setParent(element, parent);
 			}
-			tree.setChildrenAllowed(itemId, false);
+			tree.setChildrenAllowed(element, false);
 		}
 	}
 	
