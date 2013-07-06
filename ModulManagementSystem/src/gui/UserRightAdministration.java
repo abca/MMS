@@ -85,7 +85,10 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 			cont.aenderungSpeichern(aus, ausw);		//Methode in Controller-Klasse
 		}
 		if (event.getButton() == deleteUser){
+			InfoWindow info;
 			if(benutzer.getValue()==null)selectError();
+			else if(cont.getID((String)benutzer.getValue())==userid)
+				info = new InfoWindow("Fehler","Sie können sich nicht selbst löschen",admin);
 			else{
 				cont.deleteUser(benutzer.getValue().toString());
 				benutzer.removeItem(benutzer.getValue().toString());
@@ -128,8 +131,8 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 		benutzer = new ListSelect();
 		
 		for(int i = 0; i < liste.length; i++){
-			
-			benutzer.addItem(liste[i]);			//geht durch Liste durch und addet Benutzer
+				benutzer.addItem(liste[i]);			//geht durch Liste durch und addet Benutzer
+				
 		}
 		
 		benutzer.setNullSelectionAllowed(false);	//leere Auswahl ist nicht erlaubt				
