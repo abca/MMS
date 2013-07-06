@@ -17,16 +17,12 @@ public class SaveHandbook extends Controller {
 	public void archive(LinkedList<Integer> arr, String time, String[] name, int userid){
 		
 		for(int i=0; i<arr.size(); i++){
-			
 			int local = arr.get(i);
 			FileResource file = tmp.generatePDF(local, login);
 			File f = file.getSourceFile();
 			String path = f.getAbsolutePath();
 			String locname = name[i];
 			ar.saveFile(local, path, time, locname, userid);
-
 		}
-		
 	}
-
 }

@@ -17,6 +17,7 @@ public class ModuleTable {
 	int dekId;
 	
 	public ModuleTable(int _dekId) {
+		
 		dekId = _dekId;
 	}
 	
@@ -25,7 +26,6 @@ public class ModuleTable {
 		m = new ModulDatabase();
 		
 		modules = new Table("Bereits zugeordnete Module");
-		//modules.setSizeFull();
 		modules.setSelectable(true);
 		modules.setMultiSelect(false);
 		modules.setPageLength(10);
@@ -35,7 +35,6 @@ public class ModuleTable {
 		modules.addContainerProperty("Titel", String.class, null);
 		
 		//TODO Noch nicht zugeordnete Module einlesen
-		//modules.addItem(new Object[] {new Integer(45), "Test"}, new Integer(1));
 		
 		//Trage alle nicht zugeordneten Module in die Tabelle ein
 		LinkedList<ModulKu> list = m.loadModuleListDek(dekId);
@@ -43,10 +42,6 @@ public class ModuleTable {
 			int x = list.get(i).getid();
 			modules.addItem(new Object[] {new Integer(x), m.getModulname(x)}, new Integer(i+1));
 		}
-		
-		
-		
-		
 		return modules;
 	}
 	
@@ -55,5 +50,4 @@ public class ModuleTable {
 	public static void main(String[] args) {
 
 	}
-
 }
