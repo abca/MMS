@@ -30,6 +30,7 @@ public class BenutzerData extends KillConnections {
 	private static final String SETSTELLID = "UPDATE benutzer SET stellid=? WHERE id=?";
 	private static final String DELETEU ="DELETE FROM benutzer WHERE id=? "; 
 	private static final String LOADBENUTZER = "SELECT * FROM benutzer WHERE id=?";
+	
 	//Konstruktor, baut Connection zur MySQL-Datenbank auf
 	public BenutzerData(){
 		
@@ -38,7 +39,6 @@ public class BenutzerData extends KillConnections {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 		try {
 			con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost/MMS", "root", "root");
 		} catch (SQLException e) {
@@ -52,7 +52,7 @@ public class BenutzerData extends KillConnections {
 		LinkedList<String> tmp = new LinkedList<String>();
 		PreparedStatement psmt = null;
 		ResultSet data = null;
-
+		
 		try {
 			con.setAutoCommit(false);
 
@@ -64,15 +64,13 @@ public class BenutzerData extends KillConnections {
 				String name = data.getString("name");
 				tmp.add(name);
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			closeConnections(data, psmt);
-		}
-		
+		}	
 		String[] liste = tmp.toArray(new String[0]);
 		return liste;
 	}
@@ -86,7 +84,6 @@ public class BenutzerData extends KillConnections {
 		ResultSet data = null;
 
 		try {
-
 			con.setAutoCommit(false);
 
 			psmt = con.prepareStatement(GETRANG);
@@ -103,7 +100,6 @@ public class BenutzerData extends KillConnections {
 		} finally {
 			closeConnections(data, psmt);
 		}
-		
 		return rang;		
 	}
 	
@@ -116,7 +112,6 @@ public class BenutzerData extends KillConnections {
 		ResultSet data = null;
 
 		try {
-
 			con.setAutoCommit(false);
 
 			psmt = con.prepareStatement(GETRANG);
@@ -133,40 +128,9 @@ public class BenutzerData extends KillConnections {
 		} finally {
 			closeConnections(data, psmt);
 		}
-		
 		return rang;		
 	}
 	
-	//holt sich den Boolean aus der dez2-Spalte
-	/*public boolean getRangDez2(int Id){
-	
-	boolean rang = false;
-	
-	PreparedStatement psmt = null;
-	ResultSet data = null;
-
-	try {
-
-		con.setAutoCommit(false);
-
-		psmt = con.prepareStatement(GETRANG);
-		psmt.setInt(1, Id);
-
-		data = psmt.executeQuery();
-		data.next();
-		rang = data.getBoolean("dez2");
-
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} catch (Exception e) {
-		e.printStackTrace();
-	} finally {
-		closeConnections(data, psmt);
-	}
-	
-	return rang;		
-}*/
-
 	//holt sich den Boolean aus der Admin-Spalte
 	public boolean getRangAdmin(int Id){
 	
@@ -193,7 +157,6 @@ public class BenutzerData extends KillConnections {
 	} finally {
 		closeConnections(data, psmt);
 	}
-	
 	return rang;		
 }
 
@@ -206,7 +169,6 @@ public class BenutzerData extends KillConnections {
 	ResultSet data = null;
 
 	try {
-
 		con.setAutoCommit(false);
 
 		psmt = con.prepareStatement(GETRANG);
@@ -223,12 +185,12 @@ public class BenutzerData extends KillConnections {
 	} finally {
 		closeConnections(data, psmt);
 	}
-	
 	return rang;		
 }
 	
 	//ist user admin bzw. dessen stellvertreter?
 	public boolean getStellAdmin(int Id){
+		
 		if(!getRangStell(Id)) return false;
 		else if (getRangAdmin(getStellID(Id)))return true;
 		else return false;
@@ -236,6 +198,7 @@ public class BenutzerData extends KillConnections {
 		
 	//ist user dozent bzw. dessen stellvertreter?
 	public boolean getStellDozent(int Id){
+		
 		if(!getRangStell(Id)) return false;
 		else if (getRangDozent(getStellID(Id)))return true;
 		else return false;
@@ -243,17 +206,11 @@ public class BenutzerData extends KillConnections {
 		
 	//ist user dekan bzw. dessen stellvertreter?
 	public boolean getStellDekan(int Id){
+		
 		if(!getRangStell(Id)) return false;
 		else if (getRangDekan(getStellID(Id)))return true;
 		else return false;
 	}
-		
-	//ist user dezernat2 bzw. dessen stellvertreter?
-	/*public boolean getStellDez2(int Id){
-		if(!getRangStell(Id)) return false;
-		else if (getRangDez2(getStellID(Id)))return true;
-		else return false;
-	}*/
 	
 	//holt sich die zum Username passende ID aus der Datenbank
 	public int getID(String Name){
@@ -264,15 +221,12 @@ public class BenutzerData extends KillConnections {
 		ResultSet data = null;
 
 		try {
-
 			con.setAutoCommit(false);
 
 			psmt = con.prepareStatement(GETID);
-			
 			psmt.setString(1, Name);
 
 			data = psmt.executeQuery();
-
 			data.next();
 			id = data.getInt("id");
 
@@ -283,7 +237,6 @@ public class BenutzerData extends KillConnections {
 		} finally {
 			closeConnections(data, psmt);
 		}
-		
 		return id;
 	}
 	
@@ -296,15 +249,12 @@ public class BenutzerData extends KillConnections {
 		ResultSet data = null;
 
 		try {
-
 			con.setAutoCommit(false);
 
-			psmt = con.prepareStatement(GETSTELLID);
-				
+			psmt = con.prepareStatement(GETSTELLID);	
 			psmt.setInt(1, id);
 
 			data = psmt.executeQuery();
-
 			data.next();
 			stellid = data.getInt("stellid");
 
@@ -315,7 +265,6 @@ public class BenutzerData extends KillConnections {
 		} finally {
 			closeConnections(data, psmt);
 		}
-			
 		return stellid;
 	}
 	
@@ -325,14 +274,11 @@ public class BenutzerData extends KillConnections {
 		PreparedStatement psmt = null;
 
 		try {
-
 			con.setAutoCommit(false);
 			
 			psmt = con.prepareStatement(SETRANGDEKAN);
-			
 			psmt.setBoolean(1, Rang);
 			psmt.setInt(2, Id);
-
 			psmt.executeUpdate();
 			con.commit();
 		} catch (SQLException e) {
@@ -342,7 +288,6 @@ public class BenutzerData extends KillConnections {
 		} finally {
 			closeConnections(null, psmt);
 		}
-		
 	}
 
 	//schreibt neuen Dozenten-Rang zu passender ID
@@ -351,14 +296,11 @@ public class BenutzerData extends KillConnections {
 		PreparedStatement psmt = null;
 		
 		try {
-
 			con.setAutoCommit(false);
 
 			psmt = con.prepareStatement(SETRANGDOZENT);
-			
 			psmt.setBoolean(1, Rang);
 			psmt.setInt(2, Id);
-		
 			psmt.executeUpdate();
 			con.commit();
 		} catch (SQLException e) {
@@ -368,86 +310,51 @@ public class BenutzerData extends KillConnections {
 		} finally {
 			closeConnections(null, psmt);
 		}
-		
 	}
-
-	//schreibt neuen Dez2-Rang zu passender ID
-	/*public void setRangDez2(int Id, boolean Rang){
-	
-	PreparedStatement psmt = null;
-
-	try {
-
-		con.setAutoCommit(false);
-		
-		psmt = con.prepareStatement(SETRANGDEZ2);
-		
-		psmt.setBoolean(1, Rang);
-		psmt.setInt(2, Id);
-
-		psmt.executeUpdate();
-		con.commit();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} catch (Exception e) {
-		e.printStackTrace();
-	} finally {
-		closeConnections(null, psmt);
-	}
-	
-}*/
 
 	//schreibt neuen Stellvertreter-Rang zu pqassender ID
 	public void setRangStell(int Id, boolean Rang){
 	
-	PreparedStatement psmt = null;
+		PreparedStatement psmt = null;
 
-	try {
+		try {
+			con.setAutoCommit(false);
 
-		con.setAutoCommit(false);
-
-		psmt = con.prepareStatement(SETRANGSTELL);
-		
-		psmt.setBoolean(1, Rang);
-		psmt.setInt(2, Id);
-
-		psmt.executeUpdate();
-		con.commit();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} catch (Exception e) {
-		e.printStackTrace();
-	} finally {
-		closeConnections(null, psmt);
+			psmt = con.prepareStatement(SETRANGSTELL);
+			psmt.setBoolean(1, Rang);
+			psmt.setInt(2, Id);
+			psmt.executeUpdate();
+			con.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnections(null, psmt);
+		}
 	}
-	
-}
 
 	//schreibt neuen Admin-Rang zu passender ID
 	public void setRangAdmin(int Id, boolean Rang){
 	
-	PreparedStatement psmt = null;
+		PreparedStatement psmt = null;
 
-	try {
+		try {
+			con.setAutoCommit(false);
 
-		con.setAutoCommit(false);
-
-		psmt = con.prepareStatement(SETRANGADMIN);
-		
-		psmt.setBoolean(1, Rang);
-		psmt.setInt(2, Id);
-
-		psmt.executeUpdate();
-		con.commit();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} catch (Exception e) {
-		e.printStackTrace();
-	} finally {
-		closeConnections(null, psmt);
+			psmt = con.prepareStatement(SETRANGADMIN);
+			psmt.setBoolean(1, Rang);
+			psmt.setInt(2, Id);
+			psmt.executeUpdate();
+			con.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnections(null, psmt);
+		}
 	}
-	
-}
 
 	//überprüft, ob Name und Passwort korrekt sind und gibt einen Boolean zurück
 	public boolean loginCheck(String name, String pw){
@@ -474,9 +381,6 @@ public class BenutzerData extends KillConnections {
 				loginid = getID(name);
 				}
 			}
-		
-
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -484,8 +388,6 @@ public class BenutzerData extends KillConnections {
 		} finally {
 			closeConnections(data, psmt);
 		}
-
-		
 		try {
 			con.setAutoCommit(false);
 
@@ -497,7 +399,6 @@ public class BenutzerData extends KillConnections {
 			if(pw.equals(data.getString("pw"))){
 				loginpw = true;
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -508,7 +409,7 @@ public class BenutzerData extends KillConnections {
 		if(loginname && loginpw){
 			login = true;
 		}
-	return login;
+		return login;
 	}
 
 	//neuer User wird generiert, verwendet: eingegebene Benutzerdaten, mit 0 initialisierte Rang-Booleans, generierte ID
@@ -517,11 +418,9 @@ public class BenutzerData extends KillConnections {
 		PreparedStatement psmt = null;
 
 		try {
-
 			con.setAutoCommit(false);
 
 			psmt = con.prepareStatement(SETNEWUSER);
-			
 			psmt.setInt(1, neu.getId());
 			psmt.setString(2, neu.getName());
 			psmt.setString(3, neu.getPw());
@@ -532,7 +431,6 @@ public class BenutzerData extends KillConnections {
 			psmt.setBoolean(8, neu.isAdmin());
 			psmt.setBoolean(9, neu.isStell());
 			psmt.setInt(10, neu.getStellid());
-
 			psmt.executeUpdate();
 			con.commit();
 		} catch (SQLException e) {
@@ -553,13 +451,11 @@ public class BenutzerData extends KillConnections {
 		ResultSet data = null;
 
 		try {
-
 			con.setAutoCommit(false);
 
 			psmt = con.prepareStatement(GETNEWID);
 
 			data = psmt.executeQuery();
-
 			data.next();
 			id = data.getInt("id");
 
@@ -570,24 +466,20 @@ public class BenutzerData extends KillConnections {
 		} finally {
 			closeConnections(data, psmt);
 		}
-		
 		id = id+1;
 		return id;
 	}
 	
-public void setStellID(int Id, int StellId){
+	public void setStellID(int Id, int StellId){
 		
 		PreparedStatement psmt = null;
 
 		try {
-
 			con.setAutoCommit(false);
 
 			psmt = con.prepareStatement(SETSTELLID);
-			
 			psmt.setInt(1, StellId);
 			psmt.setInt(2, Id);
-
 			psmt.executeUpdate();
 			con.commit();
 		} catch (SQLException e) {
@@ -598,72 +490,66 @@ public void setStellID(int Id, int StellId){
 			closeConnections(null, psmt);
 		}
 	}
-public void deleteUser(int Id){
 	
-	PreparedStatement psmt = null;
-	ResultSet data = null;
-
-	try {
-		con.setAutoCommit(false);
-
-		psmt = con.prepareStatement(DELETEU);
-		psmt.setInt(1, Id);
-
-		psmt.executeUpdate();
-		con.commit();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} catch (Exception e) {
-		e.printStackTrace();
-	} finally {
-		closeConnections(data, psmt);
-	}
+	public void deleteUser(int Id){
+		
+		PreparedStatement psmt = null;
+		ResultSet data = null;
 	
-}
-public Benutzer loadBenutzer(int user){
+		try {
+			con.setAutoCommit(false);
 	
-	PreparedStatement psmt = null;
-	ResultSet data = null;
-
-	try {
-		con.setAutoCommit(false);
-
-		psmt = con.prepareStatement(LOADBENUTZER);
-		psmt.setInt(1, user);
-		
-		data = psmt.executeQuery();
-		data.next();
-		
-		int id = data.getInt("id");
-		String name = data.getString("name");
-		String pw = data.getString("pw");
-		String email = data.getString("email");
-		boolean dozent = data.getBoolean("dozent");
-		//boolean dekan = data.getBoolean("dekan");
-		boolean dez2 = data.getBoolean("dez2");
-		boolean admin = data.getBoolean("admin");
-		boolean stell = data.getBoolean("stell");
-		
-		int stellid = data.getInt("stellid");
-
-		
-		Benutzer tmp = new Benutzer(id, name, email, pw , dozent, /*dekan,*/ dez2,
-				  admin, stell, stellid);
-		return tmp;
-
-	} catch (SQLException e) {
-		e.printStackTrace();
-		return null;
-	} catch (Exception e) {
-		e.printStackTrace();
-		return null;
-	} finally {
-		closeConnections(data, psmt);
+			psmt = con.prepareStatement(DELETEU);
+			psmt.setInt(1, Id);
+			psmt.executeUpdate();
+			con.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnections(data, psmt);
+		}
 		
 	}
 	
-
+	public Benutzer loadBenutzer(int user){
+		
+		PreparedStatement psmt = null;
+		ResultSet data = null;
 	
-}
+		try {
+			con.setAutoCommit(false);
 	
+			psmt = con.prepareStatement(LOADBENUTZER);
+			psmt.setInt(1, user);
+			
+			data = psmt.executeQuery();
+			data.next();
+			
+			int id = data.getInt("id");
+			String name = data.getString("name");
+			String pw = data.getString("pw");
+			String email = data.getString("email");
+			boolean dozent = data.getBoolean("dozent");
+			boolean dez2 = data.getBoolean("dez2");
+			boolean admin = data.getBoolean("admin");
+			boolean stell = data.getBoolean("stell");
+			
+			int stellid = data.getInt("stellid");
+	
+			Benutzer tmp = new Benutzer(id, name, email, pw , dozent, dez2,
+					  admin, stell, stellid);
+			return tmp;
+	
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			closeConnections(data, psmt);
+		}
+	}	
 }

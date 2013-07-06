@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import com.mysql.jdbc.Connection;
 
 public class BookData extends KillConnections {
+	
 	private static Connection con;
 	private static final String GETFACHLIST = "SELECT Fid FROM handbuchdata where id=?";
 
@@ -16,10 +17,10 @@ public class BookData extends KillConnections {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
+			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 		try {
 			con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost/MMS", "root", "root");
 		} catch (SQLException e) {
@@ -46,8 +47,7 @@ public class BookData extends KillConnections {
 				int id = data.getInt("Fid");
 				
 					arr.add(new Integer(id));
-					i++;
-					
+					i++;	
 			}
 
 		} catch (SQLException e) {
@@ -57,7 +57,6 @@ public class BookData extends KillConnections {
 		} finally {
 			closeConnections(data, psmt);
 		}
-		
 		return arr;
 	}
 }

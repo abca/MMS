@@ -25,7 +25,6 @@ public class Archive extends KillConnections {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 		try {
 			con =  (Connection) DriverManager.getConnection("jdbc:mysql://localhost/MMS", "root", "root");
 		} catch (SQLException e) {
@@ -38,9 +37,7 @@ public class Archive extends KillConnections {
 		PreparedStatement psmt = null;
 
 		try {
-
 			con.setAutoCommit(false);
-			
 			psmt = con.prepareStatement(SAVEFILE);
 			
 			psmt.setInt(1, local);
@@ -48,7 +45,6 @@ public class Archive extends KillConnections {
 			psmt.setString(3,  time);
 			psmt.setString(4, name);
 			psmt.setInt(5, userid);
-
 			psmt.executeUpdate();
 			con.commit();
 		} catch (SQLException e) {
@@ -70,10 +66,8 @@ public class Archive extends KillConnections {
 			con.setAutoCommit(false);
 
 			psmt = con.prepareStatement(GETARCHBOOKNAMES);
-			
 			psmt.setInt(1,userid);
 			
-
 			data = psmt.executeQuery();
 
 			while (data.next()) {
@@ -87,7 +81,6 @@ public class Archive extends KillConnections {
 				tmp2 = name + " " + year;
 				tmp.add(tmp2);
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -109,14 +102,12 @@ public class Archive extends KillConnections {
 			con.setAutoCommit(false);
 
 			psmt = con.prepareStatement(GETARCHYEARS);
-			
 			psmt.setInt(1, id);
 			
-
 			data = psmt.executeQuery();
 			data.next();
 			locyear = data.getString("time");
-		
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -133,6 +124,7 @@ public class Archive extends KillConnections {
 
 		try {
 			con.setAutoCommit(false);
+			
 			psmt = con.prepareStatement(GETARCHIDS);
 			psmt.setInt(1,user);
 			
@@ -147,7 +139,6 @@ public class Archive extends KillConnections {
 			}finally {
 				closeConnections(data, psmt);
 			}
-		
 			return arr;
 		}
 
@@ -161,14 +152,12 @@ public class Archive extends KillConnections {
 			con.setAutoCommit(false);
 
 			psmt = con.prepareStatement(GETBOOK);
-			
 			psmt.setInt(1, book);
 			
-
 			data = psmt.executeQuery();
 			data.next();
 			path = data.getString("path");
-		
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
