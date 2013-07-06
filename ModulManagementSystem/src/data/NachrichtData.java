@@ -65,8 +65,7 @@ public class NachrichtData extends KillConnections {
 			e.printStackTrace();
 			return null;
 		} finally {
-			closeConnections(data, psmt);
-			
+			closeConnections(data, psmt);		
 		}
 	}
 
@@ -86,11 +85,7 @@ public class NachrichtData extends KillConnections {
 			data = psmt.executeQuery();
 
 			while(data.next()){
-			
-			
-
 				int tmp1 = data.getInt("id");
-			
 				tmp.add(loadNachricht(tmp1));
 			}
 			return tmp;
@@ -121,11 +116,7 @@ public class NachrichtData extends KillConnections {
 			data = psmt.executeQuery();
 
 			while(data.next()){
-			
-			
-
 				int tmp1 = data.getInt("id");
-			
 				tmp.add(loadNachricht(tmp1));
 			}
 			return tmp;
@@ -143,19 +134,19 @@ public class NachrichtData extends KillConnections {
 	
 	//löscht Nachricht
 	public boolean delete(int Id){
+		
 		boolean delete = false;
 		PreparedStatement psmt = null;
 
 		try {
-		con.setAutoCommit(false);
-		psmt = con.prepareStatement(DELETE);
-	
-		psmt.setInt(1, Id);
-
-		psmt.executeUpdate();
-		con.commit();
-		delete = true;
-		return delete;
+			con.setAutoCommit(false);
+			psmt = con.prepareStatement(DELETE);
+		
+			psmt.setInt(1, Id);
+			psmt.executeUpdate();
+			con.commit();
+			delete = true;
+			return delete;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -172,45 +163,38 @@ public class NachrichtData extends KillConnections {
 		PreparedStatement psmt = null;
 
 		try {
-
 			con.setAutoCommit(false);
 	
 			psmt = con.prepareStatement(NEWNACRICHT);
-	
 			psmt.setInt(1, nachricht.getid());
 			psmt.setInt(2, nachricht.getbenutzer());
 			psmt.setString(3, nachricht.getbeschreibung());
 			psmt.setString(4, nachricht.getBetreff());
 			psmt.setInt(5, nachricht.getmodule());
-
-
 			psmt.executeUpdate();
 			con.commit();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				closeConnections(null, psmt);
-			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnections(null, psmt);
+		}
 	}
 
 	//erstellt neue id für Nachricht
 	public int getNewId() {
 	
 		int id = 0;
-	
 		PreparedStatement psmt = null;
 		ResultSet data = null;
 
 		try {
-
 			con.setAutoCommit(false);
 
 			psmt = con.prepareStatement(GETNEWID);
 
 			data = psmt.executeQuery();
-
 			data.next();
 			id = data.getInt("id");
 
@@ -221,7 +205,6 @@ public class NachrichtData extends KillConnections {
 		} finally {
 			closeConnections(data, psmt);
 		}
-	
 		id = id+1;
 		return id;
 	}

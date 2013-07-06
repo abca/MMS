@@ -24,6 +24,7 @@ public class ChangeRequest extends Startseite implements Button.ClickListener {
 	private LinkedList<Nachricht>list; private LinkedList<ModulKu> lis2;
 	
 	public ChangeRequest(LinkedList<Nachricht>lis, LinkedList<ModulKu> list2) {
+		
 		this.list = lis;
 		this.lis2 = list2;
 		
@@ -40,12 +41,9 @@ public class ChangeRequest extends Startseite implements Button.ClickListener {
 		changeR.setContent(mainLayout);
 		auswaehlen.addListener(this);		
 		
-		
 		Window old = starta.getWindow("Startseite");
 		oldURL = old.getURL();
-		old.open(new ExternalResource(changeR.getURL()));
-		//starta.removeWindow(old);	
-
+		old.open(new ExternalResource(changeR.getURL()));	
 	}
 	
 	//erstellt ListSelect-Element mit den Benachrichtigungen
@@ -58,13 +56,11 @@ public class ChangeRequest extends Startseite implements Button.ClickListener {
 			nachricht.addItem(lis2.get(i).gettitle());			
 		}
 		nachricht.setNullSelectionAllowed(false);
-		/*changeR.addComponent(nachricht);
-		changeR.addComponent(auswaehlen);*/
-
 	}
 	
 	//ButtonListener
 	public void buttonClick(Button.ClickEvent event){
+		
 		if(event.getButton() == auswaehlen){
 			String tmp = nachricht.getValue().toString();
 			int i = 0;
@@ -82,6 +78,7 @@ public class ChangeRequest extends Startseite implements Button.ClickListener {
 	}
 	
 	private AbsoluteLayout buildMainLayout() {
+		
 		// common part: create layout
 		mainLayout = new AbsoluteLayout();
 		mainLayout.setImmediate(false);

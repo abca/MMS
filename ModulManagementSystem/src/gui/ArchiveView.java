@@ -31,17 +31,14 @@ public class ArchiveView extends Startseite implements ClickListener {
 		}
 		arch = new Window("Archiv");
 		starta.addWindow(arch);
-		
 		tmp = liste;
 		tmp2 = arids;
 		
 		openArchivListe(liste);
-		
-		 buildMainLayout();
-			arch.setContent(mainLayout);
-			
-			Window old = starta.getWindow("Startseite");
-			old.open(new ExternalResource(arch.getURL()));	
+		buildMainLayout();
+		arch.setContent(mainLayout);
+		Window old = starta.getWindow("Startseite");
+		old.open(new ExternalResource(arch.getURL()));	
 	}
 	
 	public void buttonClick (Button.ClickEvent event) {
@@ -68,11 +65,9 @@ public class ArchiveView extends Startseite implements ClickListener {
 			
 		archiv = new ListSelect();
 			
-		for(int i = 0; i < liste.length; i++){
-				
+		for(int i = 0; i < liste.length; i++){		
 			archiv.addItem(liste[i]);			
-		}
-			
+		}	
 		archiv.setNullSelectionAllowed(false);	//leere Auswahl ist nicht erlaubt				
 	}
 	
@@ -86,6 +81,7 @@ public class ArchiveView extends Startseite implements ClickListener {
 	}
 	
 	private AbsoluteLayout buildMainLayout() {
+		
 		// common part: create layout
 		mainLayout = new AbsoluteLayout();
 		mainLayout.setImmediate(false);

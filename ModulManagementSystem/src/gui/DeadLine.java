@@ -19,23 +19,25 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 	private Button ok, archive, okay,back, setDline;
 	private URL oldURL;
 	private AbsoluteLayout lay;
+	
 	public DeadLine(){
+		
 		Window test = starta.getWindow("Stichtag");
 		if(test != null){
 			starta.removeWindow(test);	
-	}
+		}
 		dead = new Window("Stichtag");
 		starta.addWindow(dead);
 		
-		 buildMainLayout();
-			dead.setContent(lay);
-			
-			Window old = starta.getWindow("Startseite");
-			oldURL = old.getURL();
-			old.open(new ExternalResource(dead.getURL()));	
-	}
-public void buttonClick (Button.ClickEvent event) {
+		buildMainLayout();
+		dead.setContent(lay);
 		
+		Window old = starta.getWindow("Startseite");
+		oldURL = old.getURL();
+		old.open(new ExternalResource(dead.getURL()));	
+	}
+	
+	public void buttonClick (Button.ClickEvent event) {
 	
 		if(event.getButton() == ok){	
 			try {
@@ -44,25 +46,12 @@ public void buttonClick (Button.ClickEvent event) {
 			catch (NullPointerException e){
 				datumstr = "";
 			}
-	
 			if(datumstr == ""){
 				InfoWindow err = new InfoWindow("Fehler","Geben Sie bitte ein Datum ein",dead);
-				//System.out.println("Datum eingeben");	//"Fehlermeldung" ;)
 			}
 			else{
-				//contDek.saveDatum(datumstr);
 				contDek.setDeadline(datumstr);
 				InfoWindow info = new InfoWindow("Stichtag","Der Stichtag für Änderungen wurde festgelegt für den " + datumstr + ".",dead);
-				/*confirmW = new Window("Stichtag");
-				Layout confirm = new VerticalLayout();	    		
-	    		text = new Label("Der Stichtag für Änderungen wurde festgelegt für den " + datumstr + ".");
-	    		confirmW.setContent(confirm);
-	    		confirmW.addComponent(text);
-	    		setDline = new Button("Bestätigen");
-	    		confirmW.addComponent(setDline);
-	    		dead.addWindow(confirmW);
-	    		setDline.addListener(this);*/
-				
 			}
 		}
 		if(event.getButton() == setDline) {
@@ -85,92 +74,94 @@ public void buttonClick (Button.ClickEvent event) {
 		}
 	}
 
-public void archiveDate(){
-	year = new TextField("Jahr");
-	group = new OptionGroup();
-	group.setMultiSelect(false);
-	group.addItem("Wintersemester");
-	group.addItem("Sommersemester");
-	archiveW = new Window("Daten eingeben");
-	okay = new Button("ok");
-	okay.addListener(this);
-	Layout re = new VerticalLayout();
+	public void archiveDate(){
+		
+		year = new TextField("Jahr");
+		group = new OptionGroup();
+		group.setMultiSelect(false);
+		group.addItem("Wintersemester");
+		group.addItem("Sommersemester");
+		archiveW = new Window("Daten eingeben");
+		okay = new Button("ok");
+		okay.addListener(this);
+		Layout re = new VerticalLayout();
+		
+		archiveW.setContent(re);
+		archiveW.addComponent(group);
+		archiveW.addComponent(year);
+		archiveW.addComponent(okay);
+		dead.addWindow(archiveW);
+		archiveW.setHeight("300px");
+		archiveW.setWidth("300px");
+		archiveW.center();
+	}
 	
-	archiveW.setContent(re);
-	archiveW.addComponent(group);
-	archiveW.addComponent(year);
-	archiveW.addComponent(okay);
-	dead.addWindow(archiveW);
-	archiveW.setHeight("300px");
-	archiveW.setWidth("300px");
-	archiveW.center();
-}
-
-private AbsoluteLayout buildMainLayout() {
-	lay = new AbsoluteLayout();
-	lay.setImmediate(false);
-	lay.setWidth("100%");
-	lay.setHeight("100%");
-	lay.setMargin(false);
-	
-	// top-level component properties
-	lay.setWidth("100.0%");
-	lay.setHeight("100.0%");
-	
-	// label
-	label = new Label();
-	label.setImmediate(false);
-	label.setWidth("-1px");
-	label.setHeight("-1px");
-	label.setValue("Stichtag festlegen");
-	label.setStyleName(Runo.LABEL_H1);
-	lay.addComponent(label, "top:25.0%;left:35.0%;");
-	
-	//TextField
-	datum = new TextField();
-	datum.setCaption("Datum");
-	datum.setImmediate(false);
-	datum.setWidth("25.0%");
-	datum.setHeight("-1px");
-	lay.addComponent(datum, "top:40.0%;left:35.0%;");
-	
-	//Button
-	ok = new Button();
-	ok.setCaption("OK");
-	ok.setImmediate(false);
-	ok.setWidth("-1px");
-	ok.setHeight("-1px");
-	ok.addListener(this);
-	lay.addComponent(ok, "top:50.0%;left:35.0%;");
-	
-	archive = new Button();
-	archive.setCaption("Archivieren");
-	archive.setImmediate(false);
-	archive.addListener(this);
-	archive.setWidth("-1px");
-	archive.setHeight("-1px");
-	lay.addComponent(archive, "top:50.0%;left:50.0%");
-	
-	// back
-	back = new Button();
-	back.setCaption("Startseite");
-	back.setImmediate(true);
-	back.setWidth("-1px");
-	back.setHeight("-1px");
-	back.setStyleName(BaseTheme.BUTTON_LINK);
-	back.addListener(this);
-	lay.addComponent(back, "top:61.0%;left:35.0%;");
-	
-	// logout
-	logout = new Button();
-	logout.setCaption("logout");
-	logout.setImmediate(false);
-	logout.setWidth("-1px");
-	logout.setHeight("-1px");
-	logout.setStyleName(BaseTheme.BUTTON_LINK);
-	logout.addListener(this);
-	lay.addComponent(logout, "top:65.0%;left:35.0%;");
-	
-	return lay;
-}
+	private AbsoluteLayout buildMainLayout() {
+		
+		lay = new AbsoluteLayout();
+		lay.setImmediate(false);
+		lay.setWidth("100%");
+		lay.setHeight("100%");
+		lay.setMargin(false);
+		
+		// top-level component properties
+		lay.setWidth("100.0%");
+		lay.setHeight("100.0%");
+		
+		// label
+		label = new Label();
+		label.setImmediate(false);
+		label.setWidth("-1px");
+		label.setHeight("-1px");
+		label.setValue("Stichtag festlegen");
+		label.setStyleName(Runo.LABEL_H1);
+		lay.addComponent(label, "top:25.0%;left:35.0%;");
+		
+		//TextField
+		datum = new TextField();
+		datum.setCaption("Datum");
+		datum.setImmediate(false);
+		datum.setWidth("25.0%");
+		datum.setHeight("-1px");
+		lay.addComponent(datum, "top:40.0%;left:35.0%;");
+		
+		//Button
+		ok = new Button();
+		ok.setCaption("OK");
+		ok.setImmediate(false);
+		ok.setWidth("-1px");
+		ok.setHeight("-1px");
+		ok.addListener(this);
+		lay.addComponent(ok, "top:50.0%;left:35.0%;");
+		
+		archive = new Button();
+		archive.setCaption("Archivieren");
+		archive.setImmediate(false);
+		archive.addListener(this);
+		archive.setWidth("-1px");
+		archive.setHeight("-1px");
+		lay.addComponent(archive, "top:50.0%;left:50.0%");
+		
+		// back
+		back = new Button();
+		back.setCaption("Startseite");
+		back.setImmediate(true);
+		back.setWidth("-1px");
+		back.setHeight("-1px");
+		back.setStyleName(BaseTheme.BUTTON_LINK);
+		back.addListener(this);
+		lay.addComponent(back, "top:61.0%;left:35.0%;");
+		
+		// logout
+		logout = new Button();
+		logout.setCaption("logout");
+		logout.setImmediate(false);
+		logout.setWidth("-1px");
+		logout.setHeight("-1px");
+		logout.setStyleName(BaseTheme.BUTTON_LINK);
+		logout.addListener(this);
+		lay.addComponent(logout, "top:65.0%;left:35.0%;");
+		
+		return lay;
+	}
 }
