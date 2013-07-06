@@ -50,10 +50,8 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 			String title1 = (String)title.getValue();
 			String lp1 = (String)lp.getValue();
 			String language1 = (String)language.getValue();
-			String turn1 = (String)turn.getValue();
-		//	String responsibleid1 = (String)responsibleid.getValue();
-			String responsible1 = (String)responsible.getValue();
-		//  String dozid1 = (String)dozid.getValue();
+			String turn1 = (String)turn.getValue();		
+			String responsible1 = (String)responsible.getValue();	
 			String doz1 = (String)doz.getValue();
 			String filing1 = (String)filing.getValue();
 			String requirements1 = (String)requirements.getValue();
@@ -67,8 +65,17 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 			String grades1 = (String)grades.getValue();
 			
 			int lp2 = Integer.parseInt(lp1);
-		
-			if(!cont.rangAusgeben(responsible1).contains("Dekan"))
+			
+			if(title1.length()>50||lp1.length()>10||language1.length()>50
+					||turn1.length()>50||responsible1.length()>50
+					||doz1.length()>50||filing1.length()>200
+					||requirements1.length()>50||aims1.length()>1000
+					||content1.length()>800||lit1.length()>800
+					||events1.length()>800||work1.length()>800
+					||exams1.length()>800||formcond1.length()>800
+					||grades1.length()>800)
+				displayError("Die Eingaben sind zu lang");
+			else if(!cont.rangAusgeben(responsible1).contains("Dekan"))
 				displayError("Den angegebenen Dekan gibt es nicht");
 			
 			else if(!cont.rangAusgeben(doz1).contains("Dozent"))
