@@ -27,13 +27,10 @@ import data.ModulDatabase;
 public class HandbookManager_View extends Startseite {
 	
 	public Window w;
-	
 	public Panel p;
 	public TextField fachname;
 	public Button addFach;
-	
 	public Button delete;
-	
 	
 	public Tree moduletree;
 	public ModuleTree mt;
@@ -51,20 +48,16 @@ public class HandbookManager_View extends Startseite {
 	public Table modules;
 	public Button add2;
 	
-	
 	public HandbookManager_View (int id) {
 		
-		mt = new ModuleTree();
-		
+		mt = new ModuleTree();	
 		w = new Window("");
 		w.setName("Fach neu anlegen, Module zuordnen");
 		starta.addWindow(w);
 		
 		moduletree = mt.generateModuleTree(id);
 		w.addComponent(moduletree);
-		
 		w.addComponent(new Label("-"));
-		
 		choice = new Label("Ausgewähltes Element: -");
 		w.addComponent(choice);
 		
@@ -79,13 +72,10 @@ public class HandbookManager_View extends Startseite {
 		delete = new Button("Löschen");
 		p.addComponent(delete);
 		w.addComponent(p);
-		
 		w.addComponent(new Label("-"));
-		
 		
 		tablePanel1 = new Panel();
 		tablePanel1.setContent(new HorizontalLayout());
-		
 		tablePanel11 = new Panel();
 		tablePanel11.setContent(new VerticalLayout());
 		
@@ -96,9 +86,7 @@ public class HandbookManager_View extends Startseite {
 		add1 = new Button("Modul dem ausgewählten Fach hinzufügen");
 		add1.setEnabled(false);
 		tablePanel11.addComponent(add1);
-		
 		tablePanel1.addComponent(tablePanel11);
-		
 
 		tablePanel12 = new Panel();
 		tablePanel12.setContent(new VerticalLayout());
@@ -113,13 +101,9 @@ public class HandbookManager_View extends Startseite {
 		tablePanel12.addComponent(add2);
 		
 		tablePanel1.addComponent(tablePanel12);
-		
 		w.addComponent(tablePanel1);
 		
-				
 		Window old = starta.getWindow("M");
 		old.open(new ExternalResource(w.getURL()));
-		
 	}
-
 }

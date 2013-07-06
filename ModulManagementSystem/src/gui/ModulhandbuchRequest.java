@@ -13,16 +13,14 @@ import control.ModuleHandbook;
 public class ModulhandbuchRequest extends LoginApplication implements Button.ClickListener {
 	
 	private Window mod;	
-	/*Button recommend = new Button("anfordern");
-	Button okay2;
-	VerticalLayout mlist = new VerticalLayout();*/
-	private Button recommend,back;      //, okay2;
+	private Button recommend,back;      
 	private Label label;
 	private AbsoluteLayout mainLayout;
 	private String [] tmp;
 	private LinkedList<Integer> tmp2;
 	
 	public ModulhandbuchRequest(LoginApplication start, LinkedList<Integer> ids, String[] list) {
+		
 		Window test = start.getWindow("Modul auswählen");
 		if(test != null){
 			start.removeWindow(test);	
@@ -31,17 +29,12 @@ public class ModulhandbuchRequest extends LoginApplication implements Button.Cli
 		tmp2 = ids;
 		mod = new Window("Modulhandbuch auswählen");
 		start.addWindow(mod);
-		/*mod.setContent(mlist);
-		recommend.addListener(this);*/
 		openModuleList(list);
 		buildMainLayout();
 		recommend.addListener(this);		
-		mod.setContent(mainLayout);
-		//mlist.addComponent(recommend);				
+		mod.setContent(mainLayout);				
 		Window old = start.getWindow("main");
 		old.open(new ExternalResource(mod.getURL()));
-		//start.removeWindow(old);	
-
 	}
     
     //erstellt ListSelect-Element und fügt es in das Modulfenster (siehe moduleList())
@@ -59,6 +52,7 @@ public class ModulhandbuchRequest extends LoginApplication implements Button.Cli
     
     //ButtonListener
     public  void buttonClick(Button.ClickEvent event) {
+    	
     	String read ;
     	if (event.getButton() == recommend) {
     		try {
@@ -72,28 +66,17 @@ public class ModulhandbuchRequest extends LoginApplication implements Button.Cli
 				ModuleHandbook handbuch = new ModuleHandbook();
 			FileResource test= handbuch.generatePDF(modul, start);
 			Link l = new Link("Download the Modulehandbook here", test, "Download", 0, 0, Link.TARGET_BORDER_DEFAULT);
-			/*Link l = new Link("Download the Modulehandbook here", test);
-			l.setTargetName("Download");
-			l.setTargetBorder(Link.TARGET_BORDER_DEFAULT);
-			l.setTargetHeight(0);
-			l.setTargetWidth(0);*/
 			Window linkPop = new Window("Link");
 			linkPop.addComponent(l);
 	    
 	    	mod.addWindow(linkPop);
 	    	linkPop.setHeight("300px");
-	    	linkPop.setWidth("200px");
-	    
-				
+	    	linkPop.setWidth("200px");	
 			}
 			catch (NullPointerException e){
 				read = "";
 				e.printStackTrace();
 			}
-    		/*if(event.getButton() == okay2) {
-        		mod.removeWindow(selErrW);
-        	}*/
-	
 			if(read.equals("")){
 				displaySelectionError();
 			}
@@ -107,6 +90,7 @@ public class ModulhandbuchRequest extends LoginApplication implements Button.Cli
     }
     
     private AbsoluteLayout buildMainLayout() {
+    	
     	    // common part: create layout
     	    mainLayout = new AbsoluteLayout();
     	    mainLayout.setImmediate(false);
@@ -156,18 +140,7 @@ public class ModulhandbuchRequest extends LoginApplication implements Button.Cli
     
     //Fehlerfenster wenn kein Modul ausgewählt wird
     public void displaySelectionError() {
-    	InfoWindow error = new InfoWindow("Modul wählen","Wählen Sie bitte ein Modul aus",mainWindow);
-    	/*selErrW = new Window("Fehler");
-    	okay2 = new Button("Ok");
-    	wrong2 = new Label("Sie müssen ein Modul auswählen!");
-    	Layout selError = new VerticalLayout();
     	
-    	selErrW.setContent(selError);
-    	selErrW.addComponent(wrong2);
-    	selErrW.addComponent(okay2);
-    	mod.addWindow(selErrW);
-    	selErrW.setHeight("200px");
-    	selErrW.setWidth("200px");
-    	okay2.addListener(this);*/
+    	InfoWindow error = new InfoWindow("Modul wählen","Wählen Sie bitte ein Modul aus",mainWindow);
     }
 }

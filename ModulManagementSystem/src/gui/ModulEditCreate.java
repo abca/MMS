@@ -9,9 +9,9 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Runo;
 
-
 public class ModulEditCreate extends Startseite implements Button.ClickListener{
-	TextArea title,lp,language,turn,/*responsibleid, dozid,*/ doz,filing,requirements,aims,content,lit,events,work,
+	
+	TextArea title,lp,language,turn, doz,filing,requirements,aims,content,lit,events,work,
 	exams,formcond,grades, responsible;
 	Label label;
 	Window createW;
@@ -23,6 +23,7 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 	
 	//gibt vorhandene Werte in Textboxen zur Bearbeitung aus
 	public ModulEditCreate(Modul b,boolean _neu){
+		
 		neu=_neu;
 		Window test = starta.getWindow("Modulaendern");
 		if(test != null){
@@ -45,6 +46,7 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 
 	//ButtonListener
 	public void buttonClick(Button.ClickEvent event){
+		
 		if (event.getButton() == save){
 			try{
 			String title1 = (String)title.getValue();
@@ -84,22 +86,16 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 			else if(cont.doesModuleNameExist(title1)&&neu){
 				displayError("Es gibt bereits ein Modul mit diesem Namen");
 			}
-			
 			else{
 				Modul tmp1 = new Modul(tmp.getid(), title1, lp2, language1, turn1, cont.getID(responsible1), 
 							responsible1, cont.getID(doz1), doz1,filing1, requirements1, aims1, 
 							content1, lit1, events1, work1, exams1, formcond1, grades1 );
-				//System.out.println(tmp1.gettitle());
 				contD.speichernModul(tmp1);//Methode in Controller-Klasse
 			}
 			}
 			catch(Exception e){
 			displayError("Bitte Felder mit * ausfüllen. Leistungspunkte bitte als Zahl angeben.");				
 			}
-			//finally{
-				
-				
-			//}
 		}
 		if(event.getButton()==logout){
 			starta.getMainWindow().getApplication().close();
@@ -110,6 +106,7 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 	}	
 	
 	private AbsoluteLayout buildMainLayout() {
+		
 		// common part: create layout
 		mainLayout = new AbsoluteLayout();
 		mainLayout.setImmediate(false);
@@ -308,8 +305,9 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 		
 		return mainLayout;
 	}
+	
 	public void displayError(String text) {
+		
 		InfoWindow error = new InfoWindow("Fehler",text,createW);
-
 	}
 }

@@ -14,10 +14,11 @@ import control.Controller;
 /**
  * Main application class.
  */
+
 public class LoginApplication extends Application implements Button.ClickListener {
 	
-	private Button login, /*okay,*/ save, modul, register;
-	Window mainWindow, modulW, errW, selErrW ,adminWindow, regW;  //, regErrW;
+	private Button login, save, modul, register;
+	Window mainWindow, modulW, errW, selErrW ,adminWindow, regW;  
 	Controller control = new Controller(this);
 	private VerticalLayout vertical;
 	private AbsoluteLayout mainLayout;
@@ -84,15 +85,12 @@ public class LoginApplication extends Application implements Button.ClickListene
     
     //Fehlerfenster für falschen Username/falsches Passwort
     public void displayError() {
+    	
     		InfoWindow test = new InfoWindow("Fehler","Nutzername oder Passwort falsch",mainWindow);    		
     }
     
-   
-    
     //Popup für Registration
     public void register() {
-    	
-    	
     	
     	regW = new Window("Registrieren");
     	userName = new Label("Username");
@@ -121,10 +119,12 @@ public class LoginApplication extends Application implements Button.ClickListene
     
     //Failsafe für die Registration
     public void registerError() {
+    	
     	InfoWindow info = new InfoWindow("Fehler","Die eingegebenen Daten sind unvollständig oder zu lang",mainWindow);    	
     }
     
     private AbsoluteLayout buildMainLayout() {
+    	
 		// common part: create layout
 		mainLayout = new AbsoluteLayout();
 		mainLayout.setImmediate(false);
