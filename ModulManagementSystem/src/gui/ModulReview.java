@@ -1,4 +1,5 @@
 ﻿package gui;
+
 import java.net.URL;
 import java.sql.PreparedStatement;
 
@@ -15,9 +16,10 @@ import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Runo;
 
 public class ModulReview extends Startseite implements Button.ClickListener{
+	
 	String savestr;	
-	Window modEdCr; //, errW;
-	public ListSelect module; //login
+	Window modEdCr; 
+	public ListSelect module; 
 	private AbsoluteLayout mainLayout;
 	private Button create, aendern,back;
 	private URL oldURL;
@@ -25,6 +27,7 @@ public class ModulReview extends Startseite implements Button.ClickListener{
 	private Label label;
 	
 	public ModulReview(LinkedList<ModulKu> idiot){
+		
 		Window test = starta.getWindow("Modulbearbeiten");
 		if(test != null){
 			starta.removeWindow(test);	
@@ -39,20 +42,9 @@ public class ModulReview extends Startseite implements Button.ClickListener{
 		buildMainLayout();
 		modEdCr.setContent(mainLayout);
 		
-		/*create = new Button("erstellen");
-		aendern = new Button("Ändern");*/				
-		 
-		
-		/*modEdCr.addComponent(module);
-		modEdCr.addComponent(create);
-		modEdCr.addComponent(aendern);*/
-		
 		Window old = starta.getWindow("Startseite");
 		oldURL = old.getURL();
 		old.open(new ExternalResource(modEdCr.getURL()));
-	
-		
-		
 	}
 	
 	//ButtonListener
@@ -93,14 +85,12 @@ public class ModulReview extends Startseite implements Button.ClickListener{
 		for(int i=0; i < idiot.size(); i++){
 			test.addItem(idiot.get(i).gettitle());			
 		}
-		
-		
-	
 		test.setNullSelectionAllowed(false);
 		return test;
 	}
 	
 	private AbsoluteLayout buildMainLayout() {
+		
 		// common part: create layout
 		mainLayout = new AbsoluteLayout();
 		mainLayout.setImmediate(false);
@@ -170,16 +160,6 @@ public class ModulReview extends Startseite implements Button.ClickListener{
 	
 	public void displayError(String text) {
 		InfoWindow error = new InfoWindow("Fehler",text,modEdCr);
-		/*errW = new Window("Fehler");
-
-		Label wrong = new Label(text);
-		Layout error = new VerticalLayout();
-		
-		errW.setContent(error);
-		errW.addComponent(wrong);
-		modEdCr.addWindow(errW);
-		errW.setHeight("200px");
-		errW.setWidth("200px");*/
-}
+	}
 }
 

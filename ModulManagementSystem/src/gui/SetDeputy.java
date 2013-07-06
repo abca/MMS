@@ -21,7 +21,6 @@ public class SetDeputy extends Startseite implements Button.ClickListener {
 	private Button ok,delete,back;
 	private URL oldURL;
 	Window setD;
-	//private VerticalLayout vertical;
 	private AbsoluteLayout mainLayout;
 	ListSelect benutzer;
 	Label label;
@@ -29,6 +28,7 @@ public class SetDeputy extends Startseite implements Button.ClickListener {
 	
 	//übergibt Hauptwindow
 	public SetDeputy() {
+		
 		Window test = starta.getWindow("Stellvertreter");
 		if(test != null){
 			starta.removeWindow(test);	
@@ -36,25 +36,18 @@ public class SetDeputy extends Startseite implements Button.ClickListener {
 		
 		setD = new Window("");
 	    setD.setName("Stellvertreter");
-	    
 	    starta.addWindow(setD);		//aktuelles window wird zum Hauptwindow geaddet
 	   
-		//label = new Label("Modul Managment System");
-		//vertical = new VerticalLayout ();
 	    buildMainLayout();
 		setD.setContent(mainLayout);
-		//vertical.addComponent(label);
-		//setD.addComponent(label);
+		
 		openBenutzerListe(cont.benutzerListeAusgeben());
 		Window old = starta.getWindow("Startseite");
 		oldURL = old.getURL();
 		old.open(new ExternalResource(setD.getURL()));
-		//starta.removeWindow(old);	
-	
-	//Listener für die Buttons
 	}
+	
 	public void buttonClick (Button.ClickEvent event) {
-		
 		
 		if(event.getButton() == ok){
 			try {
@@ -93,7 +86,6 @@ public class SetDeputy extends Startseite implements Button.ClickListener {
 					isntDep = new InfoWindow("Fehler","Dieser Nutzer ist nicht Ihr Stellvertreter",setD);
 			}
 		}
-		
 		if(event.getButton()== logout){
 		       starta.getMainWindow().getApplication().close();				
 		}
@@ -105,21 +97,16 @@ public class SetDeputy extends Startseite implements Button.ClickListener {
 	//Benutzerliste wird ausgegeben, aus der ein Benutzer ausgewählt werden kann
 	public void openBenutzerListe(String [] liste){
 		
-		//benutzer = new ListSelect();
-		
 		for(int i = 0; i < liste.length; i++){
 			
 			benutzer.addItem(liste[i]);			//geht durch Liste durch und addet Benutzer
 		}
 		
-		benutzer.setNullSelectionAllowed(false);	//leere Auswahl ist nicht erlaubt
-		/*ok = new Button("Ok"); 
-		ok.addListener(this);
-		vertical.addComponent(benutzer);
-		vertical.addComponent(ok);*/				
+		benutzer.setNullSelectionAllowed(false);	//leere Auswahl ist nicht erlaubt			
 	}
 	
 	private AbsoluteLayout buildMainLayout() {
+		
 		// common part: create layout
 		mainLayout = new AbsoluteLayout();
 		mainLayout.setImmediate(false);

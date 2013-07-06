@@ -20,10 +20,9 @@ import data.BenutzerData;
 public class Startseite implements Button.ClickListener{
 	Window start;
 	Label welcome;
-	Button changeModule, declareDeputy, messages, changes, stichtag, /*viewChangeRequests,*/ changeRights, viewChanges,changeBenutzer, nullButton, logout, organize, archives ;
+	Button changeModule, declareDeputy, messages, changes, stichtag, changeRights, viewChanges,changeBenutzer, nullButton, logout, organize, archives ;
 	private AbsoluteLayout mainLayout;
 	private int count;//Zähler für Buttons
-	//Benutzer user;
 	public static LoginApplication starta;
 	protected static Startseite seite;
 	
@@ -37,6 +36,7 @@ public class Startseite implements Button.ClickListener{
 	}
 	
 	public Startseite (LoginApplication aa, int id, Window old){
+		
 		starta = aa;
 		seite = this;
 		String name = cont.loadBenutzer(id).getName(); 
@@ -47,25 +47,18 @@ public class Startseite implements Button.ClickListener{
 		
 		start= new Window("Startseite");
 		start.setName("Startseite");
-		
 		starta.addWindow(start);		
 		
-		//user = new Benutzer();
 		userid = id;
-		
 		count = 0;
 		nullButton = new Button();
-		
 		welcome = new Label("Willkommen "+name);
-		//start.addComponent(welcome);
-		
-				
+			
 		/*Abfrage, welchen Rang oder welche Ränge der Nutzer
 		besitzt und dementsprechende Gestaltung der Oberfläche.*/		
 		if(cont.getAdmin(userid)){			
 			changeRights = new Button("Nutzerrechte verwalten");
 			changeRights.addListener(this);
-			//start.addComponent(changeRights);
 		}
 		if(cont.getDozent(userid)){
 			changeModule = new Button("Modul ändern/erstellen");
@@ -74,9 +67,6 @@ public class Startseite implements Button.ClickListener{
 			declareDeputy.addListener(this);
 			messages = new Button("Benachrichtigungen");
 			messages.addListener(this);			
-			//start.addComponent(changeModule);
-			//start.addComponent(declareDeputy);
-			//start.addComponent(messages);
 		}
 		//doppelte Buttons werden ausgeschlossen
 		if(cont.getDekan(userid)){
@@ -84,9 +74,7 @@ public class Startseite implements Button.ClickListener{
 				changeModule = new Button("Modul ändern/erstellen");
 				changeModule.addListener(this);
 				declareDeputy = new Button("Stellvertreter ernennen");
-				declareDeputy.addListener(this);
-							
-				
+				declareDeputy.addListener(this);	
 			}
 			organize = new Button("Modulhandbuch organisieren");
 			organize.addListener(this);
@@ -96,18 +84,7 @@ public class Startseite implements Button.ClickListener{
 			archives.addListener(this);
 			changes = new Button("aktuelle Änderungen");
 			changes.addListener(this);			
-			//stichtag = new Button("Stichtag festlegen");
-			//stichtag.addListener(this);			
-			//if(!cont.getDozent(userid)) start.addComponent(changeModule);
-			//start.addComponent(changes);
-			//if(!cont.getDozent(userid)) start.addComponent(declareDeputy);		
-			
-		}
-		/*if(cont.getDez2(userid)){
-			viewChangeRequests = new Button("aktuelle Änderungsanträge");
-			viewChangeRequests.addListener(this);
-			//start.addComponent(viewChangeRequests);
-		}*/		
+		}	
 		changeBenutzer = new Button("Persönliche Daten ändern");
 		changeBenutzer.addListener(this);
 		
@@ -116,16 +93,13 @@ public class Startseite implements Button.ClickListener{
 		
 		mainLayout = buildMainLayout();
 		start.setContent(mainLayout);
-		//start.addComponent(logout);
-		
-		//Window old = starta.getWindow("main");
 		old.open(new ExternalResource(start.getURL()));
-		//starta.removeWindow(old);	
-
 	}
 
 	private AbsoluteLayout buildMainLayout() {
+		
 		Button button_1,button_2,button_3,button_4,button_5,button_6,button_7,button_8,button_9,button_10, button_11;
+		
 		// common part: create layout
 		mainLayout = new AbsoluteLayout();
 		mainLayout.setImmediate(false);
@@ -250,6 +224,7 @@ public class Startseite implements Button.ClickListener{
 	
 	//ButtonListener
 	public void buttonClick(ClickEvent event) {
+		
 		if(event.getButton() == changeModule){
 			contD.ausgebenModulList(userid);
 			//Dozent, Dekan
@@ -268,10 +243,6 @@ public class Startseite implements Button.ClickListener{
 		if(event.getButton() == messages){
 			cont.loadNewMessageList();//Dozent
 		}
-				
-		/*if(event.getButton() == viewChangeRequests){
-			//Dezernat 2
-		}*/
 		
 		if(event.getButton()== changeRights){
 			//Administrator
@@ -302,9 +273,11 @@ public class Startseite implements Button.ClickListener{
 		}
 	}
 	
-	public Button getButton(){//liefert zurück, welcher Button noch fehlt
+	//liefert zurück, welcher Button noch fehlt
+	public Button getButton(){
 		
-		if (count==0) {//count gibt an, welcher Button geprüft wird			
+		//count gibt an, welcher Button geprüft wird	
+		if (count==0) {		
 			count++;
 			if(changeModule!=null) return changeModule;				
 		}
@@ -351,5 +324,4 @@ public class Startseite implements Button.ClickListener{
 		}
 		return nullButton;
 	}
-
 }

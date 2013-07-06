@@ -18,7 +18,7 @@ import com.vaadin.ui.themes.Runo;
 
 public class NewMessage extends Startseite implements Button.ClickListener {
 	
-	private Window newMess;  //, messageW;
+	private Window newMess;  
 	private AbsoluteLayout mainLayout;
 	private Label label;
 	ListSelect nachricht;
@@ -29,6 +29,7 @@ public class NewMessage extends Startseite implements Button.ClickListener {
 	Label text;
 	
 	public NewMessage(LinkedList<Nachricht>lis){
+		
 		this.lis = lis;
 		
 		Window test = starta.getWindow("Nachrichten");
@@ -45,11 +46,10 @@ public class NewMessage extends Startseite implements Button.ClickListener {
 		Window old = starta.getWindow("Startseite");
 		oldURL = old.getURL();
 		old.open(new ExternalResource(newMess.getURL()));
-		
-		
 	}
 	
 	public void openNewMessages() {
+		
 		nachricht = new ListSelect();
 		
 		for(int i=0; i < lis.size(); i++){
@@ -57,33 +57,16 @@ public class NewMessage extends Startseite implements Button.ClickListener {
 			nachricht.addItem(u + ": " + lis.get(i).getBetreff());		
 		}
 		nachricht.setNullSelectionAllowed(false);
-		/*newMess.addComponent(nachricht);
-		newMess.addComponent(anzeigen);*/
 	}
 	
-	
 	public void buttonClick(Button.ClickEvent event){
+		
 		if(event.getButton() == anzeigen){
 			String tmp = nachricht.getValue().toString();
 			String[] splitResult = tmp.split(":");
 			int listnr = Integer.parseInt(splitResult[0])-1;
 			InfoWindow messageW = new InfoWindow(lis.get(listnr).getBetreff(),lis.get(listnr).getbeschreibung(),newMess);
-			/*messageW = new Window(lis.get(listnr).getBetreff());
-    		
-    		Layout mess = new VerticalLayout();
-    		
-    		text = new Label(lis.get(listnr).getbeschreibung());
-    		messageW.setContent(mess);
-    		messageW.addComponent(text);
-    		okay = new Button("ok");
-    		messageW.addComponent(okay);
-    		newMess.addWindow(messageW);
-    		okay.addListener(this);*/
-			
 		}
-		/*if(event.getButton() == okay) {
-    		newMess.removeWindow(messageW);
-    	}*/
 		if(event.getButton()== logout){
 		       starta.getMainWindow().getApplication().close();				
 		}
@@ -99,7 +82,9 @@ public class NewMessage extends Startseite implements Button.ClickListener {
 			newMess.open(new ExternalResource(oldURL));
 		}
 	}
+	
 	private AbsoluteLayout buildMainLayout() {
+		
 		// common part: create layout
 		mainLayout = new AbsoluteLayout();
 		mainLayout.setImmediate(false);

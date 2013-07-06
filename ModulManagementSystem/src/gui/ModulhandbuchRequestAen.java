@@ -13,10 +13,7 @@ import control.ModuleHandbook;
 
 public class ModulhandbuchRequestAen extends Startseite implements Button.ClickListener {
 	
-	private Window mod, newBook; //, selErrW;	
-	/*Button recommend = new Button("anfordern");
-	Button okay2;
-	VerticalLayout mlist = new VerticalLayout();*/
+	private Window mod, newBook; 
 	private Button recommend,back, create, okay2;
 	private Label label, wrong2;
 	private AbsoluteLayout mainLayout;
@@ -24,32 +21,26 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
 	private LinkedList<Integer> tmp2;
 	ListSelect modules;
 	TextField name;
+	
 	public ModulhandbuchRequestAen( LinkedList<Integer> ids, String[] list) {
+		
 		Window test = starta.getWindow("Modul auswählen");
 		if(test != null){
 			start.removeWindow(test);	
 		}
 		tmp = list;
 		tmp2 = ids;
-
 		mod = new Window("");
 		mod.setName("M");
 		starta.addWindow(mod);
 
-		//mod = new Window("Modulhandbuch auswählen");
-		//start.addWindow(mod);
-		/*mod.setContent(mlist);
-		recommend.addListener(this);*/
 		openModuleList(list);
 		buildMainLayout();
 		recommend.addListener(this);
 		create.addListener(this);
-		mod.setContent(mainLayout);
-		//mlist.addComponent(recommend);				
+		mod.setContent(mainLayout);			
 		Window old = starta.getWindow("Startseite");
 		old.open(new ExternalResource(mod.getURL()));
-		//start.removeWindow(old);	
-
 	}
     
     //erstellt ListSelect-Element und fügt es in das Modulfenster (siehe moduleList())
@@ -67,19 +58,11 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     
     //ButtonListener
     public  void buttonClick(Button.ClickEvent event) {
+    	
     	String read ;
     	if (event.getButton() == recommend) {
  
 				read =(String) modules.getValue();
-				/*
-				//int i= 0; 
-				//int modul = 1; 
-				do {
-					//i++;
-					//modul = tmp2.get(i);
-					System.out.println("Modul-ID in While:" + modul);	
-				} while(!(read.equals(tmp[i])));
-				*/
 				for (int i = 0; i < tmp2.size(); i++) {
 					System.out.println(tmp2.get(i));
 				}
@@ -89,32 +72,23 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
 						modul = tmp2.get(i);
 					}
 				}
-				
 				System.out.println("Modul-ID:" + modul);
 				HandbookManager hbm = new HandbookManager(modul);
-	    
-				
-			
-
     	}
     	if(event.getButton()== back){
     		starta.getMainWindow().getApplication().close();      
     	}    	
     	if(event.getButton() == create){
-    		
     		displayNewBook();
-    		
     	}
     	if(event.getButton() == okay2){
     		String name1 =(String) name.getValue();
-    		
     		contDek.saveHandbook(name1);
-
-    		
     	}
     }
     
     private AbsoluteLayout buildMainLayout() {
+    	
     	    // common part: create layout
     	    mainLayout = new AbsoluteLayout();
     	    mainLayout.setImmediate(false);
@@ -171,31 +145,27 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     	}
     
     //Fehlerfenster wenn kein Modul ausgewählt wird
-    
-    
     public void displayNewBook() {
+    	
     	newBook = new Window("Handbuch erstellen");
     	okay2 = new Button("Ok");
     	Label wrong2 = new Label("Geben sie den Namen des Handbuches ein:");
 		name = new TextField();
     	Layout selError = new VerticalLayout();
-    	
     	okay2.addListener(this);
     	
     	newBook.setContent(selError);
     	newBook.addComponent(wrong2);
     	newBook.addComponent(name);
     	newBook.addComponent(okay2);
-    	
     	mod.addWindow(newBook);
     	newBook.setHeight("200px");
-    	newBook.setWidth("200px");
-    	
+    	newBook.setWidth("200px");  	
     }
     	
     	
     public void displaySelectionError() {
+    	
     	InfoWindow error = new InfoWindow("Fehler","Wählen Sie bitte ein Modul aus",mod);
-   
     }
 }
