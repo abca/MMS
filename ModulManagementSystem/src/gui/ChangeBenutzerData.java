@@ -52,17 +52,22 @@ public class ChangeBenutzerData extends Startseite implements Button.ClickListen
 		if(event.getButton() == save){
 			//Password pw = new Password();
 			//if(oldPass.getValue().equals(tmp1.getPw())){
-			if((new Password()).verifyPassword((String) oldPass.getValue(), tmp1.getPw())){
-				if(newPass1.getValue().equals(newPass.getValue())){
-					String name =(String) uName.getValue();		
-					String email =(String) uMail.getValue();
-					String pw =(String) newPass.getValue();
+			String name = (String)uName.getValue();
+			String email = (String)uMail.getValue();
+			String passOld = (String)oldPass.getValue();
+			String p1 = (String)newPass.getValue();
+			String p2 = (String)newPass1.getValue();
+			if(name.equals("")||(email.equals("")||(passOld.equals("")||(p1.equals("")||(p2.equals("")))))){
+				displayError("Füllen Sie bitte alle Felder aus ");
+			}
+			else if((new Password()).verifyPassword(passOld, tmp1.getPw())){
+				if(p2.equals(p1)){				
 					
-					Benutzer Neu = new Benutzer(tmp1.getId(), name, email, pw, tmp1.isDozent(),
+					Benutzer Neu = new Benutzer(tmp1.getId(), name, email, p1, tmp1.isDozent(),
 									tmp1.isDekan(), /*tmp1.isDez2(),*/ tmp1.isAdmin(), tmp1.isStell()
 										, tmp1.getStellid());	
 					cont.changeBenutzer(Neu);
-					
+					change.open(new ExternalResource(oldURL));
 					}else{
 					displayError("Passwörter stimmen nicht überein");		
 					}			
