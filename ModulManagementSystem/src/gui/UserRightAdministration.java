@@ -214,13 +214,7 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 		benutzer.setWidth("46.0%");
 		benutzer.setHeight("70.0%");
 		mainLayout.addComponent(benutzer, "top:35.0%;left:35.0%;");
-		
-		// dekan
-		dekan.setImmediate(false);
-		dekan.setWidth("46.0%");
-		dekan.setHeight("70.0%");
-		mainLayout.addComponent(dekan, "top:35.0%;left:35.0%;");
-		
+				
 		// aendern
 		aendern = new Button();
 		aendern.setCaption("Nutzerrechte ändern");
