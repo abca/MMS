@@ -125,8 +125,13 @@ public class ControllerDekan extends Controller{
 	}
 	
 	public void saveHandbook(String name){
-		
-		book.newHandbook(name, userid);
+		//ist der nutzer nur stellvertreter eines dekans?
+		if(!userData.getRangDekan(userid)&&cont.getDekan(userid)){
+			book.newHandbook(name, userData.getStellID(userid));
+		}
+		else{
+			book.newHandbook(name, userid);
+		}
 	}
 
 	public void archivListeAusgeben() {
