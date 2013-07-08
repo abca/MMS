@@ -76,7 +76,9 @@ public class Startseite implements Button.ClickListener{
 				changeModule = new Button("Modul ändern/erstellen");
 				changeModule.addListener(this);
 				declareDeputy = new Button("Stellvertreter ernennen");
-				declareDeputy.addListener(this);	
+				declareDeputy.addListener(this);
+				messages = new Button("Benachrichtigungen");
+				messages.addListener(this);
 			}
 			organize = new Button("Modulhandbuch organisieren");
 			organize.addListener(this);

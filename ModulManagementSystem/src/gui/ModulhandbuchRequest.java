@@ -18,9 +18,11 @@ public class ModulhandbuchRequest extends LoginApplication implements Button.Cli
 	private AbsoluteLayout mainLayout;
 	private String [] tmp;
 	private LinkedList<Integer> tmp2;
+	LoginApplication start;
 	
-	public ModulhandbuchRequest(LoginApplication start, LinkedList<Integer> ids, String[] list) {
+	public ModulhandbuchRequest(LoginApplication _start, LinkedList<Integer> ids, String[] list) {
 		
+		start = _start;
 		Window test = start.getWindow("Modul auswählen");
 		if(test != null){
 			start.removeWindow(test);	

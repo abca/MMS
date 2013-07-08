@@ -87,23 +87,22 @@ public class Controller {
 				&&userData.getStellID(idStell)==userid);
 	}
 	
-	//gibt an, ob ein User Rechte hat, auch über Stellvertreter
+	//gibt an, ob ein User Administrator ist
 	public boolean getAdmin(int id){
 		
 		if(userData.getRangAdmin(id))return true;
-		else if(userData.getStellAdmin(id))return true;
 		else return false;
 	}
-		
-	public boolean getDozent(int id){
-		
+	
+	//gibt an, ob ein User Dozent, oder dessen Stellvertreter ist
+	public boolean getDozent(int id){		
 		if(userData.getRangDozent(id))return true;
 		else if(userData.getStellDozent(id))return true;
 		else return false;
 	}
-		
-	public boolean getDekan(int id){
-		
+	
+	//gibt an, ob ein User Dekan, oder dessen Stellvertreter ist
+	public boolean getDekan(int id){		
 		if(userData.getRangDekan(id))return true;
 		else if(userData.getStellDekan(id))return true;
 		else return false;

@@ -66,7 +66,10 @@ public class SetDeputy extends Startseite implements Button.ClickListener {
 				InfoWindow isDep;
 				if(cont.getStell(cont.getID(aus))) 
 					isDep = new InfoWindow("Fehler","Dieser Nutzer ist bereits ein Stellvertreter",setD);
-				else cont.setDep(aus,true);
+				else {
+					cont.setDep(aus,true);
+					setD.open(new ExternalResource(oldURL));
+				}
 			}
 		}
 		
@@ -82,8 +85,10 @@ public class SetDeputy extends Startseite implements Button.ClickListener {
 			}
 			else{
 				InfoWindow isntDep;
-				if(cont.getMyStell(cont.getID(aus)))
+				if(cont.getMyStell(cont.getID(aus))){
 					cont.setDep(aus, false);
+					setD.open(new ExternalResource(oldURL));
+				}
 				else
 					isntDep = new InfoWindow("Fehler","Dieser Nutzer ist nicht Ihr Stellvertreter",setD);
 			}
