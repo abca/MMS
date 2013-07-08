@@ -17,7 +17,7 @@ public class SaveHandbook {
 	public void archive(LinkedList<Integer> arr, String time, String[] name, int userid, LoginApplication login){
 		
 		for(int i=0; i<arr.size(); i++){
-			int local = arr.get(i);
+			int local = ar.getNewId();
 			FileResource file = tmp.generatePDF(local, login);
 			File f = file.getSourceFile();
 			String path = f.getAbsolutePath();

@@ -17,6 +17,7 @@ public class Archive extends KillConnections {
 	private static final String GETARCHBOOKNAMES = "SELECT * FROM archiv WHERE dekID=?";
 	private static final String GETARCHYEARS = "SELECT time FROM archiv WHERE id=?";
 	private static final String GETBOOK = "SELECT path FROM archiv WHERE id=?";
+	private static final String GETNEWID = "SELECT id FROM archiv ORDER BY id DESC LIMIT 1";
 	
 	public Archive(){
 		
@@ -164,5 +165,52 @@ public class Archive extends KillConnections {
 			closeConnections(data, psmt);
 		}
 		return path;
+	}
+	
+	public int getNewId() {
+			
+			int id1 = 0;
+			int id2 =0;
+			
+			PreparedStatement psmt = null;
+			PreparedStatement psmt1 = null;
+			ResultSet data = null;
+			ResultSet data1 = null;
+			
+			try {
+				con.setAutoCommit(false);
+	
+				psmt = con.prepareStatement(GETNEWID);
+	
+				data = psmt.executeQuery();
+				data.next();
+				id1 = data.getInt("id");
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				closeConnections(data, psmt);
+			}
+			try{
+				con.setAutoCommit(false);
+	
+				psmt1 = con.prepareStatement(GETNEWID);
+	
+				data1 = psmt1.executeQuery();
+				data1.next();
+				id2 = data1.getInt("id");
+				}
+			catch (SQLException e1) {
+			e1.printStackTrace();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		} finally {
+			closeConnections(data1, psmt1);
+		}
+			id1++;
+			System.out.println(id1);
+			return id1;
 	}
 }
