@@ -78,13 +78,6 @@ public class ModulhandbuchRequest extends LoginApplication implements Button.Cli
 			}
 			catch (NullPointerException e){
 				read = "";
-				e.printStackTrace();
-			}
-			if(read.equals("")){
-				displaySelectionError();
-			}
-			else{
-				System.out.println("recommend");
 			}
     	}
     	if(event.getButton()== back){
