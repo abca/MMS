@@ -90,7 +90,18 @@ public class ControllerDekan extends Controller{
 	
 	public void requestModule() {
 		
-		String[] list = book.getBookNames(userid);
+		String[] list = book.getBookNames(userid);		
+		if(userData.getRangStell(userid)){
+			String[] listStell = book.getBookNames(userData.getStellID(userid));
+			String[] list2 = new String[list.length+listStell.length];
+			for(int i=0; i<list.length;i++){
+				list2[i]=list[i];
+			}
+			for(int i=list.length;i<list2.length;i++){
+				list2[i]=listStell[i-list.length];
+			}
+			list=list2;
+		}
 		LinkedList<Integer>  ids = book.getBookID(userid);
 		ModulhandbuchRequestAen req = new ModulhandbuchRequestAen(ids, list, cont);
 	}
