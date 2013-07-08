@@ -10,6 +10,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.PopupView;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Tree;
@@ -114,4 +115,9 @@ public class HandbookManager_View extends Startseite {
 		Window old = starta.getWindow("M");
 		old.open(new ExternalResource(w.getURL()));
 	}
+	
+	public void showNotification() {
+		
+	}
+	
 }
