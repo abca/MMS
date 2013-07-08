@@ -72,8 +72,9 @@ public class ModulhandbuchRequest extends LoginApplication implements Button.Cli
 			linkPop.addComponent(l);
 	    
 	    	mod.addWindow(linkPop);
-	    	linkPop.setHeight("300px");
-	    	linkPop.setWidth("200px");	
+	    	linkPop.setHeight("200px");
+	    	linkPop.setWidth("300px");	
+	    	linkPop.center();
 			}
 			catch (NullPointerException e){
 				read = "";
