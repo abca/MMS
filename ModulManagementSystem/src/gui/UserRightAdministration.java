@@ -129,8 +129,7 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 				cont.deleteUser(benutzer.getValue().toString());
 				benutzer.removeItem(benutzer.getValue().toString());
 				admin.removeWindow(swapResW);
-			}catch(NullPointerException e){
-				e.printStackTrace();
+			}catch(NullPointerException e){			
 			}			
 		}
 		if(event.getButton()==swapResNotDel){
@@ -139,8 +138,7 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 				admin.removeWindow (auswahlW);
 				cont.aenderungSpeichern(aus, selectedRang);
 				admin.removeWindow(swapResW);
-			}catch(NullPointerException e){
-				e.printStackTrace();
+			}catch(NullPointerException e){			
 			}			
 		}
 	}
