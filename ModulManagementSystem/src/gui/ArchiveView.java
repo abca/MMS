@@ -10,7 +10,6 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Link;
 import com.vaadin.ui.ListSelect;
-import com.vaadin.ui.TextField;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Runo;
@@ -90,6 +89,7 @@ public class ArchiveView extends Startseite implements ClickListener {
 		down.addComponent(download);
     	down.setHeight("200px");
     	down.setWidth("300px");
+    	down.center();
     	arch.addWindow(down);
 	}
 	
