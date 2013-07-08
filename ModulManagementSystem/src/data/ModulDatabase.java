@@ -31,7 +31,9 @@ public class ModulDatabase extends KillConnections {
 	private static final String GETSPERR = "SELECT sperr FROM moduldata WHERE id=?";
 	private static final String SETSPERR = "UPDATE moduldata SET sperr=? WHERE id=?";
 	private static final String DELETEMODULE = "DELETE FROM moduldata WHERE id=?";
-
+	private static final String UPDATEDEK = "UPDATE moduldata SET responsibleid=? WHERE responsibleid=?";
+	
+	
 	public ModulDatabase(){
 		
 		try {
@@ -692,4 +694,25 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 			closeConnections(data, psmt);	
 		}
 	}
+	public void changeDekan(int dekan, int neudekan){
+		PreparedStatement psmt = null;
+		ResultSet data = null;
+		try {
+			con.setAutoCommit(false);
+			
+			psmt = con.prepareStatement(UPDATEDEK);
+			psmt.setInt(1, neudekan);
+			psmt.setInt(2, dekan);
+			psmt.executeUpdate();
+			con.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnections(null, psmt);
+		}
+		
+	}
+	
 }

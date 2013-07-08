@@ -20,7 +20,7 @@ public class BookName extends KillConnections {
 	private static final String GETBOOKIDSD = "SELECT ID FROM handbuchname WHERE dekan=?";
 	private static final String NEWHAND ="INSERT INTO handbuchname VALUES(?,?,?)";
 	private static final String GETNEWID = "SELECT id FROM handbuchname ORDER BY id DESC LIMIT 1";
-	
+	private static final String UPDATEDEK ="UPDATE handbuchname SET dekan=? WHERE dekan=?";
 	public BookName(){
 		
 		try {
@@ -159,4 +159,26 @@ public void newHandbook(String name, int user){
 		}
 		return x;
 	}
+	public void changeDekan(int neudekan, int dekan){
+		PreparedStatement psmt = null;
+	//	ResultSet data = null;
+		try {
+			con.setAutoCommit(false);
+			
+			psmt = con.prepareStatement(UPDATEDEK);
+			psmt.setInt(1, neudekan);
+			psmt.setInt(2, dekan);
+			psmt.executeUpdate();
+			con.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnections(null, psmt);
+		}
+		
+	}
+	
+	
 }
