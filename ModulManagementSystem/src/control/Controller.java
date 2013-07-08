@@ -126,7 +126,6 @@ public class Controller {
 		userid = userData.getID(us);
 		Window old = login.getWindow("main");
 		Startseite aa = new Startseite(b, userid, old, this);
-		System.out.println(userid);
 		}else {
 			b.displayError();
 		}
@@ -167,24 +166,28 @@ public class Controller {
 		}
 	}
 	
+	//zum ändern der persönlichen Daten
 	public void changeBenutzer(Benutzer neu){		
 		
 		userData.deleteUser(neu.getId());
 		userData.newUser(neu);		
 	}
 	
+	//ruft Methode zum Laden eines Users aus der DB auf
 	public Benutzer loadBenutzer(int userid1){
 		
 		Benutzer tmp = userData.loadBenutzer(userid1);
 		return tmp;
 	}
 	
+	//holt die Nachrichtenliste von der DBB Methode und gibt sie weiter
 	public void loadNewMessageList(){
 
 		LinkedList<Nachricht> list = nachrichtenData.loadNewBenachrichtList(userid);
 		NewMessage newMessages = new NewMessage(list, this);
 	}
 	
+	//checkt ob der Username bereits vergeben ist
 	public boolean doesNameExist(String name){
 		
 		String[] liste = userData.getBenutzerListe();
@@ -194,6 +197,7 @@ public class Controller {
 		return false;
 	} 
 	
+	//checkt ob der Modulname schon vergeben ist
 	public boolean doesModuleNameExist(String name){
 		
 		LinkedList<ModulKu> list = modulDatabase.loadWholeModuleList();
@@ -206,6 +210,7 @@ public class Controller {
 		return false;
 	}
 	
+	//veranlasst das löschen eines users
 	public void deleteUser(String name){
 		int id = userData.getID(name);
 		userData.deleteUser(id);
@@ -219,6 +224,7 @@ public class Controller {
 		
 	}
 	
+	//veranlasst das löschen einer Nachricht
 	public boolean deleteMessage(int messid){
 		boolean delete = nachrichtenData.delete(messid);
 		return delete;

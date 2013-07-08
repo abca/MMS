@@ -10,8 +10,7 @@ import java.util.LinkedList;
 import objects.Nachricht;
 
 public class NachrichtData extends KillConnections {
-	
-	//private static Connection con;	
+		
 	private static final String LOADBENACHRICHTENLIST = "SELECT id FROM nachrichtendata WHERE modul!=0 && benutzer=?";
 	private static final String LOADNACHRICHT = "SELECT * FROM nachrichtendata WHERE id=?";
 	private static final String DELETE = "DELETE FROM nachrichtendata where id =?";
@@ -69,7 +68,7 @@ public class NachrichtData extends KillConnections {
 		}
 	}
 
-	//holt sich Benachrichtigungen als LinkedList aus Nachrichten
+	//holt sich Benachrichtigungen wegen Moduländerungen als LinkedList aus Nachrichten
 	public LinkedList<Nachricht> loadBenachrichtList (int userid){
 	
 		PreparedStatement psmt = null;
@@ -101,6 +100,8 @@ public class NachrichtData extends KillConnections {
 		}
 	}
 	
+	/*holt sich Benachrichtigungen die nicht zu Moduländerungen gehören
+	  als LinkedList aus Nachrichten*/
 	public LinkedList<Nachricht> loadNewBenachrichtList (int userid){
 		
 		PreparedStatement psmt = null;

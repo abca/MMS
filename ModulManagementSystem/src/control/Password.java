@@ -109,9 +109,6 @@ public final class Password {
 		
 		//Test
 		Password pw = new Password();
-		System.out.println(pw.generateSalt("hallo"));
-		System.out.println(pw.hashPassword("hallo", "37bee9d3a1144dc428c71610c890769fdc0f4019af0829d654607955c22c839c"));
-		System.out.println(pw.verifyPassword("hallo","37bee9d3a1144dc428c71610c890769fdc0f4019af0829d654607955c22c839ca50b1cc166794869252e98f0fc6e102a2bf6751424307be1148bd4d6cded75b4"));
 		
 		
 	}

@@ -210,7 +210,6 @@ public class Archive extends KillConnections {
 			closeConnections(data1, psmt1);
 		}
 			id1++;
-			System.out.println(id1);
 			return id1;
 	}
 }

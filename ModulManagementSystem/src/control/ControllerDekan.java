@@ -77,8 +77,7 @@ public class ControllerDekan extends Controller{
 			list.add(listStell.get(i));
 		}
 		for (int i =0; i<list.size(); i++){
-			list2.add(modulPufferData.loadModuleKu(list.get(i).getmodule()));
-			System.out.println(list.get(i).getbeschreibung());	
+			list2.add(modulPufferData.loadModuleKu(list.get(i).getmodule()));	
 		}
 		ChangeRequest tmp = new ChangeRequest(list, list2, cont);	
 	}
