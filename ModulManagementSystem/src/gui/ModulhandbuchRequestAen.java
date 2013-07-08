@@ -91,7 +91,7 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     		String name1 =(String) name.getValue();
     		cont.getcDe().saveHandbook(name1);
     		mod.removeWindow(newBook);
-    		modules.addItem(name1);u++;
+    		u++;
     		modules.addItem(u+". "+name1);
     	}
     }
