@@ -1,5 +1,6 @@
 package gui;
 
+import java.net.URL;
 import java.util.LinkedList;
 
 import com.vaadin.terminal.ExternalResource;
@@ -21,6 +22,8 @@ public class ArchiveView extends Startseite implements ClickListener {
 	private String [] tmp;
 	private LinkedList<Integer> tmp2;
 	private AbsoluteLayout mainLayout;
+	private URL oldURL;
+	private Button back;
 	Window arch, down;
 	Label label;
 	Button request;
@@ -44,6 +47,7 @@ public class ArchiveView extends Startseite implements ClickListener {
 		buildMainLayout();
 		arch.setContent(mainLayout);
 		Window old = starta.getWindow("Startseite");
+		oldURL = old.getURL();
 		old.open(new ExternalResource(arch.getURL()));	
 	}
 	
@@ -64,6 +68,9 @@ public class ArchiveView extends Startseite implements ClickListener {
 		}
 		if(event.getButton() == logout){
 			 starta.getMainWindow().getApplication().close();
+		}
+		if(event.getButton() == back){
+			arch.open(new ExternalResource(oldURL));
 		}
 	}
 	
@@ -123,6 +130,16 @@ public class ArchiveView extends Startseite implements ClickListener {
 		request.addListener(this);
 		mainLayout.addComponent(request, "top:83.0%;left:35.0%;");
 			
+		// back
+		back = new Button();
+		back.setCaption("Startseite");
+		back.setImmediate(true);
+		back.setWidth("-1px");
+		back.setHeight("-1px");
+		back.setStyleName(BaseTheme.BUTTON_LINK);
+		back.addListener(this);
+		mainLayout.addComponent(back, "top:88.0%;left:35.0%;");
+		
 		// logout
 		logout = new Button();
 		logout.setCaption("logout");
@@ -131,7 +148,7 @@ public class ArchiveView extends Startseite implements ClickListener {
 		logout.setHeight("-1px");
 		logout.setStyleName(BaseTheme.BUTTON_LINK);
 		logout.addListener(this);
-		mainLayout.addComponent(logout, "top:88.0%;left:35.0%;");
+		mainLayout.addComponent(logout, "top:91.5%;left:35.0%;");
 			
 		return mainLayout;
 	}

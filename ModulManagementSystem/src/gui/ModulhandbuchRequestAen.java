@@ -1,5 +1,6 @@
 package gui;
 
+import java.net.URL;
 import java.util.LinkedList;
 
 import com.vaadin.terminal.ExternalResource;
@@ -20,6 +21,7 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
 	private AbsoluteLayout mainLayout;
 	private String [] tmp;
 	private LinkedList<Integer> tmp2;
+	private URL oldURL;
 	ListSelect modules;
 	TextField name;
 	LoginApplication starta;
@@ -27,9 +29,9 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
 	public ModulhandbuchRequestAen( LinkedList<Integer> ids, String[] list, Controller d) {
 		super(d);
 		 starta =cont.getStart();
-		Window test = starta.getWindow("M");
+		Window test = starta.getWindow("Modul auswählen");
 		if(test != null){
-			starta.removeWindow(test);	
+			start.removeWindow(test);	
 		}
 		tmp = list;
 		tmp2 = ids;
@@ -43,6 +45,7 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
 		create.addListener(this);
 		mod.setContent(mainLayout);			
 		Window old = starta.getWindow("Startseite");
+		oldURL = old.getURL();
 		old.open(new ExternalResource(mod.getURL()));
 	}
     
@@ -78,9 +81,12 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
 				System.out.println("Modul-ID:" + modul);
 				HandbookManager hbm = new HandbookManager(modul, cont);
     	}
-    	if(event.getButton()== back){
+    	if(event.getButton()== logout){
     		starta.getMainWindow().getApplication().close();      
     	}    	
+    	if(event.getButton()==back){
+    		mod.open(new ExternalResource(oldURL));
+    	}
     	if(event.getButton() == create){
     		displayNewBook();
     	}
@@ -143,6 +149,16 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     	    back.setStyleName(BaseTheme.BUTTON_LINK);
     	    back.addListener(this);
     	    mainLayout.addComponent(back,"top:93.0%;left:35.0%;");
+    	    
+    	    // logout
+    	    logout = new Button();
+    	    logout.setCaption("logout");
+    	    logout.setImmediate(true);
+    	    logout.setWidth("-1px");
+    	    logout.setHeight("-1px");
+    	    logout.setStyleName(BaseTheme.BUTTON_LINK);
+    	    logout.addListener(this);
+    	    mainLayout.addComponent(logout,"top:96.5%;left:35.0%;");
     	    
     	    return mainLayout;
     	}
