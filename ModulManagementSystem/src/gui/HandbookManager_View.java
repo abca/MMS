@@ -88,7 +88,7 @@ public class HandbookManager_View extends Startseite {
 		tablePanel11 = new Panel();
 		tablePanel11.setContent(new VerticalLayout());
 		
-		umta = new UnassignedModulesTable();
+		umta = new UnassignedModulesTable(cont.getUserID());
 		unassignedModules = umta.generateTable();
 		tablePanel11.addComponent(unassignedModules);
 		

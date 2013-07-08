@@ -525,7 +525,7 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 	}
 			
 	//Lösche das angegebene Fach
-	public boolean deleteFachOrModul(int id) {
+	public boolean deleteFach(int id) {
 		
 		System.out.println("ID: " + id);
 		boolean b = true;
@@ -533,8 +533,7 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 		ResultSet data = null;
 		
 		try {
-			//Prüfe, ob das Element ein Fach oder Modul ist
-			if (id % 3 == 2) {
+			
 				//Das zu löschende Fach darf nicht auf andere Fächer zeigen
 				psmt = con.prepareStatement("SELECT id FROM handbuchdata");
 				data = psmt.executeQuery();
@@ -556,19 +555,36 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 					result = psmt.executeUpdate();
 					System.out.println("Fachname gelöscht: " + result);
 				}
-			}else if (id % 3 == 0){
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		closeConnections(data, psmt);
+		return b;
+	}
+	
+public boolean deleteModul(int id, int fach) {
+		
+		System.out.println("ID: " + id);
+		boolean b = true;
+		PreparedStatement psmt = null;
+		ResultSet data = null;
+		
+		try {	
 				//Lösche Zeiger, die auf das Modul zeigen
-				String s = "DELETE FROM handbuchdata WHERE fid ="+id;
+				String s = "DELETE FROM handbuchdata WHERE id = " + fach + " AND fid = "+id;
 				psmt = con.prepareStatement(s);
 				int result = psmt.executeUpdate();
 				System.out.println("Zeiger auf Modul gelöscht: " + result);
 				
+				/*
 				//Lösche das Modul
 				s = "DELETE FROM moduldata WHERE id ="+id;
 				psmt = con.prepareStatement(s);
 				result = psmt.executeUpdate();
 				System.out.println("Modul gelöscht: " + result);
-			}
+				*/
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

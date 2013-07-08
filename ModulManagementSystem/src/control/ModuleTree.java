@@ -123,6 +123,8 @@ public class ModuleTree {
 			Item it = tree.getItem(itemId);
 			Property p = it.getItemProperty(CAPTION_PROPERTY);
 			p.setValue(element);
+			p = it.getItemProperty(DEPTH_PROPERTY);
+			p.setValue(depth);
 			
 			//int number = nextFach.get(i).intValue();
 			

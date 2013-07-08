@@ -4,11 +4,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.vaadin.data.Container.Hierarchical;
+import com.vaadin.data.Item;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Tree;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -32,6 +35,10 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 	String selectedModule;
 	Controller cont;
 	int actualDepth;
+	
+	//ItemID das zu der ID selectedId gehört
+	Object item;
+	String x;
 	
 	//Der Konstruktor erwartet die ID des Modulhandbuches, dass angezeigt
 	//werden soll
@@ -80,8 +87,21 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 			System.out.println("Modul (nochmals) zugeordnet: " + data.moveModule(selectedId, fid));
 		}
 		if (e.getSource() == gui.delete) {
-			//Löschen eines Faches
-			System.out.println("Löschvorgang durchgeführt: " + data.deleteFachOrModul(selectedId));
+			if (selectedId % 3 == 2) {
+				//Löschen eines Faches
+				System.out.println("Löschvorgang durchgeführt: " + data.deleteFach(selectedId));
+			} else if (selectedId % 3 == 0) {
+				//Löschen eines Moduls
+							
+				String[] splittedString = gui.moduletree.getParent(item).toString().split(" ");
+				
+				int parentId = Integer.parseInt(splittedString[0]);
+				System.out.println("parentId: " + parentId);
+				System.out.println("parentId: " + x);
+				
+				System.out.println("Löschvorgang durchgeführt: " + data.deleteModul(selectedId, parentId));
+				
+			}
 		}
 		// TODO Refresh noch ausbessern
 		gui.starta.removeWindow(gui.w);
@@ -108,6 +128,9 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 			for (int i = 0; i < o.length; i++) {
 				System.out.println("Property "+i+": "+o[i]);
 			}
+			
+			item = e.getItemId();
+			//x = ((Tree) e.getSource()).getParent(e.getItemId()).toString();
 			
 			System.out.println("X"+e.getItem().toString());
 			System.out.println("Y"+e.getItem().getItemProperty("caption").toString());
