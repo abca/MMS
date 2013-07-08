@@ -11,11 +11,10 @@ import control.Controller;
 
 public class DeadLine extends Startseite implements Button.ClickListener {
 
-	String out, out2, time;
 	OptionGroup group;
 	TextField year;
 	Window dead, archiveW, confirmW;
-	String datumstr;
+	String datumstr, time;
 	Label label, text;
 	TextField datum;  
 	private Button ok, archive, okay,back, setDline;
@@ -62,16 +61,19 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 			dead.removeWindow(confirmW);
 		}
 		if(event.getButton() == okay){
-			if(group.getValue()!=null)out = group.getValue().toString();
-			else out = "";
-			out2 = (String)year.getValue();
-			if(out.equals("")||out2.equals("")){
+			try{
+				String out = group.getValue().toString();
+				String out2 = (String)year.getValue();
+				if (out2.equals("")){
+					InfoWindow fatalerr = new InfoWindow("archivieren", "Sie müssen Angaben bezüglich Jahr und Semester machen", dead);
+				}else if (!(out2.equals(""))){
+					time = out + " " + out2;
+					cont.getcDe().scanHandbooks(time);
+					dead.removeWindow(archiveW);
+					}
+			}catch(Exception e){
 				InfoWindow fatalerr = new InfoWindow("archivieren", "Sie müssen Angaben bezüglich Jahr und Semester machen", dead);
-			}else{
-			time = out + " " + out2;
-			cont.getcDe().scanHandbooks(time);
-			dead.removeWindow(archiveW);
-			}
+			}	
 		}
 		if(event.getButton() == archive){
 			archiveDate();
