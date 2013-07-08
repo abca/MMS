@@ -210,6 +210,15 @@ public class Controller {
 		return false;
 	}
 	
+	//checkt ob der Modulhandbuchname schon vergeben ist
+	public boolean doesHandbookNameExist(String name){		
+		String[] list = book.getAllBookNames();
+		
+		for(int i=0;i<list.length;i++)
+			if(list[i].equals(name)) return true;
+		return false;
+	}
+	
 	//veranlasst das löschen eines users
 	public void deleteUser(String name){
 		int id = userData.getID(name);

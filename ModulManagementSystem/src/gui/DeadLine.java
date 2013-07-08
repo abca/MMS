@@ -87,13 +87,18 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 			try{
 				String out = group.getValue().toString();
 				String out2 = (String)year.getValue();
-				if (out2.equals("")){
+				if (out2.equals("")||Integer.parseInt(out2)<2000||Integer.parseInt(out2)>2100){
 					InfoWindow fatalerr = new InfoWindow("archivieren", "Sie müssen Angaben bezüglich Jahr und Semester machen", dead);
 				}else if (!(out2.equals(""))){
-					time = out + " " + out2;
-					cont.getcDe().scanHandbooks(time);
-					dead.removeWindow(archiveW);
+					if(out.equals("Sommersemester")){
+						time = out + " " + out2;
 					}
+					else{
+						time = out + " " + out2 + "/"+(Integer.parseInt(out2)-1999); // Wintersemester der Form 20XX/YY
+					}
+					cont.getcDe().scanHandbooks(time);
+					dead.removeWindow(archiveW);					
+				}
 			}catch(Exception e){
 				InfoWindow fatalerr = new InfoWindow("archivieren", "Sie müssen Angaben bezüglich Jahr und Semester machen", dead);
 			}	
@@ -110,7 +115,7 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 	}
 
 	public void archiveDate(){
-		
+		Label l = new Label("Bei WS bitte das erste Jahr eingeben");
 		year = new TextField("Jahr");
 		group = new OptionGroup();
 		group.setMultiSelect(false);
@@ -122,6 +127,7 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 		Layout re = new VerticalLayout();
 		
 		archiveW.setContent(re);
+		archiveW.addComponent(l);
 		archiveW.addComponent(group);
 		archiveW.addComponent(year);
 		archiveW.addComponent(okay);

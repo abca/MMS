@@ -20,7 +20,6 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
 	private String [] tmp;
 	private LinkedList<Integer> tmp2;
 	private URL oldURL;
-	private int u;
 	ListSelect modules;
 	TextField name;
 	LoginApplication starta;
@@ -54,8 +53,7 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     	modules = new ListSelect();
 		
     	for(int i=0; i < list.length; i++){
-			u = i+1;
-			modules.addItem(u+". "+list[i]);			
+			modules.addItem(list[i]);			
 		}
 		
 		modules.setNullSelectionAllowed(false);
@@ -89,10 +87,14 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     	}
     	if(event.getButton() == okay2){
     		String name1 =(String) name.getValue();
-    		cont.getcDe().saveHandbook(name1);
-    		mod.removeWindow(newBook);
-    		u++;
-    		modules.addItem(u+". "+name1);
+    		if(!cont.doesHandbookNameExist(name1)){
+    			cont.getcDe().saveHandbook(name1);
+    			mod.removeWindow(newBook);
+    			modules.addItem(name1);
+    		}
+    		else{
+    			InfoWindow err = new InfoWindow("Fehler","Dieses Modulhandbuch gibt es bereits",mod);
+    		}
     	}
     }
     

@@ -17,6 +17,7 @@ public class BookName extends KillConnections {
 	private static final String GETBOOKNAMES = "SELECT * FROM handbuchname";
 	private static final String GETBOOKIDS = "SELECT ID FROM handbuchname";
 	private static final String GETBOOKNAMESD = "SELECT * FROM handbuchname WHERE dekan=?";
+	private static final String GETALLBOOKNAMESD = "SELECT * FROM handbuchname";
 	private static final String GETBOOKIDSD = "SELECT ID FROM handbuchname WHERE dekan=?";
 	private static final String NEWHAND ="INSERT INTO handbuchname VALUES(?,?,?)";
 	private static final String GETNEWID = "SELECT id FROM handbuchname ORDER BY id DESC LIMIT 1";
@@ -77,6 +78,40 @@ public class BookName extends KillConnections {
 		String[] list = tmp.toArray(new String[0]);
 		return list;
 	}
+	
+	//holt sich alle Modulhandbuchnamen als Sting-Array aus der Datenbank
+		public String[] getAllBookNames(){
+			
+			LinkedList<String> tmp = new LinkedList<String>();
+			PreparedStatement psmt = null;
+			ResultSet data = null;
+
+			try {
+				con.setAutoCommit(false);
+
+				
+				psmt = con.prepareStatement(GETBOOKNAMES);
+				
+				data = psmt.executeQuery();
+
+				while (data.next()) {
+					int id = data.getInt("id");
+					if(id%3 == 1){
+						
+						String name = data.getString("name");
+						tmp.add(name);
+					}					
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				closeConnections(data, psmt);
+			}
+			String[] list = tmp.toArray(new String[0]);
+			return list;
+		}
 	
 	//holt sich Modulhanbuchids als LinkedList aus der Datenbank
 	public LinkedList<Integer> getBookID(int user){
