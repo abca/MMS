@@ -10,7 +10,6 @@ import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
-import com.vaadin.ui.TextArea;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Runo;
@@ -30,8 +29,8 @@ public class RequestView extends Startseite implements Button.ClickListener {
 	private AbsoluteLayout mainLayout;
 	private URL oldURL;
 	Window Requw;
-	Modul tmp;
-	Nachricht tmp2;
+	Modul tmpModul;
+	Nachricht tmpNachricht;
 	LoginApplication starta;
 	
 	//schreibt alle Werte In Labelsp
@@ -72,8 +71,8 @@ public class RequestView extends Startseite implements Button.ClickListener {
 		buildMainLayout();
 		Requw.setContent(mainLayout);
 		
-		tmp = b;
-		tmp2 = d;
+		tmpModul = b;
+		tmpNachricht = d;
 		Window old = starta.getWindow("Aenderungsantraege");
 		oldURL = old.getURL();
 		old.open(new ExternalResource(Requw.getURL()));
@@ -83,10 +82,10 @@ public class RequestView extends Startseite implements Button.ClickListener {
 	public void buttonClick(Button.ClickEvent event){
 		
 		if (event.getButton() == confirm){
-			cont.getcDe().okRequest(tmp, tmp2, true);
+			cont.getcDe().okRequest(tmpModul, tmpNachricht, true);
 		}
 		if (event.getButton() == deny){
-			cont.getcDe().okRequest(tmp, tmp2,false);
+			cont.getcDe().okRequest(tmpModul, tmpNachricht,false);
 		}
 		if(event.getButton()==logout){
 			starta.getMainWindow().getApplication().close();

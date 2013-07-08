@@ -1,10 +1,7 @@
 ﻿package gui;
 
-import java.util.LinkedList;
-
 import objects.Benutzer;
 
-import com.vaadin.terminal.ClassResource;
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
@@ -15,18 +12,16 @@ import control.Controller;
 import control.ControllerDekan;
 import control.ControllerDozent;
 
-import data.BenutzerData;
-
 public class Startseite implements Button.ClickListener{
 	Window start;
 	Label welcome;
-	Button changeModule, declareDeputy, messages, changes, stichtag, changeRights, viewChanges,changeBenutzer, nullButton, logout, organize, archives ;
+	Button changeModule, declareDeputy, messages, changes, stichtag, changeRights, changeBenutzer, nullButton, logout, organize, archives ;
 	private AbsoluteLayout mainLayout;
 	private int count;//Zähler für Buttons
 	private LoginApplication starta;
 	protected Startseite seite;
 	
-	private int userid, rang;
+	private int userid;
 	Controller cont;
 
 	
@@ -57,7 +52,9 @@ public class Startseite implements Button.ClickListener{
 		welcome = new Label("Willkommen "+name);
 			
 		/*Abfrage, welchen Rang oder welche Ränge der Nutzer
-		besitzt und dementsprechende Gestaltung der Oberfläche.*/		
+		besitzt, auch als Stellvertreter und dementsprechende 
+		Gestaltung der Oberfläche: Die instanziierten Buttons
+		werden später dem Layout geaddet.*/		
 		if(cont.getAdmin(userid)){			
 			changeRights = new Button("Nutzerrechte verwalten");
 			changeRights.addListener(this);
@@ -70,7 +67,7 @@ public class Startseite implements Button.ClickListener{
 			messages = new Button("Benachrichtigungen");
 			messages.addListener(this);			
 		}
-		//doppelte Buttons werden ausgeschlossen
+		//doppelte Buttons werden nicht erneut instanziiert
 		if(cont.getDekan(userid)){
 			if(!cont.getDozent(userid)){
 				changeModule = new Button("Modul ändern/erstellen");
@@ -96,7 +93,7 @@ public class Startseite implements Button.ClickListener{
 		logout.addListener(this);
 		
 		cont = new Controller(starta,userid);
-		ControllerDozent	contD = new ControllerDozent(starta,userid,cont);
+		ControllerDozent contD = new ControllerDozent(starta,userid,cont);
 		ControllerDekan contDek = new ControllerDekan(starta,userid,cont);
 		cont.setController(contD, contDek);
 		
@@ -108,7 +105,7 @@ public class Startseite implements Button.ClickListener{
 
 	private AbsoluteLayout buildMainLayout() {
 		
-		Button button_1,button_2,button_3,button_4,button_5,button_6,button_7,button_8,button_9,button_10, button_11;
+		Button button_1,button_2,button_3,button_4,button_5,button_6,button_7,button_8,button_9,button_10;
 		
 		// common part: create layout
 		mainLayout = new AbsoluteLayout();
@@ -220,14 +217,6 @@ public class Startseite implements Button.ClickListener{
 			mainLayout.addComponent(button_10, "top:80.0%;left:35.0%;");
 			
 		}
-		button_11 = getButton();  
-		if(button_11!=nullButton){
-			button_11.setWidth("-1px");
-			button_11.setHeight("-1px");
-			button_11.setStyleName(BaseTheme.BUTTON_LINK);
-			mainLayout.addComponent(button_11, "top:85.0%;left:35.0%;");
-			
-		}
 
 		return mainLayout;
 	}
@@ -259,9 +248,6 @@ public class Startseite implements Button.ClickListener{
 			UserRightAdministration b = new UserRightAdministration(cont);
 		}
 		
-		if(event.getButton()== viewChanges){
-			//Dekan
-		}
 		if(event.getButton()==stichtag){
 			DeadLine line = new DeadLine(cont);
 			//Dekan
@@ -311,23 +297,20 @@ public class Startseite implements Button.ClickListener{
 			count++;
 			if(changeRights!=null) return changeRights;			
 		}
+		
 		if (count==6){
-			count++;
-			if(viewChanges!=null) return viewChanges;			
-		}
-		if (count==7){
 			count++;
 			if(stichtag!=null) return stichtag;			
 		}
-		if (count==8){
+		if (count==7){
 			count++;
 			if(archives!=null) return archives;
 		}
-		if(count==9){
+		if(count==8){
 			count++;
 			if(changeBenutzer!=null) return changeBenutzer;
 		}
-		if (count==10){
+		if (count==9){
 			count++;
 			if(logout!=null) return logout;
 			

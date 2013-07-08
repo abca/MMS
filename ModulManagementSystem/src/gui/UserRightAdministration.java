@@ -1,14 +1,7 @@
 package gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.URL;
-import java.util.LinkedList;
 
-import com.vaadin.event.*;
-import com.vaadin.Application;
-
-import com.vaadin.Application;
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.BaseTheme;
@@ -18,16 +11,16 @@ import control.Controller;
 
 public class UserRightAdministration extends Startseite implements Button.ClickListener {
 	
-	private Button speichern, aendern,logout, back, deleteUser, swapRes;
+	private Button speichern, aendern,logout, back, deleteUser, swapRes, swapResNotDel;
 	private URL oldURL;
 	private Label label;
 	OptionGroup group;
 	Window auswahlW, admin, swapResW;   
 	private AbsoluteLayout mainLayout;
 	ListSelect benutzer, dekan;
-	String aus;
+	String aus, selectedRang;
 	LoginApplication starta;
-	int delUser;
+	int selectedUser;
 	
 	//übergibt Hauptwindow
 	public UserRightAdministration(Controller d) {
@@ -83,19 +76,25 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 	//Listener für die Buttons
 	public void buttonClick (Button.ClickEvent event) {
 		
-		if (event.getButton() == speichern){
-			String ausw = this.getAuswahl();
-			admin.removeWindow (auswahlW);
-			cont.aenderungSpeichern(aus, ausw);		//Methode in Controller-Klasse
+		if (event.getButton() == speichern){			
+			selectedRang = this.getAuswahl();			
+			selectedUser = cont.getID((String)benutzer.getValue());
+			boolean vorherDekan = cont.getDekan(selectedUser);
+			if(vorherDekan&&!selectedRang.contains("Dekan")) 
+				swapWindow(false);
+			else{
+				admin.removeWindow (auswahlW);
+				cont.aenderungSpeichern(aus, selectedRang);		//Methode in Controller-Klasse
+			}
 		}
 		if (event.getButton() == deleteUser){
 			InfoWindow info;
-			delUser = cont.getID((String)benutzer.getValue());
+			selectedUser = cont.getID((String)benutzer.getValue());
 			if(benutzer.getValue()==null)selectError();
-			else if(delUser==cont.getUserID())
+			else if(selectedUser==cont.getUserID())
 				info = new InfoWindow("Fehler","Sie können sich nicht selbst löschen",admin);
-			else if(cont.getDekan(delUser)){
-				swapWindow();
+			else if(cont.getDekan(selectedUser)){
+				swapWindow(true);
 			}
 			else{
 				cont.deleteUser(benutzer.getValue().toString());
@@ -111,7 +110,7 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 			}
 	
 			if(aus == ""){
-				selectError(); //"Fehlermeldung" ;)
+				selectError(); //Fehlermeldung
 			}
 			else{
 				String blub = cont.rangAusgeben(aus);			
@@ -126,28 +125,44 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 		}
 		if(event.getButton()==swapRes){
 			try{
-				cont.swapRespon(cont.getID((String)dekan.getValue()), delUser);
+				cont.swapRespon(cont.getID((String)dekan.getValue()), selectedUser);
 				cont.deleteUser(benutzer.getValue().toString());
 				benutzer.removeItem(benutzer.getValue().toString());
 				admin.removeWindow(swapResW);
 			}catch(NullPointerException e){
 				e.printStackTrace();
-			}
-			
+			}			
+		}
+		if(event.getButton()==swapResNotDel){
+			try{
+				cont.swapRespon(cont.getID((String)dekan.getValue()), selectedUser);
+				admin.removeWindow (auswahlW);
+				cont.aenderungSpeichern(aus, selectedRang);
+				admin.removeWindow(swapResW);
+			}catch(NullPointerException e){
+				e.printStackTrace();
+			}			
 		}
 	}
 	
-	public void swapWindow() {
-		
+	public void swapWindow(boolean delete) {		
 		swapResW = new Window("Dekan zur Übernahme der Module wählen");
 		String[] dekanliste = cont.scanForDekan();
 		openDekanListe(dekanliste);
 		swapResW.addComponent(dekan);
-		swapRes = new Button("übertragen");
-		swapRes.addListener(this);
-		swapResW.addComponent(swapRes);
-		swapResW.setHeight("400px");
+		if(delete){
+			swapRes = new Button("übertragen");
+			swapRes.addListener(this);
+			swapResW.addComponent(swapRes);
+		}
+		else{
+			swapResNotDel = new Button("übertragen");
+			swapResNotDel.addListener(this);
+			swapResW.addComponent(swapResNotDel);
+		}		
+		swapResW.setHeight("300px");
 		swapResW.setWidth("300px");
+		swapResW.center();
 		admin.addWindow(swapResW);
 	}
 	
@@ -156,7 +171,7 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 		dekan = new ListSelect();
 		
 		for(int i = 0; i < liste.length; i++){
-				if(cont.getID(liste[i])!=delUser){
+				if(cont.getID(liste[i])!=selectedUser){
 					dekan.addItem(liste[i]);			//geht durch Liste durch und addet Benutzer
 				}
 		}

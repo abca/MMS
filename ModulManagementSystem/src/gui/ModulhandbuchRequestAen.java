@@ -4,20 +4,18 @@ import java.net.URL;
 import java.util.LinkedList;
 
 import com.vaadin.terminal.ExternalResource;
-import com.vaadin.terminal.FileResource;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Runo;
 
 import control.Controller;
 import control.HandbookManager;
-import control.ModuleHandbook;
 
 public class ModulhandbuchRequestAen extends Startseite implements Button.ClickListener {
 	
 	private Window mod, newBook; 
 	private Button recommend,back, create, okay2;
-	private Label label, wrong2;
+	private Label label;
 	private AbsoluteLayout mainLayout;
 	private String [] tmp;
 	private LinkedList<Integer> tmp2;

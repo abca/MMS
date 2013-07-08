@@ -1,14 +1,7 @@
 package gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.URL;
-import java.util.LinkedList;
 
-import com.vaadin.event.*;
-import com.vaadin.Application;
-
-import com.vaadin.Application;
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.BaseTheme;
@@ -104,13 +97,10 @@ public class SetDeputy extends Startseite implements Button.ClickListener {
 	}
 	
 	//Benutzerliste wird ausgegeben, aus der ein Benutzer ausgewählt werden kann
-	public void openBenutzerListe(String [] liste){
-		
-		for(int i = 0; i < liste.length; i++){
-			
+	public void openBenutzerListe(String [] liste){		
+		for(int i = 0; i < liste.length; i++){			
 			benutzer.addItem(liste[i]);			//geht durch Liste durch und addet Benutzer
-		}
-		
+		}		
 		benutzer.setNullSelectionAllowed(false);	//leere Auswahl ist nicht erlaubt			
 	}
 	

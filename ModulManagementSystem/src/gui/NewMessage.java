@@ -9,9 +9,7 @@ import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Layout;
 import com.vaadin.ui.ListSelect;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Runo;
@@ -26,7 +24,6 @@ public class NewMessage extends Startseite implements Button.ClickListener {
 	ListSelect nachricht;
 	private Button anzeigen,logout,back, delMessage;
 	private URL oldURL;
-	private Button okay;
 	private LinkedList<Nachricht>lis;
 	Label text;
 	LoginApplication starta;

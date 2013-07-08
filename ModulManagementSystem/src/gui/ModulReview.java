@@ -1,15 +1,11 @@
 ﻿package gui;
 
 import java.net.URL;
-import java.sql.PreparedStatement;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.LinkedList;
 
 import objects.ModulKu;
 
-import com.vaadin.data.util.*;
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.BaseTheme;
@@ -29,7 +25,7 @@ public class ModulReview extends Startseite implements Button.ClickListener{
 	private Label label;
 	LoginApplication starta;
 	
-	public ModulReview(LinkedList<ModulKu> idiot, Controller d){
+	public ModulReview(LinkedList<ModulKu> _liste, Controller d){
 		super(d);
 		 starta =cont.getStart();
 		Window test = starta.getWindow("Modulbearbeiten");
@@ -37,12 +33,12 @@ public class ModulReview extends Startseite implements Button.ClickListener{
 			starta.removeWindow(test);	
 		}
 		
-		liste = idiot;
+		liste = _liste;
 		modEdCr = new Window("");
 		modEdCr.setName("Modulbearbeiten");
 		starta.addWindow(modEdCr);
 	
-		module = openModulList(idiot);
+		module = openModulList(liste);
 		buildMainLayout();
 		modEdCr.setContent(mainLayout);
 		
@@ -57,7 +53,7 @@ public class ModulReview extends Startseite implements Button.ClickListener{
 		if(event.getButton() == create){
 			int modul = 0;
 			cont.getcDo().ändernModul(modul,this);
-			}
+		}
 			
 		if(event.getButton()== logout){
 		       starta.getMainWindow().getApplication().close();				
@@ -81,10 +77,7 @@ public class ModulReview extends Startseite implements Button.ClickListener{
 				cont.getcDo().ändernModul(modul,this);
 			}
 			catch(NullPointerException e){
-			}
-					
-			//System.out.println(modul);
-			
+			}			
 		}
 			
 	}
