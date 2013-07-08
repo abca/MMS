@@ -32,6 +32,7 @@ public class BenutzerData extends KillConnections {
 	private static final String SETSTELLID = "UPDATE benutzer SET stellid=? WHERE id=?";
 	private static final String DELETEU ="DELETE FROM benutzer WHERE id=? "; 
 	private static final String LOADBENUTZER = "SELECT * FROM benutzer WHERE id=?";
+	private static final String GETDEKANS = "SELECT name FROM benutzer WHERE dekan=1";
 	
 	//Konstruktor, baut Connection zur MySQL-Datenbank auf
 	public BenutzerData(){
@@ -563,4 +564,32 @@ public class BenutzerData extends KillConnections {
 			closeConnections(data, psmt);
 		}
 	}	
+	
+	public String[] getDekanListe(){
+			
+		LinkedList<String> tmp = new LinkedList<String>();
+		PreparedStatement psmt = null;
+		ResultSet data = null;
+		
+		try {
+			con.setAutoCommit(false);
+
+			psmt = con.prepareStatement(GETDEKANS);
+
+			data = psmt.executeQuery();
+
+			while (data.next()) {
+				String name = data.getString("name");
+				tmp.add(name);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnections(data, psmt);
+		}	
+		String[] liste = tmp.toArray(new String[0]);
+		return liste;
+	}
 }

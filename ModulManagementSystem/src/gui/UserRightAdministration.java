@@ -18,15 +18,16 @@ import control.Controller;
 
 public class UserRightAdministration extends Startseite implements Button.ClickListener {
 	
-	private Button speichern, aendern,logout, back, deleteUser;
+	private Button speichern, aendern,logout, back, deleteUser, swapRes;
 	private URL oldURL;
 	private Label label;
 	OptionGroup group;
-	Window auswahlW, admin;   
+	Window auswahlW, admin, swapResW;   
 	private AbsoluteLayout mainLayout;
-	ListSelect benutzer;
+	ListSelect benutzer, dekan;
 	String aus;
 	LoginApplication starta;
+	int delUser;
 	
 	//übergibt Hauptwindow
 	public UserRightAdministration(Controller d) {
@@ -88,9 +89,13 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 		}
 		if (event.getButton() == deleteUser){
 			InfoWindow info;
+			delUser = cont.getID((String)benutzer.getValue());
 			if(benutzer.getValue()==null)selectError();
-			else if(cont.getID((String)benutzer.getValue())==cont.getUserID())
+			else if(delUser==cont.getUserID())
 				info = new InfoWindow("Fehler","Sie können sich nicht selbst löschen",admin);
+			else if(cont.getDekan(delUser)){
+				swapWindow();
+			}
 			else{
 				cont.deleteUser(benutzer.getValue().toString());
 				benutzer.removeItem(benutzer.getValue().toString());
@@ -118,8 +123,44 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 		if(event.getButton()==back){
 			admin.open(new ExternalResource(oldURL));
 		}
+		if(event.getButton()==swapRes){
+			try{
+				cont.swapRespon(cont.getID((String)dekan.getValue()), delUser);
+				cont.deleteUser(benutzer.getValue().toString());
+				benutzer.removeItem(benutzer.getValue().toString());
+				admin.removeWindow(swapResW);
+			}catch(NullPointerException e){
+				e.printStackTrace();
+			}
+			
+		}
 	}
 	
+	public void swapWindow() {
+		
+		swapResW = new Window("Dekan zur Übernahme der Module wählen");
+		String[] dekanliste = cont.scanForDekan();
+		openDekanListe(dekanliste);
+		swapResW.addComponent(dekan);
+		swapRes = new Button("übertragen");
+		swapRes.addListener(this);
+		swapResW.addComponent(swapRes);
+		swapResW.setHeight("400px");
+		swapResW.setWidth("300 px");
+		admin.addWindow(swapResW);
+	}
+	
+	public void openDekanListe(String [] liste){
+		
+		dekan = new ListSelect();
+		
+		for(int i = 0; i < liste.length; i++){
+				dekan.addItem(liste[i]);			//geht durch Liste durch und addet Benutzer
+		}
+		
+		dekan.setNullSelectionAllowed(false);	//leere Auswahl ist nicht erlaubt				
+	}
+
 	//schreibt getroffene Rangauswahl in einen String um
 	public String getAuswahl(){
 			
@@ -173,6 +214,12 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 		benutzer.setWidth("46.0%");
 		benutzer.setHeight("70.0%");
 		mainLayout.addComponent(benutzer, "top:35.0%;left:35.0%;");
+		
+		// dekan
+		dekan.setImmediate(false);
+		dekan.setWidth("46.0%");
+		dekan.setHeight("70.0%");
+		mainLayout.addComponent(dekan, "top:35.0%;left:35.0%;");
 		
 		// aendern
 		aendern = new Button();

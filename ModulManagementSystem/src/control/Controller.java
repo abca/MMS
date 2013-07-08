@@ -241,4 +241,15 @@ public class Controller {
 		
 		return contDe;
 	}
+
+	public String[] scanForDekan() {
+		String[] Decs = userData.getDekanListe();
+		return Decs;
+	}
+
+	public void swapRespon(int id, int delUser) {
+		
+		modulDatabase.changeDekan(id, delUser);
+		book.changeDekan(id, delUser);
+	}
 }
