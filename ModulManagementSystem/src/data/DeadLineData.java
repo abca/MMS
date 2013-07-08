@@ -14,7 +14,7 @@ public class DeadLineData extends KillConnections{
 	
 	//private static Connection con;
 	private static final String NEWDEADLINE = "Insert into deadlinedata Values(?,?,?)";
-	private static final String NEWDEADLINEMESSAGE = "SELECT responsibleid FROM moduldata WHERE dozid=?";
+	private static final String NEWDEADLINEMESSAGE = "SELECT dozid FROM moduldata WHERE responsibleid=?";
 	
 	public DeadLineData(){
 		
@@ -32,7 +32,7 @@ public class DeadLineData extends KillConnections{
 	}
 	
      // in Datanbank schreiben
-	public LinkedList<Integer> newDeadlineMessage (int dozid){
+	public LinkedList<Integer> newDeadlineMessage (int responsibleid){
 		
 		PreparedStatement psmt = null;
 		ResultSet data = null;
@@ -42,18 +42,22 @@ public class DeadLineData extends KillConnections{
 			con.setAutoCommit(false);
 
 			psmt = con.prepareStatement(NEWDEADLINEMESSAGE);
-			psmt.setInt(1, dozid);
+			psmt.setInt(1, responsibleid);
 			
 			data = psmt.executeQuery();
 			
 			while(data.next()){
+				
 				boolean add = true;
-				Integer insertValue = new Integer(data.getInt("responsibleid"));
-				for(int i = 0; i < list.size(); i++)
-					if(list.get(i).equals(insertValue))
+				Integer insertValue = new Integer(data.getInt("dozid"));
+				for(int i = 0; i < list.size(); i++){
+					if(list.get(i).equals(insertValue)){
 						add = false;
-				if(add)
+					}
+				}
+				if(add){
 					list.add(insertValue);
+				}
 			}
 			return list;
 		} catch (SQLException e) {
