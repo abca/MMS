@@ -162,7 +162,9 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 		responsible = new TextArea();
 		responsible.setCaption("Dekan:*");
 		if (in.getresponsible()!=null)responsible.setValue(in.getresponsible());
-		if(!neu)responsible.setEnabled(false);
+		//wird das Modul bearbeitet und gibt es den Dekan? -> grau
+		if(!neu&&cont.getDekan(cont.getID((String)responsible.getValue())))
+				responsible.setEnabled(false);
 		responsible.setImmediate(false);
 		responsible.setWidth("66.5%");
 		responsible.setHeight("100px");
