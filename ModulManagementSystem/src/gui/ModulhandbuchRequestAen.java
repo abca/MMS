@@ -69,9 +69,6 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     	if (event.getButton() == recommend) {
  
 				read =(String) modules.getValue();
-				for (int i = 0; i < tmp2.size(); i++) {
-					System.out.println(tmp2.get(i));
-				}
 				int modul = 0;
 				for (int i = 0; i < tmp.length; i++) {
 					if (read.equals(tmp[i])) {

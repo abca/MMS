@@ -58,12 +58,12 @@ public class ModulhandbuchRequest extends LoginApplication implements Button.Cli
     	String read ;
     	if (event.getButton() == recommend) {
     		try {
-				read =(String) modules.getValue();
-				int i= 0; 
+				read =(String) modules.getValue(); 
 				int modul = 0; 
-				while(!(read.equals(tmp[i]))){
-					modul = tmp2.get(i);
-					i++;	
+				for (int i = 0; i < tmp.length; i++) {
+					if (read.equals(tmp[i])) {
+						modul = tmp2.get(i);
+					}
 				}
 				ModuleHandbook handbuch = new ModuleHandbook();
 			FileResource test= handbuch.generatePDF(modul, start);
