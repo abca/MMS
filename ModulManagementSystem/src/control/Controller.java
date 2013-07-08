@@ -249,7 +249,7 @@ public class Controller {
 
 	public void swapRespon(int id, int delUser) {
 		
-		modulDatabase.changeDekan(id, delUser);
+		modulDatabase.changeDekan(delUser, id);
 		book.changeDekan(id, delUser);
 	}
 }

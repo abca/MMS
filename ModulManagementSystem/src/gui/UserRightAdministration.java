@@ -146,7 +146,7 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 		swapRes.addListener(this);
 		swapResW.addComponent(swapRes);
 		swapResW.setHeight("400px");
-		swapResW.setWidth("300 px");
+		swapResW.setWidth("300px");
 		admin.addWindow(swapResW);
 	}
 	
