@@ -14,9 +14,9 @@ public class BookName extends KillConnections {
 	
 	//private static Connection con;
 	
-	private static final String GETBOOKNAMES = "SELECT name FROM handbuchname";
+	private static final String GETBOOKNAMES = "SELECT * FROM handbuchname";
 	private static final String GETBOOKIDS = "SELECT ID FROM handbuchname";
-	private static final String GETBOOKNAMESD = "SELECT name FROM handbuchname WHERE dekan=?";
+	private static final String GETBOOKNAMESD = "SELECT * FROM handbuchname WHERE dekan=?";
 	private static final String GETBOOKIDSD = "SELECT ID FROM handbuchname WHERE dekan=?";
 	private static final String NEWHAND ="INSERT INTO handbuchname VALUES(?,?,?)";
 	private static final String GETNEWID = "SELECT id FROM handbuchname ORDER BY id DESC LIMIT 1";
@@ -57,8 +57,14 @@ public class BookName extends KillConnections {
 			data = psmt.executeQuery();
 
 			while (data.next()) {
-				String name = data.getString("name");
-				tmp.add(name);
+				int id = data.getInt("id");
+				if(id%3 == 1){
+					
+					String name = data.getString("name");
+					tmp.add(name);
+				}
+				
+				
 			}
 
 		} catch (SQLException e) {
