@@ -64,22 +64,29 @@ public class NewMessage extends Startseite implements Button.ClickListener {
 	}
 	
 	public void buttonClick(Button.ClickEvent event){
-		
-		if(event.getButton() == anzeigen){
-			String tmp = nachricht.getValue().toString();
-			String[] splitResult = tmp.split(":");
-			int listnr = Integer.parseInt(splitResult[0])-1;
-			InfoWindow messageW = new InfoWindow(lis.get(listnr).getBetreff(),lis.get(listnr).getbeschreibung(),newMess);
+		try{
+			if(event.getButton() == anzeigen){
+				String tmp = nachricht.getValue().toString();
+				String[] splitResult = tmp.split(":");
+				int listnr = Integer.parseInt(splitResult[0])-1;
+				InfoWindow messageW = new InfoWindow(lis.get(listnr).getBetreff(),lis.get(listnr).getbeschreibung(),newMess);
+			}
+		}
+		catch(NullPointerException e){
 		}
 		if(event.getButton()== logout){
 		       starta.getMainWindow().getApplication().close();				
 		}
 		if(event.getButton()== delMessage){
-			String tmp = nachricht.getValue().toString();
-			String[] splitResult = tmp.split(":");
-			int listnr = Integer.parseInt(splitResult[0])-1;
-			boolean del = cont.deleteMessage(lis.get(listnr).getid());
-			if(del){ nachricht.removeItem(nachricht.getValue().toString());
+			try{
+				String tmp = nachricht.getValue().toString();
+				String[] splitResult = tmp.split(":");
+				int listnr = Integer.parseInt(splitResult[0])-1;
+				boolean del = cont.deleteMessage(lis.get(listnr).getid());
+				if(del){ nachricht.removeItem(nachricht.getValue().toString());
+				}
+			}
+			catch(NullPointerException e){
 			}
 		}
 		if(event.getButton()==back){
