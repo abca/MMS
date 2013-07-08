@@ -66,12 +66,16 @@ public class ChangeRequest extends Startseite implements Button.ClickListener {
 	public void buttonClick(Button.ClickEvent event){
 		
 		if(event.getButton() == auswaehlen){
-			String tmp = nachricht.getValue().toString();
-			int i = 0;
-			while( i<list.size()&& !(lis2.get(i).gettitle().equals(tmp))){
-				i++;
-				}
-			cont.getcDe().loadRequest(lis2.get(i).getid(), list.get(i));	
+			try {
+				String tmp = nachricht.getValue().toString();
+				int i = 0;
+				while( i<list.size()&& !(lis2.get(i).gettitle().equals(tmp))){
+					i++;
+					}
+				cont.getcDe().loadRequest(lis2.get(i).getid(), list.get(i));
+			} catch (NullPointerException e) {
+				//nichts
+			}	
 		}
 		if(event.getButton()== logout){
 			starta.getMainWindow().getApplication().close();		
