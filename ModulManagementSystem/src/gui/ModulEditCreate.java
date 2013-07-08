@@ -27,7 +27,7 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 	//gibt vorhandene Werte in Textboxen zur Bearbeitung aus
 	public ModulEditCreate(Modul b,boolean _neu, Controller d){
 		super(d);
-		 starta =cont.getStart();
+		starta =cont.getStart();
 		neu=_neu;
 		Window test = starta.getWindow("Modulaendern");
 		if(test != null){
@@ -173,7 +173,9 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 		// doz
 		doz = new TextArea();
 		doz.setCaption("Dozent:*");
-		if (in.getdoz()!=null)doz.setValue(in.getdoz());		
+		if (in.getdoz()!=null)doz.setValue(in.getdoz());	
+		/*ist der User Dozent und nicht Dekan, so ist er automatisch der
+		Dozent von der Veranstaltung*/
 		if(cont.getDozent(cont.getUserID())&&!cont.getDekan(cont.getUserID())){
 			doz.setValue(cont.loadBenutzer(in.getdozid()).getName());
 			doz.setEnabled(false);
