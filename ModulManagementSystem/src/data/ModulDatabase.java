@@ -659,38 +659,37 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 		return b;
 	}
 	public LinkedList<Integer> getDekanId(int id){
-		int dekan =0;
 		PreparedStatement psmt = null;
 		ResultSet data = null;
 		LinkedList<Integer> list = new LinkedList<Integer>();
-try{
-		psmt = con.prepareStatement(GETDEKAN);
-		psmt.setInt(1, id);
+		try{
+			con.setAutoCommit(false);
+			psmt = con.prepareStatement(GETDEKAN);
+			psmt.setInt(1, id);
 		
-		data = psmt.executeQuery();
+			data = psmt.executeQuery();
 		
-		while(data.next()){
-			boolean add = true;
-			Integer insertValue = new Integer(data.getInt("dozid"));
-			for(int i = 0; i < list.size(); i++)
-				if(list.get(i).equals(insertValue))
-					add = false;
-			if(add)
-				list.add(insertValue);
+			while(data.next()){
+				boolean add = true;
+				Integer insertValue = new Integer(data.getInt("responsibleid"));
+				for(int i = 0; i < list.size(); i++){
+					if(list.get(i).equals(insertValue))
+						add = false;
+				}
+				if(add){
+					list.add(insertValue);
+				}
+			}
+			return list;
 		}
-		return list;
-}
-	 catch (SQLException e) {
-		e.printStackTrace();
-		return null;
-	} catch (Exception e) {
-		e.printStackTrace();
-		return null;
-	} finally {
-		closeConnections(data, psmt);	
-	}
-		
-
-
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			closeConnections(data, psmt);	
+		}
 	}
 }
