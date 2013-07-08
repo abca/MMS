@@ -155,7 +155,9 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 		dekan = new ListSelect();
 		
 		for(int i = 0; i < liste.length; i++){
-				dekan.addItem(liste[i]);			//geht durch Liste durch und addet Benutzer
+				if(cont.getID(liste[i])!=delUser){
+					dekan.addItem(liste[i]);			//geht durch Liste durch und addet Benutzer
+				}
 		}
 		
 		dekan.setNullSelectionAllowed(false);	//leere Auswahl ist nicht erlaubt				
