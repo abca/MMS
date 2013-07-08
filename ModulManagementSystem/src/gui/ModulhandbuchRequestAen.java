@@ -93,6 +93,8 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     	if(event.getButton() == okay2){
     		String name1 =(String) name.getValue();
     		cont.getcDe().saveHandbook(name1);
+    		mod.removeWindow(newBook);
+    		modules.addItem(name1);
     	}
     }
     
@@ -114,7 +116,7 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     	    label.setImmediate(false);
     	    label.setWidth("-1px");
     	    label.setHeight("-1px");
-    	    label.setValue("Modul auswählen");
+    	    label.setValue("Modulhandbuch auswählen");
     	    label.setStyleName(Runo.LABEL_H1);
     	    mainLayout.addComponent(label, "top:25.0%;left:35.0%;");
     	    
@@ -180,6 +182,7 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     	mod.addWindow(newBook);
     	newBook.setHeight("200px");
     	newBook.setWidth("200px");  	
+    	newBook.center();
     }
     	
     	
