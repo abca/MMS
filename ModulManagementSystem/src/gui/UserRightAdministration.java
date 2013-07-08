@@ -76,6 +76,7 @@ public class UserRightAdministration extends Startseite implements Button.ClickL
 		speichern = new Button ("speichern");
 		speichern.addListener(this);	
 		lay.addComponent(speichern);
+		auswahlW.center();
 		admin.addWindow(auswahlW);	
 	}
 	
