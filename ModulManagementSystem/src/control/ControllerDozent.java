@@ -48,10 +48,10 @@ public class ControllerDozent extends Controller{
 	//gibt Änderungsantrag aus
 	public void ausgebenModulList(int userid){
 		System.out.println(userid);
-
-		LinkedList<ModulKu> list = modulDatabase.loadModuleList(userid);
+		boolean Rang = userData.getRangDekan(userid);
+		LinkedList<ModulKu> list = modulDatabase.loadModuleList(userid, Rang);
 		if (userData.getRangStell(userid)){
-			LinkedList<ModulKu> stellList = modulDatabase.loadModuleList(userData.getStellID(userid));
+			LinkedList<ModulKu> stellList = modulDatabase.loadModuleList(userData.getStellID(userid),Rang);
 			for(int i=0;i<stellList.size();i++)list.add(stellList.get(i));
 		}	
 		ModulReview a = new ModulReview(list, cont);	
