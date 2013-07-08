@@ -4,8 +4,14 @@ import java.net.URL;
 
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.*;
+import com.vaadin.ui.Window.Notification;
 import com.vaadin.ui.themes.BaseTheme;
 import com.vaadin.ui.themes.Runo;
+import  java.util.Date;
+import java.util.GregorianCalendar;
+
+import com.vaadin.data.Property;
+import java.text.ParseException;
 
 import control.Controller;
 
@@ -16,7 +22,7 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 	Window dead, archiveW, confirmW;
 	String datumstr, time;
 	Label label, text;
-	TextField datum;  
+	/*Text*/PopupDateField datum;
 	private Button ok, archive, okay,back, setDline;
 	private URL oldURL;
 	private AbsoluteLayout lay;
@@ -44,13 +50,30 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 	
 		if(event.getButton() == ok){	
 			try {
-				datumstr = datum.getValue().toString();
+				String[] split = datum.getValue().toString().split(" ");
+				String tmpstr = split[1];
+
+				if(tmpstr.equals("Jan")){tmpstr="01";}
+				if(tmpstr.equals("Feb")){tmpstr="02";}
+				if(tmpstr.equals("Mar")){tmpstr="03";}
+				if(tmpstr.equals("Apr")){tmpstr="04";}
+				if(tmpstr.equals("May")){tmpstr="05";}
+				if(tmpstr.equals("Jun")){tmpstr="06";}
+				if(tmpstr.equals("Jul")){tmpstr="07";}
+				if(tmpstr.equals("Aug")){tmpstr="08";}
+				if(tmpstr.equals("Sep")){tmpstr="09";}
+				if(tmpstr.equals("Oct")){tmpstr="10";}
+				if(tmpstr.equals("Nov")){tmpstr="11";}
+				if(tmpstr.equals("Dec")){tmpstr="12";}
+
+			    datumstr = split[2]+"."+tmpstr+"."+split[5];
+			    System.out.println(datumstr);
 			}
 			catch (NullPointerException e){
 				datumstr = "";
 			}
 			if(datumstr == ""){
-				InfoWindow err = new InfoWindow("Fehler","Geben Sie bitte ein Datum ein",dead);
+				//InfoWindow err = new InfoWindow("Fehler","Geben Sie bitte ein Datum ein",dead);
 			}
 			else{
 				cont.getcDe().setDeadline(datumstr);
@@ -130,7 +153,22 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 		lay.addComponent(label, "top:25.0%;left:35.0%;");
 		
 		//TextField
-		datum = new TextField();
+		datum = new PopupDateField(){
+		    @Override
+		    protected Date handleUnparsableDateString(String dateString)
+		    throws Property.ConversionException {
+		        // Have a notification for the error
+		    	InfoWindow err = new InfoWindow("Fehler","Geben Sie bitte ein Datum ein",dead);
+		        
+		        // A failure must always also throw an exception
+		        throw new Property.ConversionException("");
+		    }
+		};
+		
+		datum.setDateFormat("dd.MM.yyyy");
+		//datum.setValue(new Date());
+		datum.setResolution(DateField.RESOLUTION_DAY);
+		datum.setInputPrompt("Stichtag");
 		datum.setCaption("Datum");
 		datum.setImmediate(false);
 		datum.setWidth("25.0%");
