@@ -27,9 +27,9 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
 	public ModulhandbuchRequestAen( LinkedList<Integer> ids, String[] list, Controller d) {
 		super(d);
 		 starta =cont.getStart();
-		Window test = starta.getWindow("Modul auswählen");
+		Window test = starta.getWindow("M");
 		if(test != null){
-			start.removeWindow(test);	
+			starta.removeWindow(test);	
 		}
 		tmp = list;
 		tmp2 = ids;

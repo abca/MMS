@@ -53,6 +53,10 @@ public class HandbookManager_View extends Startseite {
 	public HandbookManager_View (int id, Controller d) {
 		super(d);
 		starta =cont.getStart();
+		Window test = starta.getWindow("Fach neu anlegen, Module zuordnen");
+		if(test != null){
+			starta.removeWindow(test);	
+		}
 		
 		mt = new ModuleTree();	
 		w = new Window("");
