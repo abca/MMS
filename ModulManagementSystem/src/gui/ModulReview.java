@@ -67,18 +67,26 @@ public class ModulReview extends Startseite implements Button.ClickListener{
 		}
 		
 		if(event.getButton() == aendern){
-			String tmp = module.getValue().toString();
 			int modul =0;
-			for(int i=0; i < liste.size(); i++){
+			try{
+				String tmp = module.getValue().toString();
 				
-				if(tmp.equals(liste.get(i).gettitle())){
-					modul = liste.get(i).getid();
-					break;
+				for(int i=0; i < liste.size(); i++){
+				
+					if(tmp.equals(liste.get(i).gettitle())){
+						modul = liste.get(i).getid();
+						break;
+					}
 				}
+				cont.getcDo().ändernModul(modul,this);
 			}
+			catch(NullPointerException e){
+			}
+					
 			//System.out.println(modul);
-			cont.getcDo().ändernModul(modul,this);
-		}	
+			
+		}
+			
 	}
 	
 	//erstellt Listselect-Element mit Modulliste
