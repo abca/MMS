@@ -66,6 +66,8 @@ public class SetDeputy extends Startseite implements Button.ClickListener {
 				InfoWindow isDep;
 				if(cont.getStell(cont.getID(aus))) 
 					isDep = new InfoWindow("Fehler","Dieser Nutzer ist bereits ein Stellvertreter",setD);
+				else if(cont.getUserID()==cont.getID(aus))
+					isDep = new InfoWindow("Fehler","Sie können sich nicht selbst zum Stellvertreter ernennen",setD);
 				else {
 					cont.setDep(aus,true);
 					setD.open(new ExternalResource(oldURL));
