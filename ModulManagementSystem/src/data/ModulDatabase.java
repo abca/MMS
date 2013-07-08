@@ -14,7 +14,8 @@ import com.mysql.jdbc.*;
 public class ModulDatabase extends KillConnections {
 	
 	//private static Connection con;
-	
+	private static final String GETDEKAN = "SELECT responsibleid from moduldata Where dozid=?";
+
 	private static final String LOADMODULE = "SELECT * FROM moduldata WHERE id=?";
 	private static final String LOADMODULELIST = "SELECT id FROM moduldata WHERE dozid=?";
 	
@@ -656,5 +657,40 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 		}
 		closeConnections(data, psmt);
 		return b;
+	}
+	public LinkedList<Integer> getDekanId(int id){
+		int dekan =0;
+		PreparedStatement psmt = null;
+		ResultSet data = null;
+		LinkedList<Integer> list = new LinkedList<Integer>();
+try{
+		psmt = con.prepareStatement(GETDEKAN);
+		psmt.setInt(1, id);
+		
+		data = psmt.executeQuery();
+		
+		while(data.next()){
+			boolean add = true;
+			Integer insertValue = new Integer(data.getInt("dozid"));
+			for(int i = 0; i < list.size(); i++)
+				if(list.get(i).equals(insertValue))
+					add = false;
+			if(add)
+				list.add(insertValue);
+		}
+		return list;
+}
+	 catch (SQLException e) {
+		e.printStackTrace();
+		return null;
+	} catch (Exception e) {
+		e.printStackTrace();
+		return null;
+	} finally {
+		closeConnections(data, psmt);	
+	}
+		
+
+
 	}
 }

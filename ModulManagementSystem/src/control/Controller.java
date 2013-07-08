@@ -207,8 +207,17 @@ public class Controller {
 	}
 	
 	public void deleteUser(String name){
+		int id = userData.getID(name);
+		userData.deleteUser(id);
+		LinkedList<Integer> list = modulDatabase.getDekanId(id);
+		for(int i=0; i<list.size(); i++){
 		
-		userData.deleteUser(userData.getID(name));
+		Nachricht neu = new Nachricht(nachrichtenData.getNewId(),
+							"Der Dozent"+name+"wurde gelöscht", "Dozent gelöscht", 
+							(int)list.get(i), 0);
+		nachrichtenData.newNachricht(neu);
+		}
+		
 	}
 	
 	public boolean deleteMessage(int messid){
