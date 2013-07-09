@@ -75,53 +75,29 @@ public class HandbookManager_View extends Startseite implements Button.ClickList
 		starta.addWindow(w);
 		
 		moduletree = mt.generateModuleTree(id);
-		//w.addComponent(moduletree);
-		//w.addComponent(new Label("-"));
 		choice = new Label("Ausgewähltes Element: -");
-		//w.addComponent(choice);
-		
-		//p = new Panel();
-		//p.setContent(new HorizontalLayout());
+
 		fachname = new TextField();
 		fachname.setEnabled(false);
-		//p.addComponent(fachname);
+
 		addFach = new Button("Neues Fach");
 		addFach.setEnabled(false);
-		//p.addComponent(addFach);
+
 		delete = new Button("Löschen");
-		//p.addComponent(delete);
-		//w.addComponent(p);
-		//w.addComponent(new Label("-"));
-		
-		/*tablePanel1 = new Panel();
-		tablePanel1.setContent(new HorizontalLayout());
-		tablePanel11 = new Panel();
-		tablePanel11.setContent(new VerticalLayout());*/
-		
+
 		umta = new UnassignedModulesTable(cont.getUserID());
 		unassignedModules = umta.generateTable();
-		//tablePanel11.addComponent(unassignedModules);
 		
 		add1 = new Button("Modul dem ausgewählten Fach hinzufügen");
 		add1.setEnabled(false);
-		//tablePanel11.addComponent(add1);
-		//tablePanel1.addComponent(tablePanel11);
 
-		//tablePanel12 = new Panel();
-		//tablePanel12.setContent(new VerticalLayout());
-		
 		mta = new ModuleTable(cont.getUserID());
 		System.out.println("User-ID:" + cont.getUserID());
 		modules = mta.generateTable();
-		//tablePanel12.addComponent(modules);
 		
 		add2 = new Button("Modul dem ausgewählten Fach hinzufügen");
 		add2.setEnabled(false);
-		//tablePanel12.addComponent(add2);
-		
-		//tablePanel1.addComponent(tablePanel12);
-		//w.addComponent(tablePanel1);
-		
+
 		buildMainLayout();
 		w.setContent(mainLayout);
 		
