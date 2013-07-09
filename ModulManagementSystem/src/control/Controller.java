@@ -132,7 +132,7 @@ public class Controller {
 	}
 	
 	//übernimmt eingegebene Benutzerdaten, ergänzt Booleans für den Rang und ruft Methode zur Generierung einer neuen ID auf
-	public void register(String us, /*String em,*/ String p1) {
+	public void register(String us, String p1) {
 		
 		boolean dozent = false;
 		boolean dekan = false;
@@ -142,7 +142,7 @@ public class Controller {
 		int stellid = 0;
 		int id = userData.getNewId();
 		
-		Benutzer test = new Benutzer(id, us/*, em*/, p1, dozent, dekan, admin, stell, stellid);
+		Benutzer test = new Benutzer(id, us, p1, dozent, dekan, admin, stell, stellid);
 		userData.newUser(test);
 	}
 
