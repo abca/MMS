@@ -84,6 +84,7 @@ public class ModuleHandbook{
 		semester = semester + year;
 		
 		s = "\\documentclass{article}" + lineSeparator +
+				"\\usepackage[utf8]{inputenc}" + lineSeparator +
 				"\\begin{document} " + lineSeparator +
 				"\\title{Modulhandbuch "+modulhandbuchname+" "+semester+"}" + lineSeparator +
 				"\\author{Module Management System, University of Ulm}" + lineSeparator +
