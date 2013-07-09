@@ -31,7 +31,7 @@ public class ModulDatabase extends KillConnections {
 	private static final String GETSPERR = "SELECT sperr FROM moduldata WHERE id=?";
 	private static final String SETSPERR = "UPDATE moduldata SET sperr=? WHERE id=?";
 	private static final String DELETEMODULE = "DELETE FROM moduldata WHERE id=?";
-	private static final String UPDATEDEK = "UPDATE moduldata SET responsibleid=? AND name=? WHERE responsibleid=?";
+	private static final String UPDATEDEK = "UPDATE moduldata SET responsibleid=? AND responsible=? WHERE responsibleid=?";
 	
 	
 	public ModulDatabase(){
@@ -721,7 +721,7 @@ public boolean deleteModul(int id, int fach) {
 			closeConnections(data, psmt);	
 		}
 	}
-	public void changeDekan(int dekan, int neudekan, String name){
+	public void changeDekan(int dekan, int neudekan, String responsible){
 		PreparedStatement psmt = null;
 		ResultSet data = null;
 		try {
@@ -729,7 +729,7 @@ public boolean deleteModul(int id, int fach) {
 			
 			psmt = con.prepareStatement(UPDATEDEK);
 			psmt.setInt(1, neudekan);
-			psmt.setString(2, name);
+			psmt.setString(2, responsible);
 			psmt.setInt(3, dekan);
 			psmt.executeUpdate();
 			con.commit();
