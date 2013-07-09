@@ -157,16 +157,13 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 		label.setStyleName(Runo.LABEL_H1);
 		lay.addComponent(label, "top:25.0%;left:35.0%;");
 		
-		//TextField
+		//DateField
 		datum = new PopupDateField(){
 		    @Override
 		    protected Date handleUnparsableDateString(String dateString)
 		    throws Property.ConversionException {
-		        // Have a notification for the error
 		    	InfoWindow err = new InfoWindow("Fehler","Geben Sie bitte ein Datum ein",dead);
-		        
-		        // A failure must always also throw an exception
-		        throw new Property.ConversionException("");
+		    throw new Property.ConversionException("");
 		    }
 		};
 		
