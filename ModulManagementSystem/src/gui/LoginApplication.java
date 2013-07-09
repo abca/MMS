@@ -25,8 +25,8 @@ public class LoginApplication extends Application implements Button.ClickListene
 	private VerticalLayout vertical;
 	private AbsoluteLayout mainLayout;
 	private Label label;
-	Label user, wrong, wrong2, userName/*, userMail*/, regErr;
-	TextField username, uName/*, uMail*/;
+	Label user, wrong, wrong2, userName, regErr;
+	TextField username, uName;
 	PasswordField pass1, pass2, password;
 	ListSelect modules;
 	String read;
@@ -67,19 +67,18 @@ public class LoginApplication extends Application implements Button.ClickListene
         
     	if(event.getButton() == save) {
     		String us = uName.getValue().toString();
-    		/*String em = uMail.getValue().toString();*/
     		String p1 = pass1.getValue().toString();
     		String p2 = pass2.getValue().toString(); 
     		
-    		if (us.equals("")||/*em.equals("")||*/p1.equals("")||p2.equals("") ||!(p1.equals(p2))
-    				||us.length()>50/*||em.length()>50*/||p1.length()>10) {
+    		if (us.equals("")||p1.equals("")||p2.equals("") ||!(p1.equals(p2))
+    				||us.length()>50||p1.length()>10) {
     			registerError();
     		}
     		else if (control.doesNameExist(us)){
     			InfoWindow nameEx = new InfoWindow("Fehler","Dieser Nutzername existiert bereits",mainWindow);
     		}
     		else {
-    		control.register(us, /*em,*/ p1);
+    		control.register(us, p1);
     		mainWindow.removeWindow(regW);
     		}
     	}
@@ -96,19 +95,15 @@ public class LoginApplication extends Application implements Button.ClickListene
     	
     	regW = new Window("Registrieren");
     	userName = new Label("Username");
-    	/*userMail = new Label("email-addresse");*/
     	pass1 = new PasswordField("Passwort eingeben");
     	pass2 = new PasswordField("Passwort bestätigen");
     	uName = new TextField();
-    	/*uMail = new TextField();*/
     	save = new Button("speichern");
     	Layout reg = new VerticalLayout();
     	
     	regW.setContent(reg);
     	regW.addComponent(userName);
     	regW.addComponent(uName);
-    	/*regW.addComponent(userMail);
-    	regW.addComponent(uMail);*/
     	regW.addComponent(pass1);
     	regW.addComponent(pass2);
     	regW.addComponent(save);

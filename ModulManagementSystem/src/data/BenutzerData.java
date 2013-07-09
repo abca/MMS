@@ -399,10 +399,6 @@ public class BenutzerData extends KillConnections {
 
 			data = psmt.executeQuery();
 			data.next();
-			/*
-			if(pw.equals(data.getString("pw"))){
-				loginpw = true;
-			}*/
 			loginpw = (new Password()).verifyPassword(pw, data.getString("pw"));
 			
 		} catch (SQLException e) {
@@ -436,7 +432,7 @@ public class BenutzerData extends KillConnections {
 			String entry = salt + hashValue;
 			psmt.setString(3, entry);
 			
-			psmt.setString(4, "email"/*neu.getEmail()*/);
+			psmt.setString(4, "email");
 			psmt.setBoolean(5, neu.isDozent());
 			psmt.setBoolean(6, neu.isDekan());
 			psmt.setBoolean(7, false);
@@ -550,7 +546,7 @@ public class BenutzerData extends KillConnections {
 			
 			int stellid = data.getInt("stellid");
 	
-			Benutzer tmp = new Benutzer(id, name/*, email*/, pw , dozent, dez2,
+			Benutzer tmp = new Benutzer(id, name, pw , dozent, dez2,
 					  admin, stell, stellid);
 			return tmp;
 	
