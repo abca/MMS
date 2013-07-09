@@ -14,7 +14,7 @@ import control.HandbookManager;
 public class ModulhandbuchRequestAen extends Startseite implements Button.ClickListener {
 	
 	private Window mod, newBook; 
-	private Button recommend,back, create, okay2;
+	private Button recommend,back, create, okay2, deleteHandbook;
 	private Label label;
 	private AbsoluteLayout mainLayout;
 	private String [] tmp;
@@ -41,6 +41,7 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
 		buildMainLayout();
 		recommend.addListener(this);
 		create.addListener(this);
+		deleteHandbook.addListener(this);
 		mod.setContent(mainLayout);			
 		Window old = starta.getWindow("Startseite");
 		oldURL = old.getURL();
@@ -63,7 +64,7 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     //ButtonListener
     public  void buttonClick(Button.ClickEvent event) {
     	
-    	String read ;
+    	String read;
     	if (event.getButton() == recommend) {
  
 				read =(String) modules.getValue();
@@ -77,7 +78,6 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
 				} catch (NullPointerException e) {
 					
 				}
-				System.out.println("Modul-ID:" + modul);
 				HandbookManager hbm;
 				if(modul!=0)
 					hbm = new HandbookManager(modul, cont);
@@ -107,8 +107,26 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     		}
     		else{
     			err = new InfoWindow("Fehler","Dieses Modulhandbuch gibt es bereits",mod);
-    		}
+    		} 		
     	}
+    	if (event.getButton() == deleteHandbook) {		
+			boolean delete = false;
+			String selected = "";
+			try {
+				selected = modules.getValue().toString();
+				delete = true;
+			} catch (NullPointerException e) {
+				delete = false;
+			}
+
+			if(delete){
+				cont.deleteHandbook(selected);
+				modules.removeItem(selected);
+			}
+			else
+				displaySelectionError();
+    	}
+
     }
     
     private AbsoluteLayout buildMainLayout() {
@@ -146,6 +164,14 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     	    recommend.setWidth("-1px");
     	    recommend.setHeight("-1px");
     	    mainLayout.addComponent(recommend, "top:83.0%;left:35.0%;");
+    	    
+    	    //löschen
+    	    deleteHandbook = new Button();
+    	    deleteHandbook.setCaption("löschen");
+    	    deleteHandbook.setImmediate(true);
+    	    deleteHandbook.setWidth("-1px");
+    	    deleteHandbook.setHeight("-1px");
+    	    mainLayout.addComponent(deleteHandbook, "top:83.0%;left:45.0%;");
     	    
     	    // create
     	    create = new Button();

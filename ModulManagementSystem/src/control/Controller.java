@@ -268,4 +268,8 @@ public class Controller {
 		modulDatabase.changeDekan(delUser, id, name);
 		book.changeDekan(id, delUser);
 	}
+	
+	public void deleteHandbook(String handbookName){
+		book.deleteBook(handbookName);
+	}
 }

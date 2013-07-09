@@ -22,6 +22,7 @@ public class BookName extends KillConnections {
 	private static final String NEWHAND ="INSERT INTO handbuchname VALUES(?,?,?)";
 	private static final String GETNEWID = "SELECT id FROM handbuchname ORDER BY id DESC LIMIT 1";
 	private static final String UPDATEDEK ="UPDATE handbuchname SET dekan=? WHERE dekan=?";
+	private static final String DELETEHANDBOOK ="DELETE FROM handbuchname WHERE NAME=?";
 	public BookName(){
 		
 		try {
@@ -219,6 +220,27 @@ public void newHandbook(String name, int user){
 			closeConnections(null, psmt);
 		}
 		
+	}
+	
+	//löscht handbücher
+	public void deleteBook(String handbookName){
+		PreparedStatement psmt = null;
+		ResultSet data = null;
+
+		try {
+			con.setAutoCommit(false);
+			psmt = con.prepareStatement(DELETEHANDBOOK);
+			psmt.setString(1,handbookName);
+			psmt.executeUpdate();
+			con.commit();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnections(data, psmt);
+		}
 	}
 	
 	
