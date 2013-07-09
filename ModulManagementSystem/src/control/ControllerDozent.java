@@ -47,7 +47,6 @@ public class ControllerDozent extends Controller{
 	
 	//gibt Änderungsantrag aus
 	public void ausgebenModulList(int userid){
-		System.out.println(userid);
 		boolean Rang = userData.getRangDekan(userid);
 		LinkedList<ModulKu> list = modulDatabase.loadModuleList(userid, Rang);
 		if (userData.getRangStell(userid)){
