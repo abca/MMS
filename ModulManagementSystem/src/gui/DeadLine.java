@@ -22,7 +22,7 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 	Window dead, archiveW, confirmW;
 	String datumstr, time;
 	Label label, text;
-	/*Text*/PopupDateField datum;
+	PopupDateField datum;
 	private Button ok, archive, okay,back, setDline;
 	private URL oldURL;
 	private AbsoluteLayout lay;
@@ -67,7 +67,6 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 				if(tmpstr.equals("Dec")){tmpstr="12";}
 
 			    datumstr = split[2]+"."+tmpstr+"."+split[5];
-			    System.out.println(datumstr);
 			}
 			catch (NullPointerException e){
 				datumstr = "";
