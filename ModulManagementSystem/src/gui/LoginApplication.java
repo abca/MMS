@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.regex.Pattern;
+
 import com.vaadin.Application;
 import com.vaadin.terminal.ClassResource;
 import com.vaadin.terminal.ExternalResource;
@@ -29,6 +31,9 @@ public class LoginApplication extends Application implements Button.ClickListene
 	ListSelect modules;
 	String read;
 	UserRightAdministration test;
+	Pattern patternde=Pattern.compile(".*@.*.de");
+	Pattern patterncom=Pattern.compile(".*@.*.com");
+	Pattern patternnet=Pattern.compile(".*@.*.net");
 	public LoginApplication start;
 	
     public void init() {
@@ -75,8 +80,12 @@ public class LoginApplication extends Application implements Button.ClickListene
     		}
     		else if (control.doesNameExist(us)){
     			InfoWindow nameEx = new InfoWindow("Fehler","Dieser Nutzername existiert bereits",mainWindow);
-    		}else {
-    		
+    		}
+    		else if (!(patternde.matcher(em).matches()||
+    				patterncom.matcher(em).matches()||patternnet.matcher(em).matches())) {
+    			InfoWindow nameEx = new InfoWindow("Fehler","Bitte geben sie eine gültige e-mail-Adresse an.",mainWindow);
+    		}
+    		else {
     		control.register(us, em, p1);
     		mainWindow.removeWindow(regW);
     		}
