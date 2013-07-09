@@ -101,7 +101,7 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     		else if(!cont.doesHandbookNameExist(name1)){
     			cont.getcDe().saveHandbook(name1);
     			mod.removeWindow(newBook);
-    			modules.addItem(name1);
+    			cont.getcDe().requestModule();//Seite wird neu geladen
     		}
     		else{
     			err = new InfoWindow("Fehler","Dieses Modulhandbuch gibt es bereits",mod);
