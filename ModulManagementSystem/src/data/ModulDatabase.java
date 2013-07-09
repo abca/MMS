@@ -171,19 +171,30 @@ public LinkedList<ModulKu> loadModuleListDek (int userid){
 		
 		PreparedStatement psmt = null;
 		ResultSet data = null;
-
+		
+		ResultSet data2 = null;
+		
 		try {
 			LinkedList<ModulKu> tmp = new LinkedList<ModulKu>();
 			con.setAutoCommit(false);
-
+			
 			psmt = con.prepareStatement("SELECT id FROM moduldata WHERE responsibleid="+userid);
 			
 			data = psmt.executeQuery();
 			
 			while(data.next()){
-				int tmp1 = data.getInt("id");
-				tmp.add(loadModuleKu(tmp1));
-				System.out.println(tmp1);
+				//Das Modul soll nich im Modulpuffer sein
+				psmt = con.prepareStatement("SELECT COUNT(*) FROM handbuchdata WHERE id = 0 AND fid = "+data.getInt("id"));			
+				data2 = psmt.executeQuery();
+				data2.next();
+				int x = data2.getInt(1);
+				System.out.println("x :"+x);
+				if (x == 0) {
+					int tmp1 = data.getInt("id");
+					tmp.add(loadModuleKu(tmp1));
+				System.out.println("Zugeordnetes Modul:" + tmp1);
+				}
+				
 			}
 			return tmp;
 		} catch (SQLException e) {
