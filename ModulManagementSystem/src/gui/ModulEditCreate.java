@@ -74,8 +74,8 @@ public class ModulEditCreate extends Startseite implements Button.ClickListener{
 			
 			if(title1.length()>50||lp1.length()>10||language1.length()>50
 					||turn1.length()>50||responsible1.length()>50
-					||doz1.length()>50||filing1.length()>200
-					||requirements1.length()>50||aims1.length()>1000
+					||doz1.length()>50||filing1.length()>800
+					||requirements1.length()>800||aims1.length()>1000
 					||content1.length()>800||lit1.length()>800
 					||events1.length()>800||work1.length()>800
 					||exams1.length()>800||formcond1.length()>800

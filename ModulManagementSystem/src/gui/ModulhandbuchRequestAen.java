@@ -98,6 +98,8 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     		InfoWindow err;
     		if(name1.equals(""))
     			err = new InfoWindow("Fehler","Geben Sie bitte einen Namen ein",mod);
+    		else if(name1.length()>50)
+    			err = new InfoWindow("Fehler","Der Handbuchname ist zu lang",mod);
     		else if(!cont.doesHandbookNameExist(name1)){
     			cont.getcDe().saveHandbook(name1);
     			mod.removeWindow(newBook);
