@@ -171,7 +171,7 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     	    deleteHandbook.setImmediate(true);
     	    deleteHandbook.setWidth("-1px");
     	    deleteHandbook.setHeight("-1px");
-    	    mainLayout.addComponent(deleteHandbook, "top:83.0%;left:45.0%;");
+    	    mainLayout.addComponent(deleteHandbook, "top:83.0%;left:42.0%;");
     	    
     	    // create
     	    create = new Button();
@@ -179,9 +179,9 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     	    create.setImmediate(true);
     	    create.setWidth("-1px");
     	    create.setHeight("-1px");
-    	    mainLayout.addComponent(create,  "top:88.0%;left:35.0%;");
+    	    mainLayout.addComponent(create,  "top:83.0%;left:49.0%;");
     	    
-    	    // logout
+    	    // back
     	    back = new Button();
     	    back.setCaption("Startseite");
     	    back.setImmediate(true);
@@ -189,7 +189,7 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     	    back.setHeight("-1px");
     	    back.setStyleName(BaseTheme.BUTTON_LINK);
     	    back.addListener(this);
-    	    mainLayout.addComponent(back,"top:93.0%;left:35.0%;");
+    	    mainLayout.addComponent(back,"top:89.0%;left:35.0%;");
     	    
     	    // logout
     	    logout = new Button();
@@ -199,7 +199,7 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     	    logout.setHeight("-1px");
     	    logout.setStyleName(BaseTheme.BUTTON_LINK);
     	    logout.addListener(this);
-    	    mainLayout.addComponent(logout,"top:96.5%;left:35.0%;");
+    	    mainLayout.addComponent(logout,"top:93%;left:35.0%;");
     	    
     	    return mainLayout;
     	}
