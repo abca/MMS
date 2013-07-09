@@ -162,7 +162,7 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 		    @Override
 		    protected Date handleUnparsableDateString(String dateString)
 		    throws Property.ConversionException {
-		    	InfoWindow err = new InfoWindow("Fehler","Geben Sie bitte ein Datum ein",dead);
+		    	InfoWindow err = new InfoWindow("Fehler","Geben Sie bitte ein Datum im Format DD.MM.YYYY ein",dead);
 		    throw new Property.ConversionException("");
 		    }
 		};
