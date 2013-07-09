@@ -83,12 +83,12 @@ public class ModulReview extends Startseite implements Button.ClickListener{
 	}
 	
 	//erstellt Listselect-Element mit Modulliste
-	public ListSelect openModulList(LinkedList<ModulKu> idiot) {
+	public ListSelect openModulList(LinkedList<ModulKu> modList) {
 	
 		ListSelect test = new ListSelect();
 	
-		for(int i=0; i < idiot.size(); i++){
-			test.addItem(idiot.get(i).gettitle());			
+		for(int i=0; i < modList.size(); i++){
+			test.addItem(modList.get(i).gettitle());			
 		}
 		test.setNullSelectionAllowed(false);
 		return test;
