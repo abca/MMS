@@ -23,6 +23,7 @@ public class ModuleTree {
 	
 	private static final Object CAPTION_PROPERTY = "caption";
 	private static final Object DEPTH_PROPERTY = "depth";
+	private static final Object PARENTID_PROPERTY = "parentId";
 	
 	public Tree generateModuleTree (int rootID) {
 		
@@ -41,12 +42,16 @@ public class ModuleTree {
 		tree.addContainerProperty(DEPTH_PROPERTY, Integer.class, "");
 		//tree.setItemCaptionMode(AbstractSelect.ITEM_CAPTION_MODE_PROPERTY);
 		//tree.setItemCaptionPropertyId(DEPTH_PROPERTY);
+		tree.addContainerProperty(PARENTID_PROPERTY, Integer.class, "");
+		
 		
 		Object itemId = tree.addItem();
 		Item i = tree.getItem(itemId);
 		Property p = i.getItemProperty(CAPTION_PROPERTY);
 		p.setValue(e);
 		p = i.getItemProperty(DEPTH_PROPERTY);
+		p.setValue(new Integer(0));
+		p = i.getItemProperty(PARENTID_PROPERTY);
 		p.setValue(new Integer(0));
 		
 		//PropertysetItem i = new PropertysetItem();
@@ -107,6 +112,8 @@ public class ModuleTree {
 			p.setValue(element);
 			p = it.getItemProperty(DEPTH_PROPERTY);
 			p.setValue(depth);
+			p = it.getItemProperty(PARENTID_PROPERTY);
+			p.setValue(new Integer(0));
 			if (parent != null) {
 				//tree.setParent(element, parent);
 				tree.setParent(itemId, parent);
@@ -125,6 +132,10 @@ public class ModuleTree {
 			p.setValue(element);
 			p = it.getItemProperty(DEPTH_PROPERTY);
 			p.setValue(depth);
+			p = it.getItemProperty(PARENTID_PROPERTY);
+			Item parentItem = tree.getItem(parent);
+			String[] splittedString = parentItem.getItemProperty("caption").toString().split(" ");
+			p.setValue(splittedString[0]);
 			
 			//int number = nextFach.get(i).intValue();
 			

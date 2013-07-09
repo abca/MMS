@@ -35,6 +35,7 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 	String selectedModule;
 	Controller cont;
 	int actualDepth;
+	int actualParent;
 	
 	//ItemID das zu der ID selectedId gehört
 	Object item;
@@ -93,13 +94,13 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 			} else if (selectedId % 3 == 0) {
 				//Löschen eines Moduls
 							
-				String[] splittedString = gui.moduletree.getParent(item).toString().split(" ");
+				//String[] splittedString = gui.moduletree.getParent(item).toString().split(" ");
 				
-				int parentId = Integer.parseInt(splittedString[0]);
-				System.out.println("parentId: " + parentId);
-				System.out.println("parentId: " + x);
+				//int parentId = Integer.parseInt(splittedString[0]);
+				System.out.println("parentId: " + actualParent);
+				//System.out.println("parentId: " + x);
 				
-				System.out.println("Löschvorgang durchgeführt: " + data.deleteModul(selectedId, parentId));
+				System.out.println("Löschvorgang durchgeführt: " + data.deleteModul(selectedId, actualParent));
 				
 			}
 		}
@@ -136,6 +137,7 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 			System.out.println("Y"+e.getItem().getItemProperty("caption").toString());
 			System.out.println("Z"+e.getItem().getItemProperty("depth").toString());
 			actualDepth = Integer.parseInt(e.getItem().getItemProperty("depth").toString());
+			actualParent = Integer.parseInt(e.getItem().getItemProperty("parentId").toString());
 			
 			//String[] splittedString = (((String) e.getItem().getItemProperty("Bezeichnung").getValue()).split(" "));
 			String[] splittedString = e.getItem().toString().split(" ");
