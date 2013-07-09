@@ -68,13 +68,21 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
  
 				read =(String) modules.getValue();
 				int modul = 0;
-				for (int i = 0; i < tmp.length; i++) {
-					if (read.equals(tmp[i])) {
-						modul = tmp2.get(i);
+				try {
+					for (int i = 0; i < tmp.length; i++) {
+						if (read.equals(tmp[i])) {
+							modul = tmp2.get(i);
+						}
 					}
+				} catch (NullPointerException e) {
+					
 				}
 				System.out.println("Modul-ID:" + modul);
-				HandbookManager hbm = new HandbookManager(modul, cont);
+				HandbookManager hbm;
+				if(modul!=0)
+					hbm = new HandbookManager(modul, cont);
+				else
+					displaySelectionError();
     	}
     	if(event.getButton()== logout){
     		starta.getMainWindow().getApplication().close();      
@@ -87,13 +95,16 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     	}
     	if(event.getButton() == okay2){
     		String name1 =(String) name.getValue();
-    		if(!cont.doesHandbookNameExist(name1)){
+    		InfoWindow err;
+    		if(name1.equals(""))
+    			err = new InfoWindow("Fehler","Geben Sie bitte einen Namen ein",mod);
+    		else if(!cont.doesHandbookNameExist(name1)){
     			cont.getcDe().saveHandbook(name1);
     			mod.removeWindow(newBook);
     			modules.addItem(name1);
     		}
     		else{
-    			InfoWindow err = new InfoWindow("Fehler","Dieses Modulhandbuch gibt es bereits",mod);
+    			err = new InfoWindow("Fehler","Dieses Modulhandbuch gibt es bereits",mod);
     		}
     	}
     }
@@ -186,8 +197,7 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     }
     	
     	
-    public void displaySelectionError() {
-    	
-    	InfoWindow error = new InfoWindow("Fehler","Wählen Sie bitte ein Modul aus",mod);
+    public void displaySelectionError() {    	
+    	InfoWindow error = new InfoWindow("Fehler","Wählen Sie bitte ein Modulhandbuch aus",mod);
     }
 }
