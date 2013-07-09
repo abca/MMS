@@ -12,12 +12,19 @@ import control.Controller;
 import control.ControllerDekan;
 import control.ControllerDozent;
 
+/*Diese Seite wird nach dem Login aufgerufen und baut sich
+ * je nach den Rechten des Nutzers auf*/
 public class Startseite implements Button.ClickListener{
+	//Hauptfenster
 	Window start;
+	//Überschrift
 	Label welcome;
+	//Alle möglichen Buttons der Startseite
 	Button changeModule, declareDeputy, messages, changes, stichtag, changeRights, changeBenutzer, nullButton, logout, organize, archives ;
+	//Erscheinungsbild der Startseite
 	private AbsoluteLayout mainLayout;
-	private int count;//Zähler für Buttons
+	//Zähler für Buttons
+	private int count;
 	private LoginApplication starta;
 	protected Startseite seite;
 	
@@ -25,18 +32,24 @@ public class Startseite implements Button.ClickListener{
 	Controller cont;
 
 	
-	//übergibt Hauptwindow
+	/*Dieser Konstruktor ist für die erbenden Klassen gedacht.
+	 * Er übergibt den Controller, über den auf die aktuelle
+	 * userid zugegriffen werden kann.*/
 	public Startseite(Controller d){
 		cont =d;
 	}
 	
-	
+	/*Dem eigentlichen Konstruktor der Klasse wird die LoginApplication,
+	 * die aktuelle userid, das Fenster, in dem die Startseite angezeigt 
+	 * wird und der Controller übergeben*/
 	public Startseite (LoginApplication aa, int id, Window old,Controller con){
 		
 		starta = aa;
 		seite = this;
 		cont = con;
+		//name des aktuellen Nutzers
 		String name = cont.loadBenutzer(id).getName(); 
+		//Abfrage, ob Startseite bereits instanziiert ist
 		Window test = starta.getWindow("Startseite");
 		if(test != null){
 			starta.removeWindow(test);	
@@ -86,25 +99,32 @@ public class Startseite implements Button.ClickListener{
 			changes = new Button("aktuelle Änderungen");
 			changes.addListener(this);			
 		}	
+		
+		//Die folgenden zwei Buttons erscheinen immer auf der Startseite
 		changeBenutzer = new Button("Persönliche Daten ändern");
 		changeBenutzer.addListener(this);
 		
 		logout = new Button("logout");
 		logout.addListener(this);
 		
+		//Controller-Klassen werden instanziiert
 		cont = new Controller(starta,userid);
 		ControllerDozent contD = new ControllerDozent(starta,userid,cont);
 		ControllerDekan contDek = new ControllerDekan(starta,userid,cont);
 		cont.setController(contD, contDek);
 		
+		//Layout wird erzeugt und angezeigt
 		mainLayout = buildMainLayout();
 		start.setContent(mainLayout);
-		old.open(new ExternalResource(start.getURL()));
-		
+		old.open(new ExternalResource(start.getURL()));		
 	}
 
 	private AbsoluteLayout buildMainLayout() {
 		
+		/*Diese Buttons sind Platzhalter, für die 10 möglichen Buttons,
+		 * die angezeigt werden können. Je nachdem, wie viele Buttons
+		 * instanziiert wurden, werden entsprechend viele Buttons 
+		 * platziert.*/
 		Button button_1,button_2,button_3,button_4,button_5,button_6,button_7,button_8,button_9,button_10;
 		
 		// common part: create layout
