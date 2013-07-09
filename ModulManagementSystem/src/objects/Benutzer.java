@@ -3,7 +3,7 @@ package objects;
 public class Benutzer {
 	private int id;
 	private String name;
-	private String email;
+	/*private String email;*/
 	private String pw;
 	private boolean dozent; 
 	private boolean dekan;
@@ -11,12 +11,12 @@ public class Benutzer {
 	private boolean stell;
 	private int stellid;
 	
-	public Benutzer(int ID, String Name, String Email, String Pw, boolean Dozent,
+	public Benutzer(int ID, String Name/*, String Email*/, String Pw, boolean Dozent,
 						boolean Dekan, boolean Admin, boolean Stell,int Stellid ){
 		
 		id =ID;
 		name= Name; 
-		email =Email;
+		/*email =Email;*/
 		pw = Pw;
 		dozent = Dozent;
 		dekan = Dekan;
@@ -30,9 +30,9 @@ public class Benutzer {
 	public String getName() {
 		return name;
 	}
-	public String getEmail() {
+	/*public String getEmail() {
 		return email;
-	}
+	}*/
 	public String getPw() {
 		return pw;
 	}

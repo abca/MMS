@@ -436,7 +436,7 @@ public class BenutzerData extends KillConnections {
 			String entry = salt + hashValue;
 			psmt.setString(3, entry);
 			
-			psmt.setString(4, neu.getEmail());
+			psmt.setString(4, "email"/*neu.getEmail()*/);
 			psmt.setBoolean(5, neu.isDozent());
 			psmt.setBoolean(6, neu.isDekan());
 			psmt.setBoolean(7, false);
@@ -550,7 +550,7 @@ public class BenutzerData extends KillConnections {
 			
 			int stellid = data.getInt("stellid");
 	
-			Benutzer tmp = new Benutzer(id, name, email, pw , dozent, dez2,
+			Benutzer tmp = new Benutzer(id, name/*, email*/, pw , dozent, dez2,
 					  admin, stell, stellid);
 			return tmp;
 	

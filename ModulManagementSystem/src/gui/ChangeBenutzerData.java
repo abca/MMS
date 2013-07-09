@@ -18,7 +18,7 @@ public class ChangeBenutzerData extends Startseite implements Button.ClickListen
 	Window change;  
 	Label label;
 	PasswordField oldPass, newPass, newPass1;
-	TextField uName, uMail;
+	TextField uName/*, uMail*/;
 	Button save,back;
 	Benutzer tmp1;
 	private AbsoluteLayout mainLayout;
@@ -53,17 +53,17 @@ public class ChangeBenutzerData extends Startseite implements Button.ClickListen
 			//Password pw = new Password();
 			//if(oldPass.getValue().equals(tmp1.getPw())){
 			String name = (String)uName.getValue();
-			String email = (String)uMail.getValue();
+			/*String email = (String)uMail.getValue();*/
 			String passOld = (String)oldPass.getValue();
 			String p1 = (String)newPass.getValue();
 			String p2 = (String)newPass1.getValue();
-			if(name.equals("")||(email.equals("")||(passOld.equals("")||(p1.equals("")||(p2.equals("")))))){
+			if(name.equals("")||(/*email.equals("")||*/(passOld.equals("")||(p1.equals("")||(p2.equals("")))))){
 				displayError("Füllen Sie bitte alle Felder aus ");
 			}
 			else if((new Password()).verifyPassword(passOld, tmp1.getPw())){
 				if(p2.equals(p1)){				
 					
-					Benutzer Neu = new Benutzer(tmp1.getId(), name, email, p1, tmp1.isDozent(),
+					Benutzer Neu = new Benutzer(tmp1.getId(), name/*, email*/, p1, tmp1.isDozent(),
 									tmp1.isDekan(), /*tmp1.isDez2(),*/ tmp1.isAdmin(), tmp1.isStell()
 										, tmp1.getStellid());	
 					cont.changeBenutzer(Neu);
@@ -147,13 +147,13 @@ public class ChangeBenutzerData extends Startseite implements Button.ClickListen
 		mainLayout.addComponent(uName, "top:35.0%;left:35.0%;");
 		
 		// uMail
-		uMail = new TextField();
+	/*	uMail = new TextField();
 		uMail.setCaption("E-Mail");
 		uMail.setValue(tmp1.getEmail());
 		uMail.setImmediate(false);
 		uMail.setWidth("25.0%");
 		uMail.setHeight("-1px");
-		mainLayout.addComponent(uMail, "top:43.0%;left:35.0%;");
+		mainLayout.addComponent(uMail, "top:43.0%;left:35.0%;");*/
 		
 		// oldPass
 		oldPass = new PasswordField();
