@@ -32,7 +32,6 @@ import data.ModulDatabase;
 
 public class HandbookManager_View extends Startseite implements Button.ClickListener{
 	
-	private VerticalLayout vl;
 	private Panel pan;
 	private AbsoluteLayout mainLayout;
 	private Label label;
@@ -245,28 +244,9 @@ public class HandbookManager_View extends Startseite implements Button.ClickList
 		pan.setImmediate(false);
 		pan.setWidth("46.0%");
 		pan.setHeight("30.0%");
-		
-		// verticalLayout_1		
-		pan.setContent(buildVerticalLayout_1());
+	
+		pan.addComponent(moduletree);
 		
 		return pan;
-	}
-
-	private VerticalLayout buildVerticalLayout_1() {
-		// common part: create layout
-		vl = new VerticalLayout();
-		vl.setImmediate(false);
-		vl.setWidth("100.0%");
-		vl.setHeight("100.0%");
-		vl.setMargin(false);
-		
-		// moduletree
-		moduletree.setImmediate(false);
-		moduletree.setWidth("-1px");
-		moduletree.setHeight("-1px");
-		vl.addComponent(moduletree);
-		
-		return vl;
-	}
-	
+	}	
 }
