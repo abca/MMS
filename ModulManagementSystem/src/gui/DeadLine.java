@@ -73,7 +73,6 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 				datumstr = "";
 			}
 			if(datumstr == ""){
-				//InfoWindow err = new InfoWindow("Fehler","Geben Sie bitte ein Datum ein",dead);
 			}
 			else{
 				cont.getcDe().setDeadline(datumstr);
@@ -172,7 +171,6 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 		};
 		
 		datum.setDateFormat("dd.MM.yyyy");
-		//datum.setValue(new Date());
 		datum.setResolution(DateField.RESOLUTION_DAY);
 		datum.setInputPrompt("Stichtag");
 		datum.setCaption("Datum");
@@ -183,7 +181,7 @@ public class DeadLine extends Startseite implements Button.ClickListener {
 		
 		//Button
 		ok = new Button();
-		ok.setCaption("OK");
+		ok.setCaption("Festlegen");
 		ok.setImmediate(false);
 		ok.setWidth("-1px");
 		ok.setHeight("-1px");
