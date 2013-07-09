@@ -139,7 +139,7 @@ public class HandbookManager_View extends Startseite implements Button.ClickList
 			starta.getMainWindow().getApplication().close();
 		}
 		if(event.getButton()==back){
-			w.open(new ExternalResource(oldURL));
+			Startseite starte = new Startseite(cont.getStart(),cont.getUserID(),w,cont);//w.open(new ExternalResource(oldURL));
 		}
 	}
 	

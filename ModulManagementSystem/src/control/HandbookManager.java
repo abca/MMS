@@ -19,6 +19,7 @@ import com.vaadin.ui.Window.Notification;
 
 import data.ModulDatabase;
 import gui.HandbookManager_View;
+import gui.InfoWindow;
 
 public class HandbookManager implements ClickListener, ItemClickListener{
 	
@@ -64,8 +65,15 @@ public class HandbookManager implements ClickListener, ItemClickListener{
 		
 		//Hinzufügen eines neuen Fachs
 		if (e.getSource() == gui.addFach) {
-			if (actualDepth < 2) {
-				String s = (String) gui.fachname.getValue();
+			String s = (String) gui.fachname.getValue();
+			InfoWindow err;
+			if(s.length()>50){
+				//zu lang
+			}
+			else if(s.equals("")){
+				//keine Eingabe
+			}
+			else if (actualDepth < 2) {				
 				System.out.println(s);
 				String[] splittedString = s.split(" ");
 				//Erzeuge neues Fach, lade Tree bzw. Window neu
