@@ -172,7 +172,7 @@ public class HandbookManager_View extends Startseite implements Button.ClickList
 		mainLayout.addComponent(unassignedModules, "top:61.0%;left:20.0%;");
 		
 		// modules
-		modules.setCaption("alte Module");
+		modules.setCaption("Module");
 		modules.setImmediate(false);
 		modules.setWidth("61.0%");
 		modules.setHeight("80.0%");
