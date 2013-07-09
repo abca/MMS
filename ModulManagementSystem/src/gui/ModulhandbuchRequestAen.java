@@ -88,7 +88,7 @@ public class ModulhandbuchRequestAen extends Startseite implements Button.ClickL
     		starta.getMainWindow().getApplication().close();      
     	}    	
     	if(event.getButton()==back){
-    		mod.open(new ExternalResource(oldURL));
+			Startseite starte = new Startseite(cont.getStart(),cont.getUserID(),mod,cont);
     	}
     	if(event.getButton() == create){
     		displayNewBook();
