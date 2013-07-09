@@ -116,7 +116,7 @@ public class ChangeBenutzerData extends Startseite implements Button.ClickListen
 		save.setImmediate(true);
 		save.setWidth("-1px");
 		save.setHeight("-1px");
-		mainLayout.addComponent(save, "top:75.0%;left:35.0%;");
+		mainLayout.addComponent(save, "top:67.0%;left:35.0%;");
 		
 		// back
 		back = new Button();
@@ -126,7 +126,7 @@ public class ChangeBenutzerData extends Startseite implements Button.ClickListen
 		back.setHeight("-1px");
 		back.setStyleName(BaseTheme.BUTTON_LINK);
 		back.addListener(this);
-		mainLayout.addComponent(back, "top:81.0%;left:35.0%;");
+		mainLayout.addComponent(back, "top:73.0%;left:35.0%;");
 		
 		// logout
 		logout = new Button();
@@ -135,7 +135,7 @@ public class ChangeBenutzerData extends Startseite implements Button.ClickListen
 		logout.setWidth("-1px");
 		logout.setHeight("-1px");
 		logout.setStyleName(BaseTheme.BUTTON_LINK);
-		mainLayout.addComponent(logout, "top:85.0%;left:35.0%;");
+		mainLayout.addComponent(logout, "top:77.0%;left:35.0%;");
 		
 		// uName
 		uName = new TextField();
@@ -161,7 +161,7 @@ public class ChangeBenutzerData extends Startseite implements Button.ClickListen
 		oldPass.setImmediate(false);
 		oldPass.setWidth("25.0%");
 		oldPass.setHeight("-1px");
-		mainLayout.addComponent(oldPass, "top:51.0%;left:35.0%;");
+		mainLayout.addComponent(oldPass, "top:43.0%;left:35.0%;");
 		
 		// newPass
 		newPass = new PasswordField();
@@ -169,7 +169,7 @@ public class ChangeBenutzerData extends Startseite implements Button.ClickListen
 		newPass.setImmediate(false);
 		newPass.setWidth("25.0%");
 		newPass.setHeight("-1px");
-		mainLayout.addComponent(newPass, "top:59.0%;left:35.0%;");
+		mainLayout.addComponent(newPass, "top:51.0%;left:35.0%;");
 		
 		// newPass1
 		newPass1 = new PasswordField();
@@ -177,7 +177,7 @@ public class ChangeBenutzerData extends Startseite implements Button.ClickListen
 		newPass1.setImmediate(false);
 		newPass1.setWidth("-1px");
 		newPass1.setHeight("-1px");
-		mainLayout.addComponent(newPass1, "top:67.0%;left:35.0%;");
+		mainLayout.addComponent(newPass1, "top:59.0%;left:35.0%;");
 		
 		return mainLayout;
 	}
